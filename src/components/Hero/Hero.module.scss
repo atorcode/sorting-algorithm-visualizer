@@ -1,9 +1,11 @@
 .hero-img-container {
-  height: 90vh;
+  position: relative;
+  max-height: 90vh;
   overflow: hidden;
 
   img {
     filter: brightness(30%);
-    width: 100vw;
+
+    width: 100%;
   }
 }

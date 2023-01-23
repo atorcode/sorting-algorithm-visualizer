@@ -1,0 +1,13 @@
+.heading {
+  position: absolute;
+
+  padding: 1rem 0 1rem 2rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-80%, -50%);
+  z-index: 1;
+  font-size: 5em;
+  font-weight: 400;
+  color: rgb(180, 180, 180);
+  border-left: 4px solid rgb(219, 114, 16);
+}
