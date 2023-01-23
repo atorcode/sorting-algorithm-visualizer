@@ -1,10 +1,10 @@
 import styles from "./HamburgerButton.module.scss";
-import { FaBars } from "react-icons/fa";
+import { HiBars3 } from "react-icons/hi2";
 
 const HamburgerButton = () => {
   return (
     <div className={styles["hamburger-btn-container"]}>
-      <FaBars className={styles["hamburger-btn"]} />
+      <HiBars3 className={styles["hamburger-btn"]} />
     </div>
   );
 };

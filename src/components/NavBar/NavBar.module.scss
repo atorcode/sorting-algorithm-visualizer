@@ -1,11 +1,13 @@
 .nav-bar {
+  position: fixed;
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-size: 1.8rem;
-  gap: 1rem;
-  padding: 0.5rem 0.8rem;
-
+  gap: 1.5rem;
+  padding: 0.1rem 1rem;
   color: rgb(180, 180, 180);
   background-color: rgb(16, 16, 16);
-  // background-color: pink;
+  z-index: 100;
 }
