@@ -1,3 +1,5 @@
+@use "../../variables" as v;
+
 .hamburger-btn-container {
   // achieves appropriate centering of hamburger button
   height: 100%;
@@ -6,5 +8,5 @@
 
 .hamburger-btn {
   font-size: 3rem;
-  color: rgb(219, 114, 16);
+  color: v.$highlight-color;
 }
