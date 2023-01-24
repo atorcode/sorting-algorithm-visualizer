@@ -21,15 +21,16 @@
     color: v.$highlight-color;
   }
 
-  div {
+  a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: v.$text-color;
   }
 }
 
 .margin-top {
-  margin-top: 0.6rem;
+  margin-top: 0.7rem;
 }
 
 .github-icon {

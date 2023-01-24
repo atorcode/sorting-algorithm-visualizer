@@ -12,11 +12,19 @@ const Footer = () => {
         </section>
         <section>
           <h2>References</h2>
-          <div className={styles["margin-top"]}>
+          <a
+            href="https://github.com/atorcode/sorting-algorithm-visualizer"
+            target="_blank"
+            className={styles["margin-top"]}
+          >
             <FaGithub className={styles["github-icon"]} />
             <p>GitHub</p>
-          </div>
-          <div className={styles["margin-top"]}>
+          </a>
+          <a
+            href="https://en.wikipedia.org/wiki/Sorting_algorithm"
+            target="_blank"
+            className={styles["margin-top"]}
+          >
             <img
               src={WikipediaIcon}
               alt="Wikipedia logo"
@@ -24,7 +32,7 @@ const Footer = () => {
               width="40px"
             />
             <p>Wikipedia</p>
-          </div>
+          </a>
         </section>
       </article>
       <p className={styles["copyright-text"]}>
