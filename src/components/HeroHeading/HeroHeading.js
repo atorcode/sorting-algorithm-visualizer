@@ -1,33 +1,44 @@
 import styles from "./HeroHeading.module.scss";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { HEROHEADING, LETTERS } from "../../constants";
 
 const HeroHeading = () => {
+  const headingEl = useRef(null);
+
   const getRandomLetter = () => {
     console.log(LETTERS[Math.floor(Math.random() * 26)]);
     return LETTERS[Math.floor(Math.random() * 26)];
   };
 
   const scrambleLetters = (str) => {
-    const arr = str.split();
+    const arr = str.split("");
+    const result = [];
 
+    // once per func call for testing
+    // getRandomLetter();
     arr.forEach((char) => {
       if (char !== "") {
-        char = getRandomLetter();
+        // result.push(getRandomLetter());
       }
     });
+
+    // headingEl.current.innerText = result.join("");
   };
 
   useEffect(() => {
-    // const intervalId = setInterval(() => {
-    //   scrambleLetters(HEROHEADING);
-    // }, 500);
-    // return () => {
-    //   clearInterval(intervalId);
-    // };
+    const intervalId = setInterval(() => {
+      scrambleLetters(HEROHEADING);
+    }, 50);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
-  return <h1 className={styles["heading"]}>SORTING ALGORITHM VISUALIZER</h1>;
+  return (
+    <h1 ref={headingEl} className={styles["heading"]}>
+      <span>SORTING ALGORITHM </span>VISUALIZER
+    </h1>
+  );
 };
 
 export default HeroHeading;
