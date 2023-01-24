@@ -36,7 +36,7 @@ const HeroHeading = () => {
 
   return (
     <h1 ref={headingEl} className={styles["heading"]}>
-      <span>SORTING ALGORITHM </span>VISUALIZER
+      SORTING&nbsp;ALGORITHM VISUALIZER
     </h1>
   );
 };
