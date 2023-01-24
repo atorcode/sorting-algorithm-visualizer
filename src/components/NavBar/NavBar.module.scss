@@ -8,11 +8,24 @@
   justify-content: space-between;
   font-size: 1.8rem;
   gap: 1.5rem;
-  padding: 0.1rem 1rem;
   background-color: v.$background-color;
   z-index: 100;
 
   a {
     color: rgb(180, 180, 180);
   }
+
+  button {
+    background-color: transparent;
+    border: none;
+    padding-bottom: 4px;
+  }
+
+  button:hover {
+    background-color: v.$background-color-lighter;
+  }
+}
+
+.extra-padding {
+  padding: 0.1rem 1rem;
 }
