@@ -2,23 +2,29 @@
 
 .expanded-nav-bar {
   position: fixed;
-
   right: 0;
   width: 20rem;
   height: 100vh;
   z-index: 1000;
-  color: rgb(180, 180, 180);
+  color: v.$text-color;
   text-align: right;
-  background-color: v.$background-color-light;
+  background-color: v.$background-color;
   border-left: 1px solid rgb(180, 180, 180);
 
-  section {
+  a {
+    color: v.$text-color;
+  }
+
+  a:hover {
+    div {
+      background-color: v.$background-color-lighter;
+    }
+  }
+
+  div {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0 1.2rem;
-    padding: 1rem 0;
     text-align: start;
   }
 
@@ -28,13 +34,34 @@
   }
 
   li {
+    text-align: start;
     font-size: 1.5rem;
-    margin: 0.75rem 0.5rem;
+
+    a {
+      display: block;
+      padding: 0.5rem 2.5rem;
+    }
+  }
+
+  li:hover {
+    background-color: v.$background-color-lighter;
   }
 }
 
-.home-section {
-  border-bottom: 1px solid v.$text-color;
+.home {
+  padding: 1rem 1.6rem;
+}
+
+.divider-line {
+  height: 1px;
+  width: 270px;
+  background-color: v.$text-color;
+  margin: auto;
+}
+
+.algorithms {
+  user-select: none;
+  padding: 1rem 1.6rem;
 }
 
 .icons {
