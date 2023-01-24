@@ -1,12 +1,19 @@
 @use "../../variables" as v;
 
 .footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
   margin: 3rem 0;
   color: v.$text-color;
+
+  article {
+    display: flex;
+    justify-content: center;
+    gap: 20rem;
+    margin-bottom: 3rem;
+
+    p {
+      font-size: 1.3rem;
+    }
+  }
 
   h2 {
     font-weight: 400;
@@ -18,15 +25,20 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 0.6rem;
-
-    p {
-      font-size: 1.3rem;
-    }
   }
+}
+
+.margin-top {
+  margin-top: 0.6rem;
 }
 
 .github-icon {
   color: v.$text-color;
   font-size: 2.5rem;
+}
+
+.copyright-text {
+  display: flex;
+  justify-content: center;
+  font-size: 1.1rem;
 }
