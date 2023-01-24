@@ -1,11 +1,16 @@
 import styles from "./HamburgerButton.module.scss";
 import { HiBars3 } from "react-icons/hi2";
 
-const HamburgerButton = () => {
+const HamburgerButton = ({ isExpanded, setIsExpanded }) => {
   return (
-    <div className={styles["hamburger-btn-container"]}>
-      <HiBars3 className={styles["hamburger-btn"]} />
-    </div>
+    <button
+      className={styles["hamburger-btn"]}
+      onClick={() => {
+        setIsExpanded(!isExpanded);
+      }}
+    >
+      <HiBars3 className={styles["hamburger-icon"]} />
+    </button>
   );
 };
 

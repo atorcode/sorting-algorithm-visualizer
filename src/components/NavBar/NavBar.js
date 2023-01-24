@@ -9,18 +9,12 @@ const NavBar = () => {
     <>
       <nav className={styles["nav-bar"]}>
         <a href="/">
-          <p className={styles["extra-padding"]}>
-            SORTING ALGORITHM VISUALIZER
-          </p>
+          <p>SORTING ALGORITHM VISUALIZER</p>
         </a>
-        <button
-          className={styles["extra-padding"]}
-          onClick={() => {
-            setIsExpanded(!isExpanded);
-          }}
-        >
-          <HamburgerButton />
-        </button>
+        <HamburgerButton
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}
+        />
       </nav>
       {isExpanded && <ExpandedNavBar />}
     </>

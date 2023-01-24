@@ -4,9 +4,14 @@
   // achieves appropriate centering of hamburger button
   height: 100%;
   padding-top: 6px;
+  padding: 0.1rem 1rem;
 }
 
 .hamburger-btn {
+  padding: 0.4rem 1rem 0.1rem 1rem;
+}
+
+.hamburger-icon {
   font-size: 3rem;
   color: v.$highlight-color;
 }
