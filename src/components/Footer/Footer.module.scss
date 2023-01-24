@@ -1,0 +1,32 @@
+@use "../../variables" as v;
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  color: v.$text-color;
+
+  h2 {
+    font-weight: 400;
+    font-size: 2rem;
+    color: v.$highlight-color;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+
+    p {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.github-icon {
+  color: v.$text-color;
+  font-size: 2.5rem;
+}
