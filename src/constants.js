@@ -1,4 +1,6 @@
-export const HEROHEADING = "SORTING ALGORITHM VISUALIZER";
+export const HERO_HEADING_WORD1 = "SORTING";
+export const HERO_HEADING_WORD2 = "ALGORITHM";
+export const HERO_HEADING_WORD3 = "VISUALIZER";
 export const LETTERS = [
   "A",
   "B",
@@ -27,3 +29,7 @@ export const LETTERS = [
   "Y",
   "Z",
 ];
+// duration is in milliseconds
+export const MIN_ANIMATION_DURATION = 1500;
+export const MAX_ANIMATION_DURATION = 3000;
+export const ANIMATION_DELAY = 500;

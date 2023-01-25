@@ -1,60 +1,26 @@
 import styles from "./HeroHeading.module.scss";
+import HeroHeadingLetter from "../HeroHeadingLetter";
 import { useEffect, useRef } from "react";
-import { HEROHEADING, LETTERS } from "../../constants";
+import {
+  HERO_HEADING_WORD1,
+  HERO_HEADING_WORD2,
+  HERO_HEADING_WORD3,
+} from "../../constants";
 
 const HeroHeading = () => {
-  const headingEl = useRef(null);
-
-  const getRandomLetter = () => {
-    return LETTERS[Math.floor(Math.random() * 26)];
-  };
-
-  const scrambleLetters = (str) => {
-    console.log(headingEl.current.innerHTML);
-    const arr = str.split("");
-    const result = [];
-
-    arr.forEach((char) => {
-      if (char !== " ") {
-        result.push(getRandomLetter());
-        // The first space should be non-breaking to keep words 1 and 2 together
-      } else if (!result.includes("&nbsp;")) {
-        result.push("&nbsp;");
-        // The second space should signify a line break
-      } else {
-        result.push("<br />");
-      }
-    });
-
-    headingEl.current.innerHTML = result.join("");
-  };
-
-  useEffect(() => {
-    let intervalId;
-    setTimeout(() => {
-      intervalId = setInterval(() => {
-        scrambleLetters(HEROHEADING);
-      }, 70);
-    }, 500);
-    // const intervalId = setInterval(() => {
-    //   scrambleLetters(HEROHEADING);
-    // }, 50);
-
-    setTimeout(() => {
-      clearInterval(intervalId);
-      headingEl.current.innerHTML = "SORTING&nbsp;ALGORITHM<br>VISUALIZER";
-    }, 2000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-
   return (
-    <h1 ref={headingEl} className={styles["heading"]}>
-      SORTING&nbsp;ALGORITHM
+    <h1 className={styles["heading"]}>
+      {HERO_HEADING_WORD1.split("").map((char, index) => {
+        return <HeroHeadingLetter key={index} char={char} />;
+      })}
+      &nbsp;
+      {HERO_HEADING_WORD2.split("").map((char, index) => {
+        return <HeroHeadingLetter key={index} char={char} />;
+      })}
       <br />
-      VISUALIZER
+      {HERO_HEADING_WORD3.split("").map((char, index) => {
+        return <HeroHeadingLetter key={index} char={char} />;
+      })}
     </h1>
   );
 };
