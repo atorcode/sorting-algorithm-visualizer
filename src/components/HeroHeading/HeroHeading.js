@@ -10,11 +10,10 @@ const HeroHeading = () => {
   };
 
   const scrambleLetters = (str) => {
+    console.log(headingEl.current.innerHTML);
     const arr = str.split("");
     const result = [];
 
-    // once per func call for testing
-    // getRandomLetter();
     arr.forEach((char) => {
       if (char !== " ") {
         result.push(getRandomLetter());
@@ -40,6 +39,12 @@ const HeroHeading = () => {
     // const intervalId = setInterval(() => {
     //   scrambleLetters(HEROHEADING);
     // }, 50);
+
+    setTimeout(() => {
+      clearInterval(intervalId);
+      headingEl.current.innerHTML = "SORTING&nbsp;ALGORITHM<br>VISUALIZER";
+    }, 2000);
+
     return () => {
       clearInterval(intervalId);
     };

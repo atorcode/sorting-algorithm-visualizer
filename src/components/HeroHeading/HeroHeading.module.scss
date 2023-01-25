@@ -2,7 +2,6 @@
 
 .heading {
   position: absolute;
-  // max-width: 60%;
 
   padding: 1rem 0 1rem 2rem;
   top: 50%;
@@ -14,6 +13,8 @@
   font-weight: 400;
   color: rgb(180, 180, 180);
   border-left: 4px solid v.$highlight-color;
+
+  user-select: none;
 
   span {
     white-space: nowrap;
