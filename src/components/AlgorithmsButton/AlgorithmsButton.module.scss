@@ -1,0 +1,13 @@
+@use "../../variables" as v;
+
+.button {
+  background-color: v.$highlight-color;
+  width: 14rem;
+  height: 4rem;
+  border-radius: 50px;
+  font-size: 1.4rem;
+}
+
+.button:hover {
+  cursor: pointer;
+}

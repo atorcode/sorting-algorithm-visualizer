@@ -1,0 +1,30 @@
+@use "../../variables" as v;
+
+.background {
+  background-color: v.$background-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary {
+  max-width: 850px;
+  margin: auto;
+  padding: 2rem;
+  color: v.$text-color;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin: 1.75rem 0 0.75rem 0;
+  }
+
+  p {
+    font-size: 1.5rem;
+    padding: 0.5rem 0;
+  }
+}
+
+.button-container {
+  margin-bottom: 5rem;
+}
