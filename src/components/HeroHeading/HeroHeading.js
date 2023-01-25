@@ -6,7 +6,6 @@ const HeroHeading = () => {
   const headingEl = useRef(null);
 
   const getRandomLetter = () => {
-    console.log(LETTERS[Math.floor(Math.random() * 26)]);
     return LETTERS[Math.floor(Math.random() * 26)];
   };
 
@@ -17,18 +16,30 @@ const HeroHeading = () => {
     // once per func call for testing
     // getRandomLetter();
     arr.forEach((char) => {
-      if (char !== "") {
-        // result.push(getRandomLetter());
+      if (char !== " ") {
+        result.push(getRandomLetter());
+        // The first space should be non-breaking to keep words 1 and 2 together
+      } else if (!result.includes("&nbsp;")) {
+        result.push("&nbsp;");
+        // The second space should signify a line break
+      } else {
+        result.push("<br />");
       }
     });
 
-    // headingEl.current.innerText = result.join("");
+    headingEl.current.innerHTML = result.join("");
   };
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      scrambleLetters(HEROHEADING);
-    }, 50);
+    let intervalId;
+    setTimeout(() => {
+      intervalId = setInterval(() => {
+        scrambleLetters(HEROHEADING);
+      }, 70);
+    }, 500);
+    // const intervalId = setInterval(() => {
+    //   scrambleLetters(HEROHEADING);
+    // }, 50);
     return () => {
       clearInterval(intervalId);
     };
@@ -36,7 +47,9 @@ const HeroHeading = () => {
 
   return (
     <h1 ref={headingEl} className={styles["heading"]}>
-      SORTING&nbsp;ALGORITHM VISUALIZER
+      SORTING&nbsp;ALGORITHM
+      <br />
+      VISUALIZER
     </h1>
   );
 };

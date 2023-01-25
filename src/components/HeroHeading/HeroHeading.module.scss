@@ -2,14 +2,20 @@
 
 .heading {
   position: absolute;
+  // max-width: 60%;
 
   padding: 1rem 0 1rem 2rem;
   top: 50%;
-  left: 50%;
-  transform: translate(-80%, -50%);
+  // left: 50%;
+  left: 166px;
+  transform: translate(0, -50%);
   z-index: 1;
   font-size: 4.15vw;
   font-weight: 400;
   color: rgb(180, 180, 180);
   border-left: 4px solid v.$highlight-color;
+
+  span {
+    white-space: nowrap;
+  }
 }
