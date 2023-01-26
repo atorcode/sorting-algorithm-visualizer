@@ -1,7 +1,6 @@
 import styles from "./NavBar.module.scss";
 import HamburgerButton from "../HamburgerButton";
 import ExpandedNavBar from "../ExpandedNavBar/ExpandedNavBar";
-import ContextMenuCloser from "../ContextMenuCloser";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
 
 const NavBar = () => {
@@ -15,7 +14,6 @@ const NavBar = () => {
         <HamburgerButton />
       </nav>
       {navIsExpanded && <ExpandedNavBar />}
-      {navIsExpanded && <ContextMenuCloser />}
     </>
   );
 };
