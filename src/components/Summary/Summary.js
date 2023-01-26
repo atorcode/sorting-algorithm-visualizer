@@ -1,7 +1,7 @@
 import AlgorithmsButton from "../AlgorithmsButton";
 import styles from "./Summary.module.scss";
 
-const Summary = ({ navIsExpanded, setNavIsExpanded }) => {
+const Summary = () => {
   return (
     <div className={styles["background"]}>
       <article className={styles["summary"]}>
@@ -50,10 +50,7 @@ const Summary = ({ navIsExpanded, setNavIsExpanded }) => {
         </p>
       </article>
       <div className={styles["button-container"]}>
-        <AlgorithmsButton
-          navIsExpanded={navIsExpanded}
-          setNavIsExpanded={setNavIsExpanded}
-        />
+        <AlgorithmsButton />
       </div>
     </div>
   );

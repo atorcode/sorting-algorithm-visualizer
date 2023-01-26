@@ -1,7 +1,8 @@
 import styles from "./ContextMenuCloser.module.scss";
-import { useEffect } from "react";
+import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
 
-const ContextMenuCloser = ({ navIsExpanded, setNavIsExpanded }) => {
+const ContextMenuCloser = () => {
+  const { setNavIsExpanded } = useExpandedNavBarContext();
   return (
     <div
       className={styles["context-menu-closer"]}
