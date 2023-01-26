@@ -1,7 +1,16 @@
 import styles from "./AlgorithmsButton.module.scss";
 
-const AlgorithmsButton = () => {
-  return <button className={styles["button"]}>ALGORITHMS</button>;
+const AlgorithmsButton = ({ navIsExpanded, setNavIsExpanded }) => {
+  return (
+    <button
+      className={styles["button"]}
+      onClick={() => {
+        setNavIsExpanded(!navIsExpanded);
+      }}
+    >
+      ALGORITHMS
+    </button>
+  );
 };
 
 export default AlgorithmsButton;

@@ -1,12 +1,12 @@
 import styles from "./ContextMenuCloser.module.scss";
 import { useEffect } from "react";
 
-const ContextMenuCloser = ({ isExpanded, setIsExpanded }) => {
+const ContextMenuCloser = ({ navIsExpanded, setNavIsExpanded }) => {
   return (
     <div
       className={styles["context-menu-closer"]}
       onClick={() => {
-        setIsExpanded(false);
+        setNavIsExpanded(false);
       }}
     ></div>
   );

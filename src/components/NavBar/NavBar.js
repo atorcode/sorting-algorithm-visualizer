@@ -2,11 +2,8 @@ import styles from "./NavBar.module.scss";
 import HamburgerButton from "../HamburgerButton";
 import ExpandedNavBar from "../ExpandedNavBar/ExpandedNavBar";
 import ContextMenuCloser from "../ContextMenuCloser";
-import { useState } from "react";
 
-const NavBar = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+const NavBar = ({ navIsExpanded, setNavIsExpanded }) => {
   return (
     <>
       <nav className={styles["nav-bar"]}>
@@ -14,15 +11,15 @@ const NavBar = () => {
           <p>SORTING ALGORITHM VISUALIZER</p>
         </a>
         <HamburgerButton
-          isExpanded={isExpanded}
-          setIsExpanded={setIsExpanded}
+          navIsExpanded={navIsExpanded}
+          setNavIsExpanded={setNavIsExpanded}
         />
       </nav>
-      {isExpanded && <ExpandedNavBar />}
-      {isExpanded && (
+      {navIsExpanded && <ExpandedNavBar />}
+      {navIsExpanded && (
         <ContextMenuCloser
-          isExpanded={isExpanded}
-          setIsExpanded={setIsExpanded}
+          navIsExpanded={navIsExpanded}
+          setNavIsExpanded={setNavIsExpanded}
         />
       )}
     </>
