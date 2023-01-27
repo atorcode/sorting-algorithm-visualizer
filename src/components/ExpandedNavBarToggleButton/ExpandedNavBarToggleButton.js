@@ -1,7 +1,7 @@
-import styles from "./AlgorithmsButton.module.scss";
+import styles from "./ExpandedNavBarToggleButton.module.scss";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
 
-const AlgorithmsButton = () => {
+const ExpandedNavBarToggleButton = ({ text }) => {
   const { navIsExpanded, setNavIsExpanded } = useExpandedNavBarContext();
   return (
     <button
@@ -10,9 +10,9 @@ const AlgorithmsButton = () => {
         setNavIsExpanded(!navIsExpanded);
       }}
     >
-      ALGORITHMS
+      {text}
     </button>
   );
 };
 
-export default AlgorithmsButton;
+export default ExpandedNavBarToggleButton;

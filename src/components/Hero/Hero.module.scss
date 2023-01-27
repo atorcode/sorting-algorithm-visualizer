@@ -11,3 +11,9 @@
   overflow: hidden;
   filter: brightness(30%);
 }
+
+@media (max-width: 650px) {
+  .hero-img-container {
+    height: 80vh;
+  }
+}

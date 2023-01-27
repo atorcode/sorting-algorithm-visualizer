@@ -1,4 +1,4 @@
-import AlgorithmsButton from "../AlgorithmsButton";
+import ExpandedNavBarToggleButton from "../ExpandedNavBarToggleButton";
 import styles from "./Summary.module.scss";
 
 const Summary = () => {
@@ -50,7 +50,7 @@ const Summary = () => {
         </p>
       </article>
       <div className={styles["button-container"]}>
-        <AlgorithmsButton />
+        <ExpandedNavBarToggleButton text={"ALGORITHMS"} />
       </div>
     </div>
   );
