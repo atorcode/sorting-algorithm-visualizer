@@ -26,3 +26,16 @@
     background-color: v.$background-color-lighter;
   }
 }
+
+@media (max-width: v.$viewport-size-medium) {
+  .nav-bar {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: v.$viewport-size-small) {
+  .nav-bar {
+    font-size: 1.25rem;
+    gap: 0;
+  }
+}

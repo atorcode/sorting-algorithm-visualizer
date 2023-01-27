@@ -68,3 +68,27 @@
     height: 32px;
   }
 }
+
+@media (max-width: v.$viewport-size-very-small) {
+  .footer {
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    article {
+      gap: 10vw;
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .copyright-text {
+    font-size: 0.8rem;
+  }
+
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+}
