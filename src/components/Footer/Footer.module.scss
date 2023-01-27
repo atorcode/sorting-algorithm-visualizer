@@ -7,7 +7,7 @@
   article {
     display: flex;
     justify-content: center;
-    gap: 20rem;
+    gap: 20vw;
     margin-bottom: 3rem;
 
     p {
@@ -33,13 +33,38 @@
   margin-top: 0.7rem;
 }
 
-.github-icon {
+.icon {
   color: v.$text-color;
-  font-size: 2.5rem;
+  width: 40px;
+  height: 40px;
 }
 
 .copyright-text {
   display: flex;
   justify-content: center;
   font-size: 1.1rem;
+}
+
+@media (max-width: v.$viewport-size-medium) {
+  .footer {
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    article {
+      gap: 14vw;
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .copyright-text {
+    font-size: 0.9rem;
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
 }

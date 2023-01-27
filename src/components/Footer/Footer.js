@@ -17,7 +17,7 @@ const Footer = () => {
             target="_blank"
             className={styles["margin-top"]}
           >
-            <FaGithub className={styles["github-icon"]} />
+            <FaGithub className={styles["icon"]} />
             <p>GitHub</p>
           </a>
           <a
@@ -28,8 +28,7 @@ const Footer = () => {
             <img
               src={WikipediaIcon}
               alt="Wikipedia logo"
-              height="40px"
-              width="40px"
+              className={styles["icon"]}
             />
             <p>Wikipedia</p>
           </a>
