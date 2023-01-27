@@ -4,13 +4,10 @@ import HeroHeading from "../HeroHeading";
 
 const Hero = () => {
   return (
-    <div className={styles["hero-img-container"]}>
+    <section className={styles["hero-section"]}>
+      <div className={styles["hero-img-container"]}></div>
       <HeroHeading />
-      {/* <img
-        src={hexTiling}
-        alt="Futuristic hexagon tiling. The tiles are predominantly black with a few that are orange gold, and some of them are raised."
-      /> */}
-    </div>
+    </section>
   );
 };
 

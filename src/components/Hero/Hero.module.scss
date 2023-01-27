@@ -1,17 +1,13 @@
+.hero-section {
+  position: relative;
+}
+
 .hero-img-container {
   background-image: url("../../media/hex.jpg");
   background-size: cover;
-  background-position: top;
-  filter: brightness(30%);
-  position: relative;
+  background-position: right;
   height: 95vh;
   max-height: 95vh;
   overflow: hidden;
-
-  img {
-    filter: brightness(30%);
-    width: 100vw;
-    // height: 100vh;
-    margin-top: 44px;
-  }
+  filter: brightness(30%);
 }
