@@ -3,14 +3,15 @@ import { MdHome } from "react-icons/md";
 import { TbAntennaBars5 } from "react-icons/tb";
 import { useState, useEffect, useRef } from "react";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
-import ExpandedNavBarToggleButton from "../ExpandedNavBarToggleButton";
+import ExpandedNavBarButton from "../ExpandedNavBarButton";
+import ExpandedNavBarAlgorithmType from "../ExpandedNavBarAlgorithmType";
 
 const ExpandedNavBar = () => {
   // The purpose of justMounted is to ensure that the click event which opens this component does not also simultaneously close this component.
   const [justMounted, setJustMounted] = useState(true);
   const [viewportIsSmall, setViewportIsSmall] = useState(false);
   const expandedNavBarEl = useRef(null);
-  const { navIsExpanded, setNavIsExpanded } = useExpandedNavBarContext();
+  const { setNavIsExpanded } = useExpandedNavBarContext();
 
   const handleOutsideClick = (e) => {
     if (
@@ -62,22 +63,15 @@ const ExpandedNavBar = () => {
           <h2>Algorithms</h2>
         </div>
         <ul>
-          <li>
-            <a href="#">Quick Sort</a>
-          </li>
-          <li>
-            <a href="#">Merge Sort</a>
-          </li>
-          <li>
-            <a href="#">Bubble Sort</a>
-          </li>
-          <li>
-            <a href="#">Selection Sort</a>
-          </li>
+          <ExpandedNavBarAlgorithmType name={"Quick Sort"} link={"#"} />
+          <ExpandedNavBarAlgorithmType name={"Merge Sort"} link={"#"} />
+          <ExpandedNavBarAlgorithmType name={"Bubble Sort"} link={"#"} />
+          <ExpandedNavBarAlgorithmType name={"Selection Sort"} link={"#"} />
+          <ExpandedNavBarAlgorithmType name={"Insertion Sort"} link={"#"} />
         </ul>
         {viewportIsSmall && (
           <div className={styles["close-btn-container"]}>
-            <ExpandedNavBarToggleButton text={"CLOSE"} />
+            <ExpandedNavBarButton text={"CLOSE"} />
           </div>
         )}
       </nav>

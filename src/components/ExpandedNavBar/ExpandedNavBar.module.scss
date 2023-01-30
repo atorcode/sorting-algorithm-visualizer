@@ -24,20 +24,6 @@
     font-size: 2rem;
     font-weight: 400;
   }
-
-  li {
-    text-align: start;
-    font-size: 1.5rem;
-
-    a {
-      display: block;
-      padding: 0.5rem 2.5rem;
-    }
-  }
-
-  li:hover {
-    background-color: v.$background-color-lighter;
-  }
 }
 
 .categories {

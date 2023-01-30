@@ -1,7 +1,7 @@
-import styles from "./ExpandedNavBarToggleButton.module.scss";
+import styles from "./ExpandedNavBarButton.module.scss";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
 
-const ExpandedNavBarToggleButton = ({ text }) => {
+const ExpandedNavBarButton = ({ text }) => {
   const { navIsExpanded, setNavIsExpanded } = useExpandedNavBarContext();
   return (
     <button
@@ -15,4 +15,4 @@ const ExpandedNavBarToggleButton = ({ text }) => {
   );
 };
 
-export default ExpandedNavBarToggleButton;
+export default ExpandedNavBarButton;

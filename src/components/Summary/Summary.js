@@ -1,4 +1,4 @@
-import ExpandedNavBarToggleButton from "../ExpandedNavBarToggleButton";
+import ExpandedNavBarToggleButton from "../ExpandedNavBarButton";
 import styles from "./Summary.module.scss";
 
 const Summary = () => {
@@ -76,15 +76,16 @@ const Summary = () => {
           to achieve O(log n) or logarithmic time.
         </p>
         <p>
-          The intuition behind this is that if a list is unsorted, then you have
-          to more or less check every element one by one. You can go from left
+          The intuition behind this is that if a list is unsorted, then you more
+          or less have to check every element one by one. You can go from left
           to right, right to left, or choose some other way, but you have to
           check every single element or else you won't be sure that you didn't
-          miss it. On the contrary, if a list is sorted, then you can check the
-          middle element, perform a basic comparison, and remove half of the
-          elements. Then, you can do this recursively, cutting the search space
-          in half each time until you either find your target or confirm that it
-          isn't in the list.
+          miss your target. On the contrary, if a list is sorted, then you can
+          check the middle element, perform a basic comparison, and remove half
+          of the elements. Then, you can do this recursively, cutting the search
+          space in half each time until you either find your target or confirm
+          that it isn't in the list. Simply put, knowing that a list is sorted
+          allows you to take shortcuts that speed things up.
         </p>
         <p>
           So you've understood the importance of sorting. The only question that
