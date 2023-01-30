@@ -1,17 +1,24 @@
-import "./App.scss";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// pages
+import Home from "./pages/Home";
+import Algorithm from "./pages/Algorithm";
+
 import NavBar from "./components/NavBar";
-import Hero from "./components/Hero";
-import Summary from "./components/Summary";
 import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div>
-      <NavBar />
-      <Hero />
-      <Summary />
-      <Footer />
-    </div>
+    <>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/algorithms" element={<Algorithm />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </>
   );
 }
 

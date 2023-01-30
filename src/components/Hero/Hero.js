@@ -1,11 +1,11 @@
 import styles from "./Hero.module.scss";
-import hexTiling from "../../media/hex.jpg";
+import HeroImage from "../HeroImage";
 import HeroHeading from "../HeroHeading";
 
 const Hero = () => {
   return (
     <section className={styles["hero-section"]}>
-      <div className={styles["hero-img-container"]}></div>
+      <HeroImage />
       <HeroHeading />
     </section>
   );

@@ -19,7 +19,9 @@ const HeroHeadingLetter = ({ char }) => {
   };
 
   const scrambleLetter = () => {
-    letterRef.current.innerText = getRandomLetter();
+    if (letterRef && letterRef.current) {
+      letterRef.current.innerText = getRandomLetter();
+    }
   };
 
   useEffect(() => {
@@ -31,7 +33,9 @@ const HeroHeadingLetter = ({ char }) => {
     }, ANIMATION_DELAY);
 
     setTimeout(() => {
-      letterRef.current.innerText = char;
+      if (letterRef && letterRef.current) {
+        letterRef.current.innerText = char;
+      }
       clearInterval(intervalId);
     }, getRandomDurationBetween(MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION));
   }, []);

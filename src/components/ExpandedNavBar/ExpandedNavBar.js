@@ -3,8 +3,8 @@ import { MdHome } from "react-icons/md";
 import { TbAntennaBars5 } from "react-icons/tb";
 import { useState, useEffect, useRef } from "react";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
-import ExpandedNavBarButton from "../ExpandedNavBarButton";
 import ExpandedNavBarAlgorithmType from "../ExpandedNavBarAlgorithmType";
+import ExpandedNavBarButton from "../ExpandedNavBarButton";
 
 const ExpandedNavBar = () => {
   // The purpose of justMounted is to ensure that the click event which opens this component does not also simultaneously close this component.
@@ -52,7 +52,7 @@ const ExpandedNavBar = () => {
     <>
       <nav ref={expandedNavBarEl} className={styles["expanded-nav-bar"]}>
         <a href="/">
-          <div className={styles["categories"]}>
+          <div className={`${styles["home"]} ${styles["categories"]}`}>
             <MdHome className={styles["icons"]} />
             <h2>Home</h2>
           </div>
@@ -63,11 +63,26 @@ const ExpandedNavBar = () => {
           <h2>Algorithms</h2>
         </div>
         <ul>
-          <ExpandedNavBarAlgorithmType name={"Quick Sort"} link={"#"} />
-          <ExpandedNavBarAlgorithmType name={"Merge Sort"} link={"#"} />
-          <ExpandedNavBarAlgorithmType name={"Bubble Sort"} link={"#"} />
-          <ExpandedNavBarAlgorithmType name={"Selection Sort"} link={"#"} />
-          <ExpandedNavBarAlgorithmType name={"Insertion Sort"} link={"#"} />
+          <ExpandedNavBarAlgorithmType
+            name={"Quick Sort"}
+            link={"/algorithms"}
+          />
+          <ExpandedNavBarAlgorithmType
+            name={"Merge Sort"}
+            link={"/algorithms"}
+          />
+          <ExpandedNavBarAlgorithmType
+            name={"Bubble Sort"}
+            link={"/algorithms"}
+          />
+          <ExpandedNavBarAlgorithmType
+            name={"Selection Sort"}
+            link={"/algorithms"}
+          />
+          <ExpandedNavBarAlgorithmType
+            name={"Insertion Sort"}
+            link={"/algorithms"}
+          />
         </ul>
         {viewportIsSmall && (
           <div className={styles["close-btn-container"]}>
