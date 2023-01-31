@@ -1,9 +1,11 @@
 .hero-img-container {
+  position: relative;
   background-image: url("../../media/hex.jpg");
   background-size: cover;
   background-position: right;
   height: 95vh;
   max-height: 95vh;
+  z-index: -999;
   overflow: hidden;
   filter: brightness(30%);
 }

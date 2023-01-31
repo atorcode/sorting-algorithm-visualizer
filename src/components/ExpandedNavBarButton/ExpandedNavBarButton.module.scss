@@ -1,16 +1,39 @@
 @use "../../variables" as v;
 
 .button {
+  position: relative;
   background-color: v.$highlight-color;
+  color: black;
   width: 14rem;
   height: 4rem;
   border: none;
   border-radius: 50px;
   font-size: 1.4rem;
-}
+  overflow: hidden;
+  z-index: 1;
 
+  transition: all 300ms ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: lighten(v.$highlight-color, 10%);
+    transform: translateX(-100%);
+
+    transition: all 300ms ease;
+  }
+}
 .button:hover {
   cursor: pointer;
+}
+
+.button:hover::before {
+  transform: translateX(0);
 }
 
 @media (max-width: v.$viewport-size-medium) {
