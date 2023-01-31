@@ -1,0 +1,14 @@
+@use "../../variables" as v;
+
+.implementation-section {
+  font-size: 1.2rem;
+  font-weight: 600;
+  pre {
+    min-height: 500px;
+    max-width: 850px;
+    border: 2px solid v.$highlight-color;
+    border-radius: 12px;
+  }
+
+  padding-bottom: 12rem;
+}
