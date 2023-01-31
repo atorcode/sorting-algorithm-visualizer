@@ -14,7 +14,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/algorithms" element={<Algorithm />} />
+          <Route path="/algorithms/:type" element={<Algorithm />} />
         </Routes>
         <Footer />
       </Router>

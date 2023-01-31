@@ -63,26 +63,11 @@ const ExpandedNavBar = () => {
           <h2>Algorithms</h2>
         </div>
         <ul>
-          <ExpandedNavBarAlgorithmType
-            name={"Quick Sort"}
-            link={"/algorithms"}
-          />
-          <ExpandedNavBarAlgorithmType
-            name={"Merge Sort"}
-            link={"/algorithms"}
-          />
-          <ExpandedNavBarAlgorithmType
-            name={"Bubble Sort"}
-            link={"/algorithms"}
-          />
-          <ExpandedNavBarAlgorithmType
-            name={"Selection Sort"}
-            link={"/algorithms"}
-          />
-          <ExpandedNavBarAlgorithmType
-            name={"Insertion Sort"}
-            link={"/algorithms"}
-          />
+          <ExpandedNavBarAlgorithmType name={"Quick Sort"} />
+          <ExpandedNavBarAlgorithmType name={"Merge Sort"} />
+          <ExpandedNavBarAlgorithmType name={"Bubble Sort"} />
+          <ExpandedNavBarAlgorithmType name={"Selection Sort"} />
+          <ExpandedNavBarAlgorithmType name={"Insertion Sort"} />
         </ul>
         {viewportIsSmall && (
           <div className={styles["close-btn-container"]}>
