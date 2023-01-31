@@ -1,6 +1,6 @@
-import styles from "./ComplexityTable.module.scss";
+import styles from "./AlgorithmComplexityTable.module.scss";
 
-const ComplexityTable = () => {
+const AlgorithmComplexityTable = () => {
   return (
     <section className={styles["table-section"]}>
       <h2>COMPLEXITY</h2>
@@ -28,4 +28,4 @@ const ComplexityTable = () => {
   );
 };
 
-export default ComplexityTable;
+export default AlgorithmComplexityTable;
