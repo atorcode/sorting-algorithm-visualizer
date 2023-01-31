@@ -12,3 +12,9 @@
     border-radius: 12px;
   }
 }
+
+@media (max-width: v.$viewport-size-medium) {
+  .implementation-section {
+    font-size: 0.84rem;
+  }
+}
