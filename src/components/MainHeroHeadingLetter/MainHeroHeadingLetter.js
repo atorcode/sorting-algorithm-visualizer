@@ -1,4 +1,4 @@
-import styles from "./HeroHeadingLetter.module.scss";
+import styles from "./MainHeroHeadingLetter.module.scss";
 import { useEffect, useRef } from "react";
 import {
   LETTERS,
@@ -7,7 +7,7 @@ import {
   ANIMATION_DELAY,
 } from "../../constants";
 
-const HeroHeadingLetter = ({ char }) => {
+const MainHeroHeadingLetter = ({ char }) => {
   const letterRef = useRef(null);
 
   const getRandomDurationBetween = (min, max) => {
@@ -43,4 +43,4 @@ const HeroHeadingLetter = ({ char }) => {
   return <span ref={letterRef}>{char}</span>;
 };
 
-export default HeroHeadingLetter;
+export default MainHeroHeadingLetter;

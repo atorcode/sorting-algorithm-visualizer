@@ -1,12 +1,12 @@
 import styles from "./Algorithm.module.scss";
-import HeroImage from "../../components/HeroImage";
 import AlgorithmDetails from "../../components/AlgorithmDetails";
+import VisualizerHero from "../../components/VisualizerHero";
 
 const Algorithm = () => {
   return (
     <>
-      {/* potentially change to a different hero image later */}
-      <HeroImage />
+      <VisualizerHero />
+
       <AlgorithmDetails />
     </>
   );

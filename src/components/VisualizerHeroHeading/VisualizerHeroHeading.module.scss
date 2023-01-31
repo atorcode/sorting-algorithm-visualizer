@@ -1,0 +1,13 @@
+@use "../../variables" as v;
+
+.heading {
+  position: absolute;
+  top: 8%;
+  left: 9vw;
+  font-size: 5rem;
+  font-weight: 400;
+  color: v.$text-color;
+  z-index: 1;
+
+  user-select: none;
+}
