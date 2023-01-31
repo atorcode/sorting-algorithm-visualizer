@@ -1,0 +1,17 @@
+@use "../../variables" as v;
+
+.table {
+  font-size: 1.75rem;
+  border-collapse: collapse;
+  border-style: hidden;
+
+  tr {
+    border: 2px solid v.$highlight-color;
+  }
+  th,
+  td {
+    border-right: 2px solid v.$highlight-color;
+    padding: 0.5rem;
+    font-weight: 500;
+  }
+}

@@ -1,18 +1,8 @@
 @use "../../variables" as v;
 
-.main {
+.details-section {
   background-color: v.$background-color-dark;
   color: v.$text-color;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.summary {
-  max-width: 850px;
-  margin: auto;
-  padding: 2rem;
-
   h2 {
     font-size: 2.5rem;
     font-weight: 500;
@@ -23,10 +13,6 @@
     font-size: 1.5rem;
     padding: 0.5rem 0;
   }
-}
-
-.button-container {
-  margin-bottom: 5rem;
 }
 
 @media (max-width: v.$viewport-size-medium) {

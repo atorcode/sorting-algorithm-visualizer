@@ -3,7 +3,7 @@ import styles from "./Summary.module.scss";
 
 const Summary = () => {
   return (
-    <div className={styles["background"]}>
+    <main className={styles["main"]}>
       <article className={styles["summary"]}>
         <h2>Sorting Algorithms</h2>
         <p>
@@ -101,7 +101,7 @@ const Summary = () => {
       <div className={styles["button-container"]}>
         <ExpandedNavBarToggleButton text={"ALGORITHMS"} />
       </div>
-    </div>
+    </main>
   );
 };
 
