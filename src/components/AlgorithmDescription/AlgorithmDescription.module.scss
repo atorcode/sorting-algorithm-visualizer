@@ -1,0 +1,13 @@
+@use "../../variables" as v;
+
+@media (max-width: v.$viewport-size-medium) {
+  .summary {
+    h2 {
+      font-size: 1.75rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+}
