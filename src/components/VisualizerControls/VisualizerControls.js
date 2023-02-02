@@ -5,8 +5,8 @@ import VisualizerSlider from "../VisualizerSlider";
 const VisualizerControls = () => {
   return (
     <section className={styles["controls"]}>
-      <VisualizerButton />
-      <VisualizerButton />
+      <VisualizerButton type={"shuffle"} />
+      <VisualizerButton type={"play"} />
       <VisualizerSlider />
     </section>
   );

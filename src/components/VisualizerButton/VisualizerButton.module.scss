@@ -1,4 +1,14 @@
+@use "../../variables" as v;
+
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 60px;
   width: 60px;
+  border: none;
+  border-radius: 7px;
+  font-size: 3rem;
+  background-color: rgb(64, 64, 64);
+  color: v.$text-color;
 }

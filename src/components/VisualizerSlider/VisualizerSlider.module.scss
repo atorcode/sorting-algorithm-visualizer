@@ -3,6 +3,11 @@
 .slider-section {
   color: v.$text-color;
   margin-left: 2rem;
+  text-align: center;
+
+  h3 {
+    font-size: 1.5rem;
+  }
 }
 
 .slider {

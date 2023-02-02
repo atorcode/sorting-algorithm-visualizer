@@ -1,13 +1,2 @@
-@use "../../variables" as v;
-
-@media (max-width: v.$viewport-size-medium) {
-  .summary {
-    h2 {
-      font-size: 1.75rem;
-    }
-
-    p {
-      font-size: 1.1rem;
-    }
-  }
-}
+// Styling for this component is done in AlgorithmDetails.module.scss
+// to ensure that it is styled uniformly with other relevant components
