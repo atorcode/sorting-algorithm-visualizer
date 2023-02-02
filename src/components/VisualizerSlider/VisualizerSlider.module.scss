@@ -1,0 +1,12 @@
+@use "../../variables" as v;
+
+.slider-section {
+  color: v.$text-color;
+  margin-left: 2rem;
+}
+
+.slider {
+  width: 500px;
+  height: 6px;
+  background-color: v.$text-color;
+}

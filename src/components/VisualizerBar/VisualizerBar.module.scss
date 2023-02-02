@@ -1,5 +1,7 @@
+@use "../../variables" as v;
+
 .bar {
-  height: 200px;
-  width: 10px;
-  background-color: white;
+  height: 100%;
+  width: 1%;
+  background: linear-gradient(v.$text-color, v.$background-color);
 }

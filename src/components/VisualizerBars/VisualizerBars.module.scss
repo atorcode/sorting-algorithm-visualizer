@@ -1,8 +1,9 @@
 .bars {
   display: flex;
-  gap: 0.2rem;
+  gap: 1px;
   position: absolute;
   bottom: 0;
+  height: 70%;
   width: 100%;
   justify-content: center;
 }
