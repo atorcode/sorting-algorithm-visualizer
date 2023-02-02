@@ -6,7 +6,6 @@ const Algorithm = () => {
   return (
     <>
       <VisualizerHero />
-
       <AlgorithmDetails />
     </>
   );
