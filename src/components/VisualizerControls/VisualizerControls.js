@@ -3,7 +3,6 @@ import VisualizerButton from "../VisualizerButton";
 import VisualizerSlider from "../VisualizerSlider";
 
 const VisualizerControls = (propsToPass) => {
-  console.log(propsToPass);
   return (
     <section className={styles["controls"]}>
       <VisualizerButton type={"shuffle"} />

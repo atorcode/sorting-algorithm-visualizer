@@ -14,7 +14,7 @@ const VisualizerHero = () => {
       <div className={styles["content-container"]}>
         <VisualizerHeroHeading />
         <VisualizerControls {...propsToPass} />
-        <VisualizerBars />
+        <VisualizerBars numBars={numBars} />
       </div>
       <HeroImage />
     </main>
