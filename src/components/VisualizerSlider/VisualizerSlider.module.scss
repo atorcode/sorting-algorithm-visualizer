@@ -2,7 +2,7 @@
 
 .slider-section {
   color: v.$text-color;
-  margin-left: 2rem;
+  margin-left: 1rem;
   text-align: center;
 
   h3 {
@@ -14,4 +14,25 @@
   width: 500px;
   height: 6px;
   background-color: v.$text-color;
+}
+
+@media (max-width: 1550px) {
+  .slider {
+    width: 400px;
+    height: 5px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .slider-section {
+    h3 {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+@media (max-width: v.$viewport-size-medium) {
+  .slider {
+    width: 40vw;
+  }
 }

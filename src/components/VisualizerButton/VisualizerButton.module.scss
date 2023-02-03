@@ -12,3 +12,11 @@
   background-color: v.$background-color-lighter;
   color: v.$text-color;
 }
+
+@media (max-width: v.$viewport-size-small) {
+  .btn {
+    height: 50px;
+    width: 50px;
+    font-size: 2.5rem;
+  }
+}

@@ -1,7 +1,21 @@
+@use "../../variables" as v;
+
 .controls {
   position: absolute;
   display: flex;
   gap: 2rem;
   right: 0;
   top: 12%;
+}
+
+@media (max-width: 1350px) {
+  .controls {
+    top: 20%;
+  }
+}
+
+@media (max-width: v.$viewport-size-medium) {
+  .controls {
+    left: 1rem;
+  }
 }

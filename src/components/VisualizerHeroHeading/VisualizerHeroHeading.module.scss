@@ -3,10 +3,35 @@
 .heading {
   position: absolute;
   top: 8%;
-  left: 9vw;
+  left: 4vw;
   font-size: 5rem;
   font-weight: 400;
   color: v.$text-color;
+  white-space: nowrap;
 
   user-select: none;
+}
+
+@media (max-width: 1550px) {
+  .heading {
+    font-size: 4.5rem;
+  }
+}
+
+@media (max-width: 1150px) {
+  .heading {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: v.$viewport-size-small) {
+  .heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: v.$viewport-size-very-small) {
+  .heading {
+    font-size: 2rem;
+  }
 }
