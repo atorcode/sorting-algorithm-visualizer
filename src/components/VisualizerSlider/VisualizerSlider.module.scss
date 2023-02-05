@@ -36,3 +36,9 @@
     width: 40vw;
   }
 }
+
+@media (max-width: v.$viewport-size-very-small) {
+  .slider-section {
+    margin-left: 0.5rem;
+  }
+}

@@ -1,3 +1,5 @@
+@use "../../variables" as v;
+
 .main {
   position: relative;
   width: 100%;
@@ -12,4 +14,10 @@
   margin: auto;
   left: 0;
   right: 0;
+}
+
+@media (max-width: v.$viewport-size-very-small) {
+  .content-container {
+    width: 96%;
+  }
 }

@@ -1,3 +1,5 @@
+@use "../../variables" as v;
+
 .bars {
   display: flex;
   position: absolute;
@@ -5,4 +7,16 @@
   height: 70%;
   width: 100%;
   justify-content: center;
+}
+
+@media (max-width: 1350px) {
+  .bars {
+    height: 58%;
+  }
+}
+
+@media (max-width: v.$viewport-size-small) {
+  .bars {
+    height: 55%;
+  }
 }

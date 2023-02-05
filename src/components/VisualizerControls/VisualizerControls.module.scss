@@ -19,3 +19,11 @@
     left: 1rem;
   }
 }
+
+@media (max-width: v.$viewport-size-very-small) {
+  .controls {
+    top: 24%;
+    left: 0.5rem;
+    gap: 1rem;
+  }
+}
