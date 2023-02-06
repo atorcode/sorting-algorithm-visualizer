@@ -1,6 +1,6 @@
 import styles from "./ExpandedNavBarAlgorithmTypes.module.scss";
 import ExpandedNavBarAlgorithmType from "../ExpandedNavBarAlgorithmType";
-import algorithms from "../../data/algorithms";
+import algorithms from "../../data/algorithms.json";
 
 const ExpandedNavBarAlgorithmTypes = () => {
   return (
