@@ -10,10 +10,52 @@
   }
 }
 
+.slider.slider-top {
+  position: absolute;
+  background: transparent;
+}
+
+.slider-bottom {
+  overflow: hidden;
+
+  &::-webkit-slider-thumb {
+    box-shadow: -500px 0 0 500px v.$highlight-color;
+  }
+
+  // Firefox
+  &::-moz-range-thumb {
+    box-shadow: -500px 0 0 500px v.$highlight-color;
+  }
+}
+
 .slider {
+  appearance: none;
   width: 500px;
   height: 6px;
-  background-color: v.$text-color;
+  background-color: rgb(160, 160, 160);
+
+  margin-top: 20px;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    height: 30px;
+    width: 10px;
+    background-color: rgb(224, 224, 224);
+
+    cursor: pointer;
+  }
+
+  // Firefox
+  &::-moz-range-thumb {
+    appearance: none;
+    border: none;
+    border-radius: 0;
+    height: 30px;
+    width: 10px;
+    background-color: rgb(224, 224, 224);
+
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 1550px) {

@@ -11,6 +11,13 @@
   font-size: 3rem;
   background-color: v.$background-color-lighter;
   color: v.$text-color;
+
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    background-color: v.$background-color-light;
+    font-size: 3.25rem;
+  }
 }
 
 @media (max-width: v.$viewport-size-small) {

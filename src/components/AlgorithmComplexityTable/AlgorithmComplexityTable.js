@@ -8,19 +8,19 @@ const AlgorithmComplexityTable = ({ complexity }) => {
         <tbody>
           <tr>
             <th>Time (Average Case)</th>
-            <td>{complexity.timeAvg}</td>
+            <td>{complexity && complexity.timeAvg}</td>
           </tr>
           <tr>
             <th>Time (Worst Case)</th>
-            <td>{complexity.timeWorst}</td>
+            <td>{complexity && complexity.timeWorst}</td>
           </tr>
           <tr>
             <th>Time (Best Case)</th>
-            <td>{complexity.timeBest}</td>
+            <td>{complexity && complexity.timeBest}</td>
           </tr>
           <tr>
             <th>Space</th>
-            <td>{complexity.space}</td>
+            <td>{complexity && complexity.space}</td>
           </tr>
         </tbody>
       </table>
