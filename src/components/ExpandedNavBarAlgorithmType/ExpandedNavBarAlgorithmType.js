@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./ExpandedNavBarAlgorithmType.module.scss";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
-import { formatLink } from "../../utils/utils";
+import { formatLink, applyInitialCase } from "../../utils/utils";
 
 const ExpandedNavBarAlgorithmType = ({ name }) => {
   const { setNavIsExpanded } = useExpandedNavBarContext();
@@ -17,7 +17,7 @@ const ExpandedNavBarAlgorithmType = ({ name }) => {
             setNavIsExpanded(false);
           }}
         >
-          <p>{name}</p>
+          <p>{applyInitialCase(name)}</p>
         </Link>
       </li>
     </>
