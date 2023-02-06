@@ -1,23 +1,63 @@
 const algorithms = [
   {
     id: 0,
-    name: "Quick Sort",
+    name: "quick sort",
+    description: "Quick Sort Description",
+    complexity: {
+      timeAvg: "average",
+      timeWorst: "worse",
+      timeBest: "best",
+      space: "space",
+    },
+    implementation: "insert code here",
   },
   {
     id: 1,
-    name: "Merge Sort",
+    name: "merge sort",
+    description: "Merge Sort Description",
+    complexity: {
+      timeAvg: "average",
+      timeWorst: "worse",
+      timeBest: "best",
+      space: "space",
+    },
+    implementation: "insert code here",
   },
   {
     id: 2,
-    name: "Bubble Sort",
+    name: "bubble sort",
+    description: "Bubble Sort Description",
+    complexity: {
+      timeAvg: "average",
+      timeWorst: "worse",
+      timeBest: "best",
+      space: "space",
+    },
+    implementation: "insert code here",
   },
   {
     id: 3,
-    name: "Selection Sort",
+    name: "selection sort",
+    description: "Selection Sort Description",
+    complexity: {
+      timeAvg: "average",
+      timeWorst: "worse",
+      timeBest: "best",
+      space: "space",
+    },
+    implementation: "insert code here",
   },
   {
     id: 4,
-    name: "Insertion Sort",
+    name: "insertion sort",
+    description: "Insertion Sort Description",
+    complexity: {
+      timeAvg: "average",
+      timeWorst: "worse",
+      timeBest: "best",
+      space: "space",
+    },
+    implementation: "insert code here",
   },
 ];
 

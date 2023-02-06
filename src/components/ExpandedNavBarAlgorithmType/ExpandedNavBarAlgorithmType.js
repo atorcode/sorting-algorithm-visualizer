@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./ExpandedNavBarAlgorithmType.module.scss";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
+import { formatLink } from "../../utils/utils";
 
 const ExpandedNavBarAlgorithmType = ({ name }) => {
   const { setNavIsExpanded } = useExpandedNavBarContext();
-  const formatLink = (name) => {
-    const hyphenatedName = name.toLowerCase().replaceAll(" ", "-");
-    return `/algorithms/${hyphenatedName}`;
-  };
 
   return (
     <>
