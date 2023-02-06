@@ -21,7 +21,7 @@ const Algorithm = () => {
   return (
     <>
       <VisualizerHero {...algorithm} />
-      <AlgorithmDetails />
+      <AlgorithmDetails {...algorithm} />
     </>
   );
 };

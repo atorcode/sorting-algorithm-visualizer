@@ -1,6 +1,6 @@
 import styles from "./AlgorithmComplexityTable.module.scss";
 
-const AlgorithmComplexityTable = () => {
+const AlgorithmComplexityTable = ({ complexity }) => {
   return (
     <section className={styles["table-section"]}>
       <h2>COMPLEXITY</h2>
@@ -8,19 +8,19 @@ const AlgorithmComplexityTable = () => {
         <tbody>
           <tr>
             <th>Time (Average Case)</th>
-            <td>test</td>
+            <td>{complexity.timeAvg}</td>
           </tr>
           <tr>
             <th>Time (Worst Case)</th>
-            <td>test</td>
+            <td>{complexity.timeWorst}</td>
           </tr>
           <tr>
             <th>Time (Best Case)</th>
-            <td>test</td>
+            <td>{complexity.timeBest}</td>
           </tr>
           <tr>
             <th>Space</th>
-            <td>test</td>
+            <td>{complexity.space}</td>
           </tr>
         </tbody>
       </table>

@@ -3,12 +3,12 @@ import AlgorithmDescription from "../AlgorithmDescription";
 import AlgorithmComplexityTable from "../AlgorithmComplexityTable";
 import AlgorithmImplementation from "../AlgorithmImplementation";
 
-const AlgorithmDetails = () => {
+const AlgorithmDetails = ({ description, complexity, implementation }) => {
   return (
     <section className={styles["details-section"]}>
-      <AlgorithmDescription />
-      <AlgorithmComplexityTable />
-      <AlgorithmImplementation />
+      <AlgorithmDescription description={description} />
+      <AlgorithmComplexityTable complexity={complexity} />
+      <AlgorithmImplementation implementation={implementation} />
     </section>
   );
 };

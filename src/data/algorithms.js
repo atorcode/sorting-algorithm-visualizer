@@ -5,7 +5,7 @@ const algorithms = [
     description: "Quick Sort Description",
     complexity: {
       timeAvg: "average",
-      timeWorst: "worse",
+      timeWorst: "worst",
       timeBest: "best",
       space: "space",
     },

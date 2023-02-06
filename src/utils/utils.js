@@ -9,7 +9,7 @@ export const unformatLink = (str) => {
   return str.toLowerCase().replaceAll("-", " ");
 };
 
-// hello how are you
+// insertion sort => Insertion Sort
 export const applyInitialCase = (str) => {
   if (typeof str !== "string") {
     return;
