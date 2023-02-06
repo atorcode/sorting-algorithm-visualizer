@@ -11,11 +11,11 @@
 
 @media (max-width: 1350px) {
   .bars {
-    height: 58%;
+    height: 60%;
   }
 }
 
-@media (max-width: v.$viewport-size-small) {
+@media (max-width: v.$viewport-size-very-small) {
   .bars {
     height: 55%;
   }

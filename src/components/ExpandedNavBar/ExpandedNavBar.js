@@ -3,7 +3,7 @@ import { MdHome } from "react-icons/md";
 import { TbAntennaBars5 } from "react-icons/tb";
 import { useState, useEffect, useRef } from "react";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
-import ExpandedNavBarAlgorithmType from "../ExpandedNavBarAlgorithmType";
+import ExpandedNavBarAlgorithmTypes from "../ExpandedNavBarAlgorithmTypes";
 import ExpandedNavBarButton from "../ExpandedNavBarButton";
 
 const ExpandedNavBar = () => {
@@ -62,13 +62,7 @@ const ExpandedNavBar = () => {
           <TbAntennaBars5 className={styles["icons"]} />
           <h2>Algorithms</h2>
         </div>
-        <ul>
-          <ExpandedNavBarAlgorithmType name={"Quick Sort"} />
-          <ExpandedNavBarAlgorithmType name={"Merge Sort"} />
-          <ExpandedNavBarAlgorithmType name={"Bubble Sort"} />
-          <ExpandedNavBarAlgorithmType name={"Selection Sort"} />
-          <ExpandedNavBarAlgorithmType name={"Insertion Sort"} />
-        </ul>
+        <ExpandedNavBarAlgorithmTypes />
         {viewportIsSmall && (
           <div className={styles["close-btn-container"]}>
             <ExpandedNavBarButton text={"CLOSE"} />
