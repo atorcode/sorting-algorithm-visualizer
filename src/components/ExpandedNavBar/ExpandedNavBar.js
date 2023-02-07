@@ -8,16 +8,28 @@ import ExpandedNavBarButton from "../ExpandedNavBarButton";
 
 const ExpandedNavBar = () => {
   // The purpose of justMounted is to ensure that the click event which opens this component does not also simultaneously close this component.
-  const [justMounted, setJustMounted] = useState(true);
+  // const [justMounted, setJustMounted] = useState(true);
   const [viewportIsSmall, setViewportIsSmall] = useState(false);
+
   const expandedNavBarEl = useRef(null);
-  const { setNavIsExpanded } = useExpandedNavBarContext();
+  const { navIsExpanded, setNavIsExpanded } = useExpandedNavBarContext();
+
+  // const handleOutsideClick = (e) => {
+  //   if (
+  //     !justMounted &&
+  //     expandedNavBarEl.current &&
+  //     !expandedNavBarEl.current.contains(e.target)
+  //   ) {
+  //     setNavIsExpanded(false);
+  //   }
+  // };
 
   const handleOutsideClick = (e) => {
     if (
-      !justMounted &&
+      navIsExpanded &&
       expandedNavBarEl.current &&
-      !expandedNavBarEl.current.contains(e.target)
+      !expandedNavBarEl.current.contains(e.target) &&
+      expandedNavBarEl.current.classList.length > 1
     ) {
       setNavIsExpanded(false);
     }
@@ -31,13 +43,22 @@ const ExpandedNavBar = () => {
     }
   };
 
+  // useEffect(() => {
+  //   setJustMounted(false);
+  //   document.addEventListener("click", handleOutsideClick);
+  //   return () => {
+  //     document.removeEventListener("click", handleOutsideClick);
+  //   };
+  // }, [justMounted]);
+
   useEffect(() => {
-    setJustMounted(false);
-    document.addEventListener("click", handleOutsideClick);
+    console.log(navIsExpanded);
+    document.addEventListener("click", handleOutsideClick, true);
+
     return () => {
-      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick, true);
     };
-  }, [justMounted]);
+  }, [navIsExpanded]);
 
   useEffect(() => {
     // call handleCloseButton once to determine if button should be rendered on mount
@@ -50,7 +71,14 @@ const ExpandedNavBar = () => {
 
   return (
     <>
-      <nav ref={expandedNavBarEl} className={styles["expanded-nav-bar"]}>
+      <nav
+        ref={expandedNavBarEl}
+        className={
+          navIsExpanded
+            ? `${styles["expanded-nav-bar-open"]} ${styles["expanded-nav-bar"]}`
+            : styles["expanded-nav-bar"]
+        }
+      >
         <a href="/">
           <div className={`${styles["home"]} ${styles["categories"]}`}>
             <MdHome className={styles["icons"]} />

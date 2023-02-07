@@ -4,7 +4,7 @@ import ExpandedNavBar from "../ExpandedNavBar/ExpandedNavBar";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
 
 const NavBar = () => {
-  const { navIsExpanded } = useExpandedNavBarContext();
+  // const { navIsExpanded } = useExpandedNavBarContext();
   return (
     <>
       <nav className={styles["nav-bar"]}>
@@ -13,7 +13,8 @@ const NavBar = () => {
         </a>
         <HamburgerButton />
       </nav>
-      {navIsExpanded && <ExpandedNavBar />}
+      {/* {navIsExpanded && <ExpandedNavBar />} */}
+      <ExpandedNavBar />
     </>
   );
 };

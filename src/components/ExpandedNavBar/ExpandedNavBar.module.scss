@@ -2,13 +2,15 @@
 
 .expanded-nav-bar {
   position: fixed;
-  right: 0;
-  width: 20rem;
+  width: v.$expanded-nav-bar-width;
+  right: calc(-#{v.$expanded-nav-bar-width});
   height: 100vh;
   text-align: center;
   z-index: 1000;
   color: v.$text-color;
   background-color: v.$background-color-darker;
+
+  transition: all 400ms ease;
 
   a {
     color: v.$text-color;
@@ -24,6 +26,10 @@
     font-size: 2rem;
     font-weight: 400;
   }
+}
+
+.expanded-nav-bar-open {
+  right: 0;
 }
 
 .categories {
