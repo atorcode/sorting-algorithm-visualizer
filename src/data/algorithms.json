@@ -57,6 +57,6 @@
       "timeBest": "O(n)",
       "space": "O(1)"
     },
-    "implementation": "insert code here"
+    "implementation": "<span>const insertionSort = (arr) => {</span><span>  for (let i = 1; i < arr.length; i++) {</span><span>    let temp = arr[i];</span><span>    let j = i - 1;</span><span>    while (j >= 0 && arr[j] > temp) {</span><span>      arr[j + 1] = arr[j];</span><span>      j = j - 1;</span><span>    }</span><span>    arr[j + 1] = temp;</span><span>  }</span><span>  return arr;</span><span>};</span>"
   }
 ]

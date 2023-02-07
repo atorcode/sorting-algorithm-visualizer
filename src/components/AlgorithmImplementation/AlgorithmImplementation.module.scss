@@ -5,11 +5,16 @@
   font-weight: 600;
 
   pre {
+    padding: 2rem 0 0 2rem;
     min-height: 500px;
-    max-width: 850px;
+    max-width: 650px;
     margin-top: 0.5rem;
     border: 2px solid v.$highlight-color;
     border-radius: 12px;
+
+    span {
+      display: flex;
+    }
   }
 }
 
