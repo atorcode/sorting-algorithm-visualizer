@@ -15,6 +15,10 @@
     font-size: 1.5rem;
     padding-top: 0.5rem;
   }
+
+  p:not(:first-child) {
+    padding-top: 1rem;
+  }
 }
 
 @media (max-width: v.$viewport-size-medium) {

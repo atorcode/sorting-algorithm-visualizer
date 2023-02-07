@@ -3,7 +3,10 @@ import AlgorithmDescription from "../AlgorithmDescription";
 import AlgorithmComplexityTable from "../AlgorithmComplexityTable";
 import AlgorithmImplementation from "../AlgorithmImplementation";
 
-const AlgorithmDetails = ({ description, complexity, implementation }) => {
+const AlgorithmDetails = (algorithm) => {
+  console.log(algorithm);
+
+  const { description, complexity, implementation } = algorithm;
   return (
     <section className={styles["details-section"]}>
       <AlgorithmDescription description={description} />

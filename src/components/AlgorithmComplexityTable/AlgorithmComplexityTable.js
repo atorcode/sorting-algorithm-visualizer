@@ -1,6 +1,19 @@
 import styles from "./AlgorithmComplexityTable.module.scss";
 
 const AlgorithmComplexityTable = ({ complexity }) => {
+  const createMarkupTimeAvg = () => {
+    return { __html: complexity.timeAvg };
+  };
+  const createMarkupTimeWorst = () => {
+    return { __html: complexity.timeWorst };
+  };
+  const createMarkupTimeBest = () => {
+    return { __html: complexity.timeBest };
+  };
+  const createMarkupSpace = () => {
+    return { __html: complexity.space };
+  };
+
   return (
     <section className={styles["table-section"]}>
       <h2>COMPLEXITY</h2>
@@ -8,19 +21,27 @@ const AlgorithmComplexityTable = ({ complexity }) => {
         <tbody>
           <tr>
             <th>Time (Average Case)</th>
-            <td>{complexity && complexity.timeAvg}</td>
+            {complexity && (
+              <td dangerouslySetInnerHTML={createMarkupTimeAvg()}></td>
+            )}
           </tr>
           <tr>
             <th>Time (Worst Case)</th>
-            <td>{complexity && complexity.timeWorst}</td>
+            {complexity && (
+              <td dangerouslySetInnerHTML={createMarkupTimeWorst()}></td>
+            )}
           </tr>
           <tr>
             <th>Time (Best Case)</th>
-            <td>{complexity && complexity.timeBest}</td>
+            {complexity && (
+              <td dangerouslySetInnerHTML={createMarkupTimeBest()}></td>
+            )}
           </tr>
           <tr>
             <th>Space</th>
-            <td>{complexity && complexity.space}</td>
+            {complexity && (
+              <td dangerouslySetInnerHTML={createMarkupSpace()}></td>
+            )}
           </tr>
         </tbody>
       </table>

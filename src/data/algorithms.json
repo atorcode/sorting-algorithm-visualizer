@@ -50,10 +50,10 @@
   {
     "id": 4,
     "name": "insertion sort",
-    "description": "Insertion Sort Description",
+    "description": "<p>Insertion sort is a simple sorting algorithm that builds the final sorted array one element at a time by removing it from the input data, finding the location in which it belongs within the sorted segment, and inserting it there. This process repeats until no input elements remain.</p><p>This algorithm is much less efficient on large lists than more advanced algorithms such as quick sort, heap sort, or merge sort. However, it has many advantages. It can be done in-place, so it only requires a constant amount additional memory. It is stable, meaning that will preserve the relative order of elements with equal keys. It is adaptive in the sense that it performs well on data sets that are already substantially sorted. And it is very efficient for small data sets.</p>",
     "complexity": {
-      "timeAvg": "O(n^2)",
-      "timeWorst": "O(n^2)",
+      "timeAvg": "O(n<sup>2</sup>)",
+      "timeWorst": "O(n<sup>2</sup>)",
       "timeBest": "O(n)",
       "space": "O(1)"
     },
