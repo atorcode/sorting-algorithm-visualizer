@@ -38,19 +38,19 @@
   {
     "id": 3,
     "name": "selection sort",
-    "description": "Selection Sort Description",
+    "description": "<p>Selection sort is a simple in-place sorting algorithm which divides the input array into a sorted subarray and an unsorted subarray. At each iterative step, it sorts the minimum or maximum value in the unsorted array by removing it and placing it in the appropriate position in the sorted array. Then, it repeats this until all elements are sorted.</p><p>This algorithm is very inefficient on large inputs, and it generally performs worse than the similar insertion sort. Its main advantages are that it is an in-place algorithm and therefore only requires constant auxiliary memory, and it is simple to implement and understand. As a result of its small memory requirement, it may also have performance advantages over more complicated algorithms in certain situations where memory is limited.</p>",
     "complexity": {
-      "timeAvg": "average",
-      "timeWorst": "worse",
-      "timeBest": "best",
-      "space": "space"
+      "timeAvg": "O(n<sup>2</sup>)",
+      "timeWorst": "O(n<sup>2</sup>)",
+      "timeBest": "O(n<sup>2</sup>)",
+      "space": "O(1)"
     },
     "implementation": "insert code here"
   },
   {
     "id": 4,
     "name": "insertion sort",
-    "description": "<p>Insertion sort is a simple sorting algorithm that builds the final sorted array one element at a time by removing it from the input data, finding the location in which it belongs within the sorted segment, and inserting it there. This process repeats until no input elements remain.</p><p>This algorithm is much less efficient on large lists than more advanced algorithms such as quick sort, heap sort, or merge sort. However, it has many advantages. It can be done in-place, so it only requires a constant amount additional memory. It is stable, meaning that will preserve the relative order of elements with equal keys. It is adaptive in the sense that it performs well on data sets that are already substantially sorted. And it is very efficient for small data sets.</p>",
+    "description": "<p>Insertion sort is a simple sorting algorithm that builds the final sorted array one element at a time by removing it from the input data, finding the location in which it belongs within the sorted segment, and inserting it there. This process repeats until no input elements remain.</p><p>This algorithm is much less efficient on large inputs than more advanced algorithms such as quick sort, heap sort, or merge sort. However, it has many advantages. It can be done in-place, so it only requires a constant amount additional memory. It is stable, meaning that will preserve the relative order of elements with equal keys. It is adaptive in the sense that it performs well on data sets that are already substantially sorted. And it is very efficient for small data sets.</p>",
     "complexity": {
       "timeAvg": "O(n<sup>2</sup>)",
       "timeWorst": "O(n<sup>2</sup>)",
