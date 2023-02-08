@@ -14,10 +14,13 @@
 
   a {
     color: v.$text-color;
+    .home {
+      transition: background-color 200ms ease;
+    }
   }
 
   a:hover {
-    div {
+    .home {
       background-color: v.$background-color-lightest;
     }
   }

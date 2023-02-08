@@ -3,6 +3,8 @@
 .algorithm {
   text-align: start;
   font-size: 1.5rem;
+
+  transition: background-color 200ms ease;
 }
 
 .algorithm:hover {

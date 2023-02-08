@@ -1,10 +1,8 @@
 import styles from "./NavBar.module.scss";
 import HamburgerButton from "../HamburgerButton";
 import ExpandedNavBar from "../ExpandedNavBar/ExpandedNavBar";
-import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
 
 const NavBar = () => {
-  // const { navIsExpanded } = useExpandedNavBarContext();
   return (
     <>
       <nav className={styles["nav-bar"]}>
@@ -13,7 +11,7 @@ const NavBar = () => {
         </a>
         <HamburgerButton />
       </nav>
-      {/* {navIsExpanded && <ExpandedNavBar />} */}
+
       <ExpandedNavBar />
     </>
   );

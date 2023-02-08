@@ -15,16 +15,6 @@
     color: rgb(180, 180, 180);
     padding: 0.1rem 1rem;
   }
-
-  button {
-    background-color: transparent;
-    border: none;
-    padding-bottom: 4px;
-  }
-
-  button:hover {
-    background-color: v.$background-color-lightest;
-  }
 }
 
 @media (max-width: v.$viewport-size-medium) {

@@ -7,22 +7,10 @@ import ExpandedNavBarAlgorithmTypes from "../ExpandedNavBarAlgorithmTypes";
 import ExpandedNavBarButton from "../ExpandedNavBarButton";
 
 const ExpandedNavBar = () => {
-  // The purpose of justMounted is to ensure that the click event which opens this component does not also simultaneously close this component.
-  // const [justMounted, setJustMounted] = useState(true);
   const [viewportIsSmall, setViewportIsSmall] = useState(false);
 
   const expandedNavBarEl = useRef(null);
   const { navIsExpanded, setNavIsExpanded } = useExpandedNavBarContext();
-
-  // const handleOutsideClick = (e) => {
-  //   if (
-  //     !justMounted &&
-  //     expandedNavBarEl.current &&
-  //     !expandedNavBarEl.current.contains(e.target)
-  //   ) {
-  //     setNavIsExpanded(false);
-  //   }
-  // };
 
   const handleOutsideClick = (e) => {
     if (
@@ -42,14 +30,6 @@ const ExpandedNavBar = () => {
       setViewportIsSmall(false);
     }
   };
-
-  // useEffect(() => {
-  //   setJustMounted(false);
-  //   document.addEventListener("click", handleOutsideClick);
-  //   return () => {
-  //     document.removeEventListener("click", handleOutsideClick);
-  //   };
-  // }, [justMounted]);
 
   useEffect(() => {
     console.log(navIsExpanded);

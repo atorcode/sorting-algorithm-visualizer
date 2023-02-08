@@ -1,15 +1,17 @@
 @use "../../variables" as v;
 
-.hamburger-btn-container {
-  // achieves appropriate centering of hamburger button
-  height: 100%;
-  padding-top: 6px;
-  padding: 0.1rem 1rem;
-}
-
 .hamburger-btn {
   padding: 0.4rem 1rem 0.1rem 1rem;
+  background-color: transparent;
+  border: none;
+  padding-bottom: 4px;
   cursor: pointer;
+
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background-color: v.$background-color-lightest;
+  }
 }
 
 .hamburger-icon {
