@@ -45,7 +45,7 @@
       "timeBest": "O(n<sup>2</sup>)",
       "space": "O(1)"
     },
-    "implementation": "insert code here"
+    "implementation": "<span>const selectionSort = (arr) => {</span><span>  for (let i = 0; i < arr.length - 1; i++) {</span><span>    let min = arr[i];</span><span>    let minIndex = i;</span><span>    for (let j = i + 1; j < arr.length; j++) {</span><span>      if (arr[j] < min) {</span><span>        min = arr[j];</span><span>        minIndex = j;</span><span>      }</span><span>    }</span><span>    const temp = arr[i];</span><span>    arr[i] = min;</span><span>    arr[minIndex] = temp;</span><span>  }</span><span>  return arr;</span><span>};</span>"
   },
   {
     "id": 4,

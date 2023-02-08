@@ -32,7 +32,6 @@ const ExpandedNavBar = () => {
   };
 
   useEffect(() => {
-    console.log(navIsExpanded);
     document.addEventListener("click", handleOutsideClick, true);
 
     return () => {

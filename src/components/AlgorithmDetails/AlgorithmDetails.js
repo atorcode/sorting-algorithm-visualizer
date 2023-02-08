@@ -4,8 +4,6 @@ import AlgorithmComplexityTable from "../AlgorithmComplexityTable";
 import AlgorithmImplementation from "../AlgorithmImplementation";
 
 const AlgorithmDetails = (algorithm) => {
-  console.log(algorithm);
-
   const { description, complexity, implementation } = algorithm;
   return (
     <section className={styles["details-section"]}>
