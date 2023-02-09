@@ -26,12 +26,12 @@
   {
     "id": 2,
     "name": "bubble sort",
-    "description": "Bubble Sort Description",
+    "description": "<p>Bubble sort, named after the way that the largest elements bubble up to the top of the list first, is a sorting algorithm that repeatedly steps through the input list, comparing adjacent elements and swapping their values if needed. This process is continued until a pass is made through the list in which no swaps occurred, signalling that everything is sorted.</p><p>Bubble sort's use is primarily as an educational tool. Its main advantages are as follows. It is in-place, meaning that only constant additional memory is needed. It is adaptive, so the time it takes to run this algorithm is greatly reduced on mostly sorted inputs. And it is stable, so that the relative ordering of elements with equal keys is maintained. However, this algorithm performs more poorly than the similar insertion sort, or even selection sort for that matter. </p><p>Sometimes, the terms \"rabbits\" and \"turtles\" are used to refer to the way certain elements behave within the context of bubble sort. Rabbits are the elements that want to move toward the end of the list, and they can do this very quickly because the algorithm goes from left to right. Turtles are the smaller elements that want to move toward the beginning of the list, but they cannot move faster than one step to the left per pass. The slow speed of turtles presents a bottleneck on the speed of bubble sort as a whole, so there are variations like cocktail sort and comb sort which attempt to minimize this imbalance by making turtles faster.</p>",
     "complexity": {
-      "timeAvg": "average",
-      "timeWorst": "worse",
-      "timeBest": "best",
-      "space": "space"
+      "timeAvg": "O(n<sup>2</sup>)",
+      "timeWorst": "O(n<sup>2</sup>)",
+      "timeBest": "O(n)",
+      "space": "O(1)"
     },
     "implementation": "insert code here"
   },

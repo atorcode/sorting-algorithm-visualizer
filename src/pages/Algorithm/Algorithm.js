@@ -7,6 +7,10 @@ import { unformatLink } from "../../utils/utils";
 import algorithms from "../../data/algorithms.json";
 
 const Algorithm = () => {
+  // const bubbleSort = (arr) => {
+
+  // };
+
   const [algorithm, setAlgorithm] = useState(null);
   const { algorithmType } = useParams();
 
