@@ -21,7 +21,7 @@
       "timeBest": "O(n log n)",
       "space": "O(n)"
     },
-    "implementation": "insert code here"
+    "implementation": "<span>const merge = (arr, leftSub, rightSub) => {</span><span>  let i = 0;</span><span>  let j = 0;</span><span>  let k = 0;</span><span>  while (i < leftSub.length && j < rightSub.length) {</span><span>    if (leftSub[i] <= rightSub[j]) {</span><span>      arr[k] = leftSub[i];</span><span>      i++;</span><span>    } else {</span><span>      arr[k] = rightSub[j];</span><span>      j++;</span><span>    }</span><span>    k++;</span><span>  }</span><span>  while (i < leftSub.length) {</span><span>    arr[k] = leftSub[i];</span><span>    i++;</span><span>    k++;</span><span>  }</span><span>  while (j < rightSub.length) {</span><span>    arr[k] = rightSub[j];</span><span>    j++;</span><span>    k++;</span><span>  }</span><span>  return arr;</span><span>};</span><br /><span>const mergeSort = (arr) => {</span><span>  if (arr.length < 2) {</span><span>    return;</span><span>  }</span><span>  const left = arr.slice(0, arr.length / 2);</span><span>  const right = arr.slice(arr.length / 2);</span><span>  mergeSort(left);</span><span>  mergeSort(right);</span><span>  return merge(arr, left, right);</span><span>};</span>"
   },
   {
     "id": 2,
