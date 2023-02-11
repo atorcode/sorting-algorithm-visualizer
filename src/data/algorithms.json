@@ -2,12 +2,12 @@
   {
     "id": 0,
     "name": "quick sort",
-    "description": "Quick Sort Description",
+    "description": "<p>Quick sort (or quicksort) is a divide-and-conquer algorithm that works by selecting a \"pivot\" element from the input array and partitioning the other elements into two subarrays, according to whether they are less than or greater than the pivot. Then, the subarrays are recursively sorted using this same procedure. There are several ways that one could choose the pivot element, which can have implications on the complexity and runtime of the algorithm, but the middle element or a randomly chosen element are some of the most common candidates.</p><p>Despite the fact that quick sort's worst-case complexity is O(n<sup>2</sup>), which occurs when the lowest or highest value element is repeatedly chosen as the pivot, this can practically always be avoided by selecting the pivot appropriately, e.g., by picking one at random each time. Since the likelihood of encountering the worst-case can be reduced to an extreme statistical improbablility, and since in practice, quick sort is the fastest sorting algorithm in many situations, it is widely adopted as the algorithm of choice for solving sorting problems. It also requires less space than merge sort—its main competitor. The key disadvantage that quick sort has over merge sort is that most implementations of it are not stable, meaning that the relative order of elements with equal keys is not protected. This too can be overcome, but implementing a stable quick sort comes at the cost of extra space or extra logic.</p>",
     "complexity": {
-      "timeAvg": "average",
-      "timeWorst": "worst",
-      "timeBest": "best",
-      "space": "space"
+      "timeAvg": "O(n log n)",
+      "timeWorst": "O(n<sup>2</sup>)",
+      "timeBest": "O(n log n)",
+      "space": "O(log n)"
     },
     "implementation": "insert code here"
   },
