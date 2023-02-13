@@ -3,10 +3,20 @@ import VisualizerBar from "../VisualizerBar";
 import { useEffect, useMemo } from "react";
 
 const VisualizerBars = ({ numBars }) => {
+  const calcWidthPercentage = (quantity) => {
+    return 100 / quantity;
+  };
+
+  const calcHeightPercentage = (quantity, multiplier) => {
+    return (100 / quantity) * multiplier;
+  };
+
   const createBarArray = (quantity) => {
     let bars = [];
+    const width = calcWidthPercentage(quantity);
     for (let i = 0; i < quantity; i++) {
-      bars.push({});
+      const height = calcHeightPercentage(quantity, i + 1);
+      bars.push({ height: height, width: width });
     }
     return bars;
   };
@@ -21,7 +31,7 @@ const VisualizerBars = ({ numBars }) => {
     <section className={styles["bars"]}>
       {barsToRender &&
         barsToRender.map((bar, index) => {
-          return <VisualizerBar key={index} />;
+          return <VisualizerBar key={index} {...bar} />;
         })}
       {/* <VisualizerBar />
       <VisualizerBar />
