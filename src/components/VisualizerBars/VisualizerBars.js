@@ -23,16 +23,43 @@ const VisualizerBars = ({ numBars }) => {
     for (let i = 0; i < quantity; i++) {
       const height = calcHeightPercentage(quantity, i + 1);
       const left = calcLeftPosPercentage(quantity, i + 1);
-      bars.push({ height: height, width: width, left: left });
+      bars.push({ correctPos: i, height: height, width: width, left: left });
     }
     return bars;
   };
 
-  let barsToRender = useMemo(() => createBarArray(numBars), [numBars]);
+  const shuffleBars = (bars) => {
+    let currentIndex = bars.length - 1;
 
-  useEffect(() => {
-    barsToRender = createBarArray(numBars);
-  }, [numBars]);
+    while (currentIndex > 0) {
+      // randomIndex will always be different from currentIndex, so each bar will always shuffle
+      const randomIndex = Math.floor(Math.random() * currentIndex);
+
+      const temp = bars[currentIndex];
+      bars[currentIndex] = bars[randomIndex];
+      bars[randomIndex] = temp;
+
+      currentIndex--;
+    }
+
+    // responsible for physically rearranging bars
+    for (let i = 0; i < bars.length; i++) {
+      bars[i].left = calcLeftPosPercentage(bars.length, i + 1);
+    }
+
+    return bars;
+  };
+
+  console.log(shuffleBars(createBarArray(20)));
+
+  let barsToRender = useMemo(
+    () => shuffleBars(createBarArray(numBars)),
+    [numBars]
+  );
+
+  // useEffect(() => {
+  //   barsToRender = createBarArray(numBars);
+  // }, [numBars]);
 
   return (
     <section className={styles["bars"]}>
