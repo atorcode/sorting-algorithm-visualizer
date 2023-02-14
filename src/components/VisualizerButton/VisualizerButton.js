@@ -3,7 +3,13 @@ import { HiPlay } from "react-icons/hi2";
 import { IoStop } from "react-icons/io5";
 import { FiShuffle } from "react-icons/fi";
 
-const VisualizerButton = ({ type, shuffleBars }) => {
+const VisualizerButton = ({
+  type,
+  shuffleBars,
+  setBarsToRender,
+  createBarArray,
+  numBars,
+}) => {
   let buttonToRender;
   switch (type) {
     case "shuffle":
@@ -11,7 +17,7 @@ const VisualizerButton = ({ type, shuffleBars }) => {
         <button
           className={styles["btn"]}
           onClick={(e) => {
-            return console.log(shuffleBars);
+            setBarsToRender(shuffleBars(createBarArray(numBars)));
           }}
         >
           <FiShuffle className={styles["btn-icon"]} />

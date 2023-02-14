@@ -3,10 +3,11 @@ import HeroImage from "../HeroImage";
 import VisualizerHeroHeading from "../VisualizerHeroHeading";
 import VisualizerControls from "../VisualizerControls";
 import VisualizerBars from "../VisualizerBars";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const VisualizerHero = ({ name }) => {
   const [numBars, setNumBars] = useState(10);
+  const [barsToRender, setBarsToRender] = useState([]);
 
   const calcWidthPercentage = (quantity) => {
     return 100 / quantity;
@@ -55,6 +56,10 @@ const VisualizerHero = ({ name }) => {
     return bars;
   };
 
+  useEffect(() => {
+    setBarsToRender(shuffleBars(createBarArray(numBars)));
+  }, [numBars]);
+
   return (
     <main className={styles["main"]}>
       <div className={styles["content-container"]}>
@@ -63,12 +68,10 @@ const VisualizerHero = ({ name }) => {
           numBars={numBars}
           setNumBars={setNumBars}
           shuffleBars={shuffleBars}
-        />
-        <VisualizerBars
-          numBars={numBars}
+          setBarsToRender={setBarsToRender}
           createBarArray={createBarArray}
-          shuffleBars={shuffleBars}
         />
+        <VisualizerBars barsToRender={barsToRender} />
       </div>
       <HeroImage />
     </main>
