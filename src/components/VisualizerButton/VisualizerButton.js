@@ -3,29 +3,48 @@ import { HiPlay } from "react-icons/hi2";
 import { IoStop } from "react-icons/io5";
 import { FiShuffle } from "react-icons/fi";
 
-const VisualizerButton = ({ type }) => {
-  let iconToRender;
+const VisualizerButton = ({ type, shuffleBars }) => {
+  let buttonToRender;
   switch (type) {
     case "shuffle":
-      iconToRender = <FiShuffle className={styles["btn-icon"]} />;
+      buttonToRender = (
+        <button
+          className={styles["btn"]}
+          onClick={(e) => {
+            return console.log(shuffleBars);
+          }}
+        >
+          <FiShuffle className={styles["btn-icon"]} />
+        </button>
+      );
+
       break;
     case "play":
-      iconToRender = <HiPlay className={styles["btn-icon"]} />;
+      buttonToRender = (
+        <button
+          className={styles["btn"]}
+          onClick={(e) => {
+            return console.log(e);
+          }}
+        >
+          <HiPlay className={styles["btn-icon"]} />
+        </button>
+      );
       break;
     case "stop":
-      iconToRender = <IoStop className={styles["btn-icon"]} />;
+      buttonToRender = (
+        <button
+          className={styles["btn"]}
+          onClick={(e) => {
+            return console.log(e);
+          }}
+        >
+          <IoStop className={styles["btn-icon"]} />
+        </button>
+      );
       break;
   }
-  return (
-    <button
-      className={styles["btn"]}
-      onClick={(e) => {
-        return console.log(e);
-      }}
-    >
-      {iconToRender}
-    </button>
-  );
+  return <>{buttonToRender}</>;
 };
 
 export default VisualizerButton;

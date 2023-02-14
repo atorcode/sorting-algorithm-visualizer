@@ -8,13 +8,67 @@ import { useState } from "react";
 const VisualizerHero = ({ name }) => {
   const [numBars, setNumBars] = useState(10);
 
-  const propsToPass = { numBars, setNumBars };
+  const calcWidthPercentage = (quantity) => {
+    return 100 / quantity;
+  };
+
+  const calcHeightPercentage = (quantity, multiplier) => {
+    return (100 / quantity) * multiplier;
+  };
+
+  const calcLeftPosPercentage = (quantity, multiplier) => {
+    return (
+      calcWidthPercentage(quantity) * multiplier - calcWidthPercentage(quantity)
+    );
+  };
+
+  const createBarArray = (quantity) => {
+    let bars = [];
+    const width = calcWidthPercentage(quantity);
+    for (let i = 0; i < quantity; i++) {
+      const height = calcHeightPercentage(quantity, i + 1);
+      const left = calcLeftPosPercentage(quantity, i + 1);
+      bars.push({ correctPos: i, height: height, width: width, left: left });
+    }
+    return bars;
+  };
+
+  const shuffleBars = (bars) => {
+    let currentIndex = bars.length - 1;
+
+    while (currentIndex > 0) {
+      // randomIndex will always be different from currentIndex, so each bar will always shuffle
+      const randomIndex = Math.floor(Math.random() * currentIndex);
+
+      const temp = bars[currentIndex];
+      bars[currentIndex] = bars[randomIndex];
+      bars[randomIndex] = temp;
+
+      currentIndex--;
+    }
+
+    // responsible for physically rearranging bars
+    for (let i = 0; i < bars.length; i++) {
+      bars[i].left = calcLeftPosPercentage(bars.length, i + 1);
+    }
+
+    return bars;
+  };
+
   return (
     <main className={styles["main"]}>
       <div className={styles["content-container"]}>
         <VisualizerHeroHeading name={name} />
-        <VisualizerControls {...propsToPass} />
-        <VisualizerBars numBars={numBars} />
+        <VisualizerControls
+          numBars={numBars}
+          setNumBars={setNumBars}
+          shuffleBars={shuffleBars}
+        />
+        <VisualizerBars
+          numBars={numBars}
+          createBarArray={createBarArray}
+          shuffleBars={shuffleBars}
+        />
       </div>
       <HeroImage />
     </main>
