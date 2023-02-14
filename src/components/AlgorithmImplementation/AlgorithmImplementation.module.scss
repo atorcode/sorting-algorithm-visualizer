@@ -19,6 +19,17 @@
   }
 }
 
+.implementation {
+  opacity: 0;
+  transition: all 1000ms ease;
+  margin-left: -200px;
+}
+
+.transition-active {
+  opacity: 1;
+  margin-left: 0;
+}
+
 @media (max-width: v.$viewport-size-medium) {
   .implementation-section {
     font-size: 0.84rem;

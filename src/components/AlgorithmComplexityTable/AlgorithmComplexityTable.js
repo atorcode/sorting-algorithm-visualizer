@@ -17,6 +17,7 @@ const AlgorithmComplexityTable = ({ complexity }) => {
     return { __html: complexity.space };
   };
 
+  // Declared twice here and in AlgorithmImplementation so style is properly scoped to scss module
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -35,7 +36,7 @@ const AlgorithmComplexityTable = ({ complexity }) => {
   return (
     <section className={styles["table-section"]}>
       <h2>COMPLEXITY</h2>
-      <table className={styles["table"]} ref={complexityTableEl}>
+      <table ref={complexityTableEl} className={styles["table"]}>
         <tbody>
           <tr>
             <th>Time (Average Case)</th>
