@@ -6,7 +6,10 @@ import { useTransitionContext } from "../../contexts/TransitionContext";
 
 const ExpandedNavBarAlgorithmType = ({ name }) => {
   const { setNavIsExpanded } = useExpandedNavBarContext();
-  const { setTransitionActive } = useTransitionContext();
+  const {
+    setComplexityTableTransitionActive,
+    setImplementationTransitionActive,
+  } = useTransitionContext();
 
   return (
     <>
@@ -17,7 +20,8 @@ const ExpandedNavBarAlgorithmType = ({ name }) => {
           onClick={() => {
             window.scrollTo(0, 0);
             setNavIsExpanded(false);
-            setTransitionActive(false);
+            setComplexityTableTransitionActive(false);
+            setImplementationTransitionActive(false);
           }}
         >
           <p>{applyInitialCase(name)}</p>

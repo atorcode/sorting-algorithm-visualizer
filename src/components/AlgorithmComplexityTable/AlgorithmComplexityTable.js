@@ -4,7 +4,10 @@ import { useTransitionContext } from "../../contexts/TransitionContext";
 
 const AlgorithmComplexityTable = ({ complexity }) => {
   const complexityTableEl = useRef(null);
-  const { transitionActive, setTransitionActive } = useTransitionContext();
+  const {
+    complexityTableTransitionActive,
+    setComplexityTableTransitionActive,
+  } = useTransitionContext();
 
   const createMarkupTimeAvg = () => {
     return { __html: complexity.timeAvg };
@@ -24,7 +27,7 @@ const AlgorithmComplexityTable = ({ complexity }) => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setTransitionActive(true);
+          setComplexityTableTransitionActive(true);
         }
       });
     },
@@ -33,12 +36,12 @@ const AlgorithmComplexityTable = ({ complexity }) => {
 
   useEffect(() => {
     observer.observe(complexityTableEl.current);
-    if (transitionActive) {
+    if (complexityTableTransitionActive) {
       complexityTableEl.current.classList.add(styles["transition-active"]);
     } else {
       complexityTableEl.current.classList.remove(styles["transition-active"]);
     }
-  }, [transitionActive]);
+  }, [complexityTableTransitionActive]);
 
   return (
     <section className={styles["table-section"]}>

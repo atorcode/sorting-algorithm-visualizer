@@ -3,13 +3,18 @@ import React, { useContext, useState } from "react";
 const TransitionContext = React.createContext();
 
 const TransitionProvider = ({ children }) => {
-  const [transitionActive, setTransitionActive] = useState(false);
+  const [complexityTableTransitionActive, setComplexityTableTransitionActive] =
+    useState(false);
+  const [implementationTransitionActive, setImplementationTransitionActive] =
+    useState(false);
 
   return (
     <TransitionContext.Provider
       value={{
-        transitionActive,
-        setTransitionActive,
+        complexityTableTransitionActive,
+        setComplexityTableTransitionActive,
+        implementationTransitionActive,
+        setImplementationTransitionActive,
       }}
     >
       {children}

@@ -4,7 +4,8 @@ import { useTransitionContext } from "../../contexts/TransitionContext";
 
 const AlgorithmImplementation = ({ implementation }) => {
   const implementationEl = useRef(null);
-  const { transitionActive, setTransitionActive } = useTransitionContext();
+  const { implementationTransitionActive, setImplementationTransitionActive } =
+    useTransitionContext();
 
   const createMarkup = () => {
     return { __html: implementation };
@@ -14,7 +15,7 @@ const AlgorithmImplementation = ({ implementation }) => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setTransitionActive(true);
+          setImplementationTransitionActive(true);
         }
       });
     },
@@ -22,13 +23,13 @@ const AlgorithmImplementation = ({ implementation }) => {
   );
 
   useEffect(() => {
-    if (transitionActive) {
+    if (implementationTransitionActive) {
       implementationEl.current.classList.add(styles["transition-active"]);
     } else {
       implementationEl.current.classList.remove(styles["transition-active"]);
     }
     observer.observe(implementationEl.current);
-  }, [transitionActive]);
+  }, [implementationTransitionActive]);
 
   return (
     <section className={styles["implementation-section"]}>
