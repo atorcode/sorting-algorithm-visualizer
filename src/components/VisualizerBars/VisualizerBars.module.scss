@@ -1,13 +1,13 @@
 @use "../../variables" as v;
 
 .bars {
-  display: flex;
+  // display: flex;
   position: absolute;
   bottom: 0;
   height: 70%;
   width: 100%;
-  justify-content: center;
-  align-items: end;
+  // justify-content: center;
+  // align-items: end;
 }
 
 @media (max-width: 1350px) {

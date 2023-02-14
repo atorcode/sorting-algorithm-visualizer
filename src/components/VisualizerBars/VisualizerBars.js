@@ -11,12 +11,19 @@ const VisualizerBars = ({ numBars }) => {
     return (100 / quantity) * multiplier;
   };
 
+  const calcLeftPosPercentage = (quantity, multiplier) => {
+    return (
+      calcWidthPercentage(quantity) * multiplier - calcWidthPercentage(quantity)
+    );
+  };
+
   const createBarArray = (quantity) => {
     let bars = [];
     const width = calcWidthPercentage(quantity);
     for (let i = 0; i < quantity; i++) {
       const height = calcHeightPercentage(quantity, i + 1);
-      bars.push({ height: height, width: width });
+      const left = calcLeftPosPercentage(quantity, i + 1);
+      bars.push({ height: height, width: width, left: left });
     }
     return bars;
   };
