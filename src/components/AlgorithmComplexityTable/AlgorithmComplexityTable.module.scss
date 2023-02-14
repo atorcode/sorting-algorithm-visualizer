@@ -5,6 +5,10 @@
   border-collapse: collapse;
   border-style: hidden;
 
+  opacity: 0;
+  transform: rotateY(-91deg);
+  transition: transform 1000ms ease, opacity 1000ms ease-out;
+
   tr {
     border: 2px solid v.$highlight-color;
   }
@@ -14,6 +18,11 @@
     padding: 0.5rem;
     font-weight: 500;
   }
+}
+
+.transition-active {
+  opacity: 1;
+  transform: rotateY(0);
 }
 
 @media (max-width: v.$viewport-size-medium) {

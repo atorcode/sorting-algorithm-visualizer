@@ -1,6 +1,9 @@
 import styles from "./AlgorithmComplexityTable.module.scss";
+import { useEffect, useRef } from "react";
 
 const AlgorithmComplexityTable = ({ complexity }) => {
+  const complexityTableEl = useRef(null);
+
   const createMarkupTimeAvg = () => {
     return { __html: complexity.timeAvg };
   };
@@ -14,10 +17,25 @@ const AlgorithmComplexityTable = ({ complexity }) => {
     return { __html: complexity.space };
   };
 
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles["transition-active"]);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  useEffect(() => {
+    observer.observe(complexityTableEl.current);
+  }, []);
+
   return (
     <section className={styles["table-section"]}>
       <h2>COMPLEXITY</h2>
-      <table className={styles["table"]}>
+      <table className={styles["table"]} ref={complexityTableEl}>
         <tbody>
           <tr>
             <th>Time (Average Case)</th>

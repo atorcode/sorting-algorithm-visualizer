@@ -35,25 +35,26 @@ const VisualizerHero = ({ name }) => {
   };
 
   const shuffleBars = (bars) => {
-    let currentIndex = bars.length - 1;
+    const shuffledBars = bars;
+    let currentIndex = shuffledBars.length - 1;
 
     while (currentIndex > 0) {
       // randomIndex will always be different from currentIndex, so each bar will always shuffle
       const randomIndex = Math.floor(Math.random() * currentIndex);
 
-      const temp = bars[currentIndex];
-      bars[currentIndex] = bars[randomIndex];
-      bars[randomIndex] = temp;
+      const temp = shuffledBars[currentIndex];
+      shuffledBars[currentIndex] = shuffledBars[randomIndex];
+      shuffledBars[randomIndex] = temp;
 
       currentIndex--;
     }
 
     // responsible for physically rearranging bars
     for (let i = 0; i < bars.length; i++) {
-      bars[i].left = calcLeftPosPercentage(bars.length, i + 1);
+      shuffledBars[i].left = calcLeftPosPercentage(bars.length, i + 1);
     }
 
-    return bars;
+    return shuffledBars;
   };
 
   useEffect(() => {

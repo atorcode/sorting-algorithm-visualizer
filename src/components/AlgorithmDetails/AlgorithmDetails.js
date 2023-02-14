@@ -5,6 +5,7 @@ import AlgorithmImplementation from "../AlgorithmImplementation";
 
 const AlgorithmDetails = (algorithm) => {
   const { description, complexity, implementation } = algorithm;
+
   return (
     <section className={styles["details-section"]}>
       <AlgorithmDescription description={description} />

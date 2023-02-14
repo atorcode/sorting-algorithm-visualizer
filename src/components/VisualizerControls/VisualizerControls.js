@@ -6,6 +6,7 @@ const VisualizerControls = ({
   numBars,
   setNumBars,
   shuffleBars,
+
   setBarsToRender,
   createBarArray,
 }) => {

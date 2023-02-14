@@ -16,7 +16,8 @@ const VisualizerButton = ({
       buttonToRender = (
         <button
           className={styles["btn"]}
-          onClick={(e) => {
+          onClick={() => {
+            // create new array instead of modifying old because React
             setBarsToRender(shuffleBars(createBarArray(numBars)));
           }}
         >

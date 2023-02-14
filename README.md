@@ -15,8 +15,9 @@ Sorting Algorithm Visualizer provides visualizations of common sorting algorithm
 React<br />
 React Hooks<br />
 React Router<br />
-SCSS<br />
-SCSS Modules<br />
+SASS<br />
+SASS Modules<br />
+Intersection Observer API<br />
 
 ## License
 
