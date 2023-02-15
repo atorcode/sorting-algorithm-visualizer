@@ -4,10 +4,11 @@ import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
 
 const ExpandedNavBarButton = ({ text }) => {
   const buttonEl = useRef(null);
-  const { navIsExpanded, setNavIsExpanded } = useExpandedNavBarContext();
+  const { setNavIsExpanded } = useExpandedNavBarContext();
+
   const toggleExpandedNavBar = (e) => {
     if (buttonEl.current && buttonEl.current.contains(e.target)) {
-      setNavIsExpanded(!navIsExpanded);
+      setNavIsExpanded((prev) => !prev);
     }
   };
 
