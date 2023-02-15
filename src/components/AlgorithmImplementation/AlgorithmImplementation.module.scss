@@ -7,11 +7,12 @@
   pre {
     padding: 2rem 2rem 2.5rem 2rem;
     min-height: 500px;
-    min-width: 650px;
+    min-width: 48%;
     width: fit-content;
     margin-top: 0.5rem;
     border: 2px solid v.$highlight-color;
     border-radius: 12px;
+    white-space: pre-wrap;
 
     span {
       display: flex;
@@ -33,5 +34,13 @@
 @media (max-width: v.$viewport-size-medium) {
   .implementation-section {
     font-size: 0.84rem;
+  }
+}
+
+@media (max-width: v.$viewport-size-very-small) {
+  .implementation-section {
+    pre {
+      padding: 2rem 1rem 2.5rem 1rem;
+    }
   }
 }
