@@ -21,6 +21,17 @@
   }
 }
 
+.btn-disabled {
+  user-select: none;
+  color: rgb(96, 96, 96);
+
+  &:hover {
+    background-color: v.$background-color-lighter;
+    font-size: 3rem;
+    cursor: auto;
+  }
+}
+
 @media (max-width: v.$viewport-size-small) {
   .btn {
     height: 50px;
