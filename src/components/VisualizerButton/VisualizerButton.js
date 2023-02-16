@@ -10,23 +10,28 @@ const VisualizerButton = ({
   setBarsToRender,
   createBarArray,
   numBars,
-  shuffleIsDisabled,
-  setShuffleIsDisabled,
+  isShuffling,
+  setIsShuffling,
+  isPlaying,
+  setIsPlaying,
 }) => {
   const shuffleButtonEl = useRef(null);
+  const playButtonEl = useRef(null);
 
   // This useEffect runs on every VisualizerButton, not just the Shuffle Button as a result of the way the component structure is organized.
   useEffect(() => {
-    if (shuffleIsDisabled && shuffleButtonEl && shuffleButtonEl.current) {
+    if (
+      (isShuffling && shuffleButtonEl && shuffleButtonEl.current) ||
+      (isPlaying && shuffleButtonEl && shuffleButtonEl.current)
+    ) {
       shuffleButtonEl.current.classList.add(styles["btn-disabled"]);
     } else if (
-      !shuffleIsDisabled &&
-      shuffleButtonEl &&
-      shuffleButtonEl.current
+      (!isShuffling && shuffleButtonEl && shuffleButtonEl.current) ||
+      (!isShuffling && shuffleButtonEl && shuffleButtonEl.current)
     ) {
       shuffleButtonEl.current.classList.remove(styles["btn-disabled"]);
     }
-  }, [shuffleIsDisabled]);
+  }, [isShuffling, isPlaying]);
 
   let buttonToRender;
   switch (type) {
@@ -34,11 +39,13 @@ const VisualizerButton = ({
       buttonToRender = (
         <button
           ref={shuffleButtonEl}
-          disabled={shuffleIsDisabled}
+          disabled={isShuffling || isPlaying}
           className={styles["btn"]}
           onClick={() => {
             // create new array instead of modifying old because React
             setBarsToRender(shuffleBars(createBarArray(numBars)));
+            setIsShuffling(true);
+            setIsPlaying(true);
           }}
         >
           <FiShuffle className={styles["btn-icon"]} />
@@ -49,24 +56,17 @@ const VisualizerButton = ({
     case "play":
       buttonToRender = (
         <button
+          ref={playButtonEl}
           className={styles["btn"]}
           onClick={(e) => {
-            setShuffleIsDisabled((prev) => !prev);
+            setIsPlaying((prev) => !prev);
           }}
         >
-          <HiPlay className={styles["btn-icon"]} />
-        </button>
-      );
-      break;
-    case "stop":
-      buttonToRender = (
-        <button
-          className={styles["btn"]}
-          onClick={(e) => {
-            return console.log(e);
-          }}
-        >
-          <IoStop className={styles["btn-icon"]} />
+          {isPlaying ? (
+            <IoStop className={styles["btn-icon"]} />
+          ) : (
+            <HiPlay className={styles["btn-icon"]} />
+          )}
         </button>
       );
       break;

@@ -10,7 +10,8 @@ const VisualizerControls = ({
   setBarsToRender,
   createBarArray,
 }) => {
-  const [shuffleIsDisabled, setShuffleIsDisabled] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <section className={styles["controls"]}>
@@ -20,13 +21,17 @@ const VisualizerControls = ({
         setBarsToRender={setBarsToRender}
         createBarArray={createBarArray}
         numBars={numBars}
-        shuffleIsDisabled={shuffleIsDisabled}
-        setShuffleIsDisabled={setShuffleIsDisabled}
+        isShuffling={isShuffling}
+        setIsShuffling={setIsShuffling}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
       />
       <VisualizerButton
         type={"play"}
-        shuffleIsDisabled={shuffleIsDisabled}
-        setShuffleIsDisabled={setShuffleIsDisabled}
+        isShuffling={isShuffling}
+        setIsShuffling={setIsShuffling}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
       />
       <VisualizerSlider numBars={numBars} setNumBars={setNumBars} />
     </section>
