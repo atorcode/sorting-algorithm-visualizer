@@ -4,24 +4,15 @@ import VisualizerHeroHeading from "../VisualizerHeroHeading";
 import VisualizerControls from "../VisualizerControls";
 import VisualizerBars from "../VisualizerBars";
 import { useEffect, useState } from "react";
+import {
+  calcWidthPercentage,
+  calcHeightPercentage,
+  calcLeftPosPercentage,
+} from "../../utils/utils";
 
 const VisualizerHero = ({ name }) => {
-  const [numBars, setNumBars] = useState(10);
+  const [numBars, setNumBars] = useState(100);
   const [barsToRender, setBarsToRender] = useState([]);
-
-  const calcWidthPercentage = (quantity) => {
-    return 100 / quantity;
-  };
-
-  const calcHeightPercentage = (quantity, multiplier) => {
-    return (100 / quantity) * multiplier;
-  };
-
-  const calcLeftPosPercentage = (quantity, multiplier) => {
-    return (
-      calcWidthPercentage(quantity) * multiplier - calcWidthPercentage(quantity)
-    );
-  };
 
   const createBarArray = (quantity) => {
     let bars = [];
@@ -46,12 +37,17 @@ const VisualizerHero = ({ name }) => {
       shuffledBars[currentIndex] = shuffledBars[randomIndex];
       shuffledBars[randomIndex] = temp;
 
-      currentIndex--;
-    }
+      // responsible for physically rearranging bars
+      shuffledBars[currentIndex].left = calcLeftPosPercentage(
+        bars.length,
+        currentIndex + 1
+      );
+      shuffledBars[randomIndex].left = calcLeftPosPercentage(
+        bars.length,
+        randomIndex + 1
+      );
 
-    // responsible for physically rearranging bars
-    for (let i = 0; i < bars.length; i++) {
-      shuffledBars[i].left = calcLeftPosPercentage(bars.length, i + 1);
+      currentIndex--;
     }
 
     return shuffledBars;

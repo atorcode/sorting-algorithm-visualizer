@@ -23,3 +23,17 @@ export const applyInitialCase = (str) => {
 
   return result;
 };
+
+export const calcWidthPercentage = (quantity) => {
+  return 100 / quantity;
+};
+
+export const calcHeightPercentage = (quantity, multiplier) => {
+  return (100 / quantity) * multiplier;
+};
+
+export const calcLeftPosPercentage = (quantity, multiplier) => {
+  return (
+    calcWidthPercentage(quantity) * multiplier - calcWidthPercentage(quantity)
+  );
+};
