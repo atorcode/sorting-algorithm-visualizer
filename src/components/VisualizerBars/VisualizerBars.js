@@ -5,8 +5,8 @@ const VisualizerBars = ({ barsToRender }) => {
   return (
     <section className={styles["bars"]}>
       {barsToRender &&
-        barsToRender.map((bar, index) => {
-          return <VisualizerBar key={index} {...bar} />;
+        barsToRender.map((bar) => {
+          return <VisualizerBar key={bar.correctPos} {...bar} />;
         })}
     </section>
   );
