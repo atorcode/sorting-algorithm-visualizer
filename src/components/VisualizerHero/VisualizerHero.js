@@ -16,7 +16,7 @@ const VisualizerHero = ({ name }) => {
   const [isShuffling, setIsShuffling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Modifies original array
+  // Modifies original array (this implementation with bar object parameters seems to perform better than passing in indices)
   const swapBarsMutable = (bar1, bar2) => {
     const tempLeft = bar1.left;
     bar1.left = bar2.left;
@@ -28,26 +28,16 @@ const VisualizerHero = ({ name }) => {
   };
 
   // Does not modify original array
-  const swapBarsImmutable = (bars, bar1, bar2) => {
-    if (!bars || !bar1 || !bar2) {
-      return;
-    }
-
-    const _bars = [];
-
-    for (let i = 0; i < bars.length; i++) {
-      if (bars[i].correctPos === bar1.correctPos) {
-        _bars.push(bar2);
-        _bars[i].left = bar2.left;
-      } else if (bars[i].correctPos === bar2.correctPos) {
-        _bars.push(bar1);
-        _bars[i].left = bar1.left;
+  const swapBarsImmutable = (bars, idx1, idx2) => {
+    return bars.map((bar, i, arr) => {
+      if (i === idx1) {
+        return { ...arr[idx2], left: arr[idx1].left };
+      } else if (i === idx2) {
+        return { ...arr[idx1], left: arr[idx2].left };
       } else {
-        _bars.push(bars[i]);
+        return bar;
       }
-    }
-
-    return _bars;
+    });
   };
 
   const initBars = (bars) => {
@@ -56,6 +46,7 @@ const VisualizerHero = ({ name }) => {
       // randomIndex is always different from currentIndex, so each bar will always shuffle
       const randomIndex = Math.floor(Math.random() * currentIndex);
       swapBarsMutable(bars[currentIndex], bars[randomIndex]);
+
       currentIndex--;
     }
     setBarsToRender(bars);
@@ -69,36 +60,29 @@ const VisualizerHero = ({ name }) => {
       const left = calcLeftPosPercentage(quantity, i + 1);
       bars.push({ correctPos: i, height: height, width: width, left: left });
     }
-    setBarsToRender(bars);
-    return bars;
-    // return initBars(bars);
+    return initBars(bars);
   };
 
   const shuffleBars = (bars) => {
-    let currentIndex = bars.length - 1;
-    while (currentIndex > 0) {
-      const randomIndex = Math.floor(Math.random() * currentIndex);
+    for (let currentIndex = bars.length - 1; currentIndex > 0; currentIndex--) {
       setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * currentIndex);
+
         setBarsToRender((prev) => {
           const updatedBars = swapBarsImmutable(
             prev,
-            prev[currentIndex],
-            prev[randomIndex]
+            currentIndex,
+            randomIndex
           );
           return updatedBars;
         });
-      }, 50 * (bars.length - currentIndex));
-      currentIndex--;
+      }, 20 * (bars.length - currentIndex));
     }
   };
 
   useEffect(() => {
     createBarArray(numBars);
   }, [numBars]);
-
-  useEffect(() => {
-    console.log(barsToRender);
-  }, [barsToRender]);
 
   return (
     <main className={styles["main"]}>

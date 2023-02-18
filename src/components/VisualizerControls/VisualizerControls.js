@@ -1,7 +1,6 @@
 import styles from "./VisualizerControls.module.scss";
 import VisualizerButton from "../VisualizerButton";
 import VisualizerSlider from "../VisualizerSlider";
-import { useState } from "react";
 
 const VisualizerControls = ({
   numBars,
