@@ -13,6 +13,32 @@ import {
 const VisualizerHero = ({ name }) => {
   const [numBars, setNumBars] = useState(100);
   const [barsToRender, setBarsToRender] = useState([]);
+  const [isShuffling, setIsShuffling] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const swapBars = (bar1, bar2) => {
+    if (!bar1 || !bar2) {
+      return;
+    }
+    const tempLeft = bar1.left;
+    bar1.left = bar2.left;
+    bar2.left = tempLeft;
+
+    const temp = bar1;
+    bar1 = bar2;
+    bar2 = temp;
+  };
+
+  const initBars = (bars) => {
+    let currentIndex = bars.length - 1;
+    while (currentIndex > 0) {
+      // randomIndex will always be different from currentIndex, so each bar will always shuffle
+      const randomIndex = Math.floor(Math.random() * currentIndex);
+      swapBars(bars[currentIndex], bars[randomIndex]);
+      currentIndex--;
+    }
+    setBarsToRender(bars);
+  };
 
   const createBarArray = (quantity) => {
     let bars = [];
@@ -22,7 +48,7 @@ const VisualizerHero = ({ name }) => {
       const left = calcLeftPosPercentage(quantity, i + 1);
       bars.push({ correctPos: i, height: height, width: width, left: left });
     }
-    return bars;
+    return initBars(bars);
   };
 
   const shuffleBars = (bars) => {
@@ -30,31 +56,17 @@ const VisualizerHero = ({ name }) => {
     let currentIndex = shuffledBars.length - 1;
 
     while (currentIndex > 0) {
-      // randomIndex will always be different from currentIndex, so each bar will always shuffle
       const randomIndex = Math.floor(Math.random() * currentIndex);
-
-      const temp = shuffledBars[currentIndex];
-      shuffledBars[currentIndex] = shuffledBars[randomIndex];
-      shuffledBars[randomIndex] = temp;
-
-      // responsible for physically rearranging bars
-      shuffledBars[currentIndex].left = calcLeftPosPercentage(
-        bars.length,
-        currentIndex + 1
-      );
-      shuffledBars[randomIndex].left = calcLeftPosPercentage(
-        bars.length,
-        randomIndex + 1
-      );
-
+      setTimeout(() => {
+        swapBars(shuffledBars[currentIndex], shuffledBars[randomIndex]);
+        setBarsToRender(bars);
+      }, 50 * (bars.length - currentIndex));
       currentIndex--;
     }
-
-    return shuffledBars;
   };
 
   useEffect(() => {
-    setBarsToRender(shuffleBars(createBarArray(numBars)));
+    createBarArray(numBars);
   }, [numBars]);
 
   return (
@@ -64,9 +76,14 @@ const VisualizerHero = ({ name }) => {
         <VisualizerControls
           numBars={numBars}
           setNumBars={setNumBars}
-          shuffleBars={shuffleBars}
-          setBarsToRender={setBarsToRender}
           createBarArray={createBarArray}
+          shuffleBars={shuffleBars}
+          barsToRender={barsToRender}
+          setBarsToRender={setBarsToRender}
+          isShuffling={isShuffling}
+          setIsShuffling={setIsShuffling}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
         />
         <VisualizerBars barsToRender={barsToRender} />
       </div>

@@ -6,18 +6,21 @@ import { useState } from "react";
 const VisualizerControls = ({
   numBars,
   setNumBars,
-  shuffleBars,
-  setBarsToRender,
   createBarArray,
+  shuffleBars,
+  barsToRender,
+  setBarsToRender,
+  isPlaying,
+  setIsPlaying,
+  isShuffling,
+  setIsShuffling,
 }) => {
-  const [isShuffling, setIsShuffling] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-
   return (
     <section className={styles["controls"]}>
       <VisualizerButton
         type={"shuffle"}
         shuffleBars={shuffleBars}
+        barsToRender={barsToRender}
         setBarsToRender={setBarsToRender}
         createBarArray={createBarArray}
         numBars={numBars}

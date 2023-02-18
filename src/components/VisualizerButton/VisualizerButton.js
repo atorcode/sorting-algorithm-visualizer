@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 const VisualizerButton = ({
   type,
   shuffleBars,
+  barsToRender,
   setBarsToRender,
   createBarArray,
   numBars,
@@ -39,13 +40,20 @@ const VisualizerButton = ({
       buttonToRender = (
         <button
           ref={shuffleButtonEl}
-          disabled={isShuffling || isPlaying}
+          // disabled={isShuffling || isPlaying}
           className={styles["btn"]}
           onClick={() => {
             // create new array instead of modifying old because React
-            setBarsToRender(shuffleBars(createBarArray(numBars)));
-            setIsShuffling(true);
-            setIsPlaying(true);
+            // setBarsToRender(shuffleBars(createBarArray(numBars)));
+            // const bars = createBarArray(numBars);
+            // console.log(barsToRender);
+            shuffleBars(barsToRender);
+            // setBarsToRender(shuffleBars(barsToRender));
+            // shuffleBars([{a:1}, {b:2}, {c:3}]);
+
+            // shuffleBars(createBarArray(numBars));
+            // setIsShuffling(true);
+            // setIsPlaying(true);
           }}
         >
           <FiShuffle className={styles["btn-icon"]} />
