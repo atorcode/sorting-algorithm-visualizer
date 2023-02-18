@@ -64,6 +64,8 @@ const VisualizerHero = ({ name }) => {
   };
 
   const shuffleBars = (bars) => {
+    setIsShuffling(true);
+    setIsPlaying(true);
     for (let currentIndex = bars.length - 1; currentIndex > 0; currentIndex--) {
       setTimeout(() => {
         const randomIndex = Math.floor(Math.random() * currentIndex);
@@ -76,6 +78,10 @@ const VisualizerHero = ({ name }) => {
           );
           return updatedBars;
         });
+        if (currentIndex === 1) {
+          setIsShuffling(false);
+          setIsPlaying(false);
+        }
       }, 20 * (bars.length - currentIndex));
     }
   };
