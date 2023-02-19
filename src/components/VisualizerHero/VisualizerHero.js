@@ -3,7 +3,7 @@ import HeroImage from "../HeroImage";
 import VisualizerHeroHeading from "../VisualizerHeroHeading";
 import VisualizerControls from "../VisualizerControls";
 import VisualizerBars from "../VisualizerBars";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   calcWidthPercentage,
   calcHeightPercentage,
@@ -15,6 +15,8 @@ const VisualizerHero = ({ name }) => {
   const [barsToRender, setBarsToRender] = useState([]);
   const [isShuffling, setIsShuffling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const timers = useRef([]);
 
   // Modifies original array (this implementation with bar object parameters seems to perform better than passing in indices)
   const swapBarsMutable = (bar1, bar2) => {
@@ -67,22 +69,23 @@ const VisualizerHero = ({ name }) => {
     setIsShuffling(true);
     setIsPlaying(true);
     for (let currentIndex = bars.length - 1; currentIndex > 0; currentIndex--) {
-      setTimeout(() => {
-        const randomIndex = Math.floor(Math.random() * currentIndex);
-
-        setBarsToRender((prev) => {
-          const updatedBars = swapBarsImmutable(
-            prev,
-            currentIndex,
-            randomIndex
-          );
-          return updatedBars;
-        });
-        if (currentIndex === 1) {
-          setIsShuffling(false);
-          setIsPlaying(false);
-        }
-      }, 20 * (bars.length - currentIndex));
+      timers.current.push(
+        setTimeout(() => {
+          const randomIndex = Math.floor(Math.random() * currentIndex);
+          setBarsToRender((prev) => {
+            const updatedBars = swapBarsImmutable(
+              prev,
+              currentIndex,
+              randomIndex
+            );
+            return updatedBars;
+          });
+          if (currentIndex === 1) {
+            setIsShuffling(false);
+            setIsPlaying(false);
+          }
+        }, 20 * (bars.length - currentIndex))
+      );
     }
   };
 
@@ -105,6 +108,7 @@ const VisualizerHero = ({ name }) => {
           setIsShuffling={setIsShuffling}
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
+          timers={timers.current}
         />
         <VisualizerBars barsToRender={barsToRender} />
       </div>

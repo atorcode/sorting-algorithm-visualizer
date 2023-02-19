@@ -1,6 +1,12 @@
 import styles from "./VisualizerSlider.module.scss";
 
-const VisualizerSlider = ({ numBars, setNumBars }) => {
+const VisualizerSlider = ({
+  numBars,
+  setNumBars,
+  setIsShuffling,
+  setIsPlaying,
+  timers,
+}) => {
   return (
     <section className={styles["slider-section"]}>
       <h3>Elements: {numBars}</h3>
@@ -12,7 +18,13 @@ const VisualizerSlider = ({ numBars, setNumBars }) => {
         step="5"
         className={`${styles["slider"]} ${styles["slider-top"]}`}
         onChange={(e) => {
+          setIsShuffling(false);
+          setIsPlaying(false);
           setNumBars(e.target.value);
+          console.log(timers);
+          timers.forEach((timer) => {
+            clearTimeout(timer);
+          });
         }}
       ></input>
       {/* back slider is only here for overflow: hidden + box-shadow styling of track's lefthand side */}

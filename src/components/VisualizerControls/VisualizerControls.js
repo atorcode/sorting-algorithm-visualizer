@@ -13,6 +13,7 @@ const VisualizerControls = ({
   setIsPlaying,
   isShuffling,
   setIsShuffling,
+  timers,
 }) => {
   return (
     <section className={styles["controls"]}>
@@ -35,7 +36,13 @@ const VisualizerControls = ({
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
       />
-      <VisualizerSlider numBars={numBars} setNumBars={setNumBars} />
+      <VisualizerSlider
+        numBars={numBars}
+        setNumBars={setNumBars}
+        setIsShuffling={setIsShuffling}
+        setIsPlaying={setIsPlaying}
+        timers={timers}
+      />
     </section>
   );
 };
