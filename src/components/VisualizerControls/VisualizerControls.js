@@ -11,8 +11,6 @@ const VisualizerControls = ({
   setBarsToRender,
   isPlaying,
   setIsPlaying,
-  isShuffling,
-  setIsShuffling,
   timers,
 }) => {
   return (
@@ -21,25 +19,18 @@ const VisualizerControls = ({
         type={"shuffle"}
         shuffleBars={shuffleBars}
         barsToRender={barsToRender}
-        setBarsToRender={setBarsToRender}
-        createBarArray={createBarArray}
-        numBars={numBars}
-        isShuffling={isShuffling}
-        setIsShuffling={setIsShuffling}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
       />
       <VisualizerButton
         type={"play"}
-        isShuffling={isShuffling}
-        setIsShuffling={setIsShuffling}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
+        timers={timers}
       />
       <VisualizerSlider
         numBars={numBars}
         setNumBars={setNumBars}
-        setIsShuffling={setIsShuffling}
         setIsPlaying={setIsPlaying}
         timers={timers}
       />

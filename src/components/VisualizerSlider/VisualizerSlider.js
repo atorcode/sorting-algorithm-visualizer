@@ -1,12 +1,6 @@
 import styles from "./VisualizerSlider.module.scss";
 
-const VisualizerSlider = ({
-  numBars,
-  setNumBars,
-  setIsShuffling,
-  setIsPlaying,
-  timers,
-}) => {
+const VisualizerSlider = ({ numBars, setNumBars, setIsPlaying, timers }) => {
   return (
     <section className={styles["slider-section"]}>
       <h3>Elements: {numBars}</h3>
@@ -18,10 +12,8 @@ const VisualizerSlider = ({
         step="5"
         className={`${styles["slider"]} ${styles["slider-top"]}`}
         onChange={(e) => {
-          setIsShuffling(false);
           setIsPlaying(false);
           setNumBars(e.target.value);
-          console.log(timers);
           timers.forEach((timer) => {
             clearTimeout(timer);
           });

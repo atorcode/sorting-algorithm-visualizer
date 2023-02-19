@@ -13,7 +13,6 @@ import {
 const VisualizerHero = ({ name }) => {
   const [numBars, setNumBars] = useState(100);
   const [barsToRender, setBarsToRender] = useState([]);
-  const [isShuffling, setIsShuffling] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const timers = useRef([]);
@@ -66,7 +65,6 @@ const VisualizerHero = ({ name }) => {
   };
 
   const shuffleBars = (bars) => {
-    setIsShuffling(true);
     setIsPlaying(true);
     for (let currentIndex = bars.length - 1; currentIndex > 0; currentIndex--) {
       timers.current.push(
@@ -81,7 +79,6 @@ const VisualizerHero = ({ name }) => {
             return updatedBars;
           });
           if (currentIndex === 1) {
-            setIsShuffling(false);
             setIsPlaying(false);
           }
         }, 20 * (bars.length - currentIndex))
@@ -104,8 +101,6 @@ const VisualizerHero = ({ name }) => {
           shuffleBars={shuffleBars}
           barsToRender={barsToRender}
           setBarsToRender={setBarsToRender}
-          isShuffling={isShuffling}
-          setIsShuffling={setIsShuffling}
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
           timers={timers.current}

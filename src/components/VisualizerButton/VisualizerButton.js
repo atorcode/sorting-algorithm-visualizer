@@ -8,31 +8,21 @@ const VisualizerButton = ({
   type,
   shuffleBars,
   barsToRender,
-  setBarsToRender,
-  createBarArray,
-  numBars,
-  isShuffling,
-  setIsShuffling,
   isPlaying,
   setIsPlaying,
+  timers,
 }) => {
   const shuffleButtonEl = useRef(null);
   const playButtonEl = useRef(null);
 
   // This useEffect runs on every VisualizerButton, not just the Shuffle Button as a result of the way the component structure is organized.
   useEffect(() => {
-    if (
-      (isShuffling && shuffleButtonEl && shuffleButtonEl.current) ||
-      (isPlaying && shuffleButtonEl && shuffleButtonEl.current)
-    ) {
+    if (isPlaying && shuffleButtonEl && shuffleButtonEl.current) {
       shuffleButtonEl.current.classList.add(styles["btn-disabled"]);
-    } else if (
-      (!isShuffling && shuffleButtonEl && shuffleButtonEl.current) ||
-      (!isShuffling && shuffleButtonEl && shuffleButtonEl.current)
-    ) {
+    } else if (!isPlaying && shuffleButtonEl && shuffleButtonEl.current) {
       shuffleButtonEl.current.classList.remove(styles["btn-disabled"]);
     }
-  }, [isShuffling, isPlaying]);
+  }, [isPlaying]);
 
   let buttonToRender;
   switch (type) {
@@ -40,7 +30,7 @@ const VisualizerButton = ({
       buttonToRender = (
         <button
           ref={shuffleButtonEl}
-          disabled={isShuffling || isPlaying}
+          disabled={isPlaying}
           className={styles["btn"]}
           onClick={() => {
             shuffleBars(barsToRender);
@@ -57,6 +47,11 @@ const VisualizerButton = ({
           ref={playButtonEl}
           className={styles["btn"]}
           onClick={(e) => {
+            if (isPlaying) {
+              timers.forEach((timer) => {
+                clearInterval(timer);
+              });
+            }
             setIsPlaying((prev) => !prev);
           }}
         >
