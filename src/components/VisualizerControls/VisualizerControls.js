@@ -5,13 +5,8 @@ import VisualizerSlider from "../VisualizerSlider";
 const VisualizerControls = ({
   numBars,
   setNumBars,
-  createBarArray,
   shuffleBars,
   barsToRender,
-  setBarsToRender,
-  isPlaying,
-  setIsPlaying,
-  timers,
 }) => {
   return (
     <section className={styles["controls"]}>
@@ -19,21 +14,9 @@ const VisualizerControls = ({
         type={"shuffle"}
         shuffleBars={shuffleBars}
         barsToRender={barsToRender}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
       />
-      <VisualizerButton
-        type={"play"}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-        timers={timers}
-      />
-      <VisualizerSlider
-        numBars={numBars}
-        setNumBars={setNumBars}
-        setIsPlaying={setIsPlaying}
-        timers={timers}
-      />
+      <VisualizerButton type={"play"} />
+      <VisualizerSlider numBars={numBars} setNumBars={setNumBars} />
     </section>
   );
 };

@@ -1,6 +1,8 @@
 import styles from "./VisualizerSlider.module.scss";
+import { useAnimationContext } from "../../contexts/AnimationContext";
 
-const VisualizerSlider = ({ numBars, setNumBars, setIsPlaying, timers }) => {
+const VisualizerSlider = ({ numBars, setNumBars }) => {
+  const { setIsPlaying, timers } = useAnimationContext();
   return (
     <section className={styles["slider-section"]}>
       <h3>Elements: {numBars}</h3>
@@ -14,7 +16,7 @@ const VisualizerSlider = ({ numBars, setNumBars, setIsPlaying, timers }) => {
         onChange={(e) => {
           setIsPlaying(false);
           setNumBars(e.target.value);
-          timers.forEach((timer) => {
+          timers.current.forEach((timer) => {
             clearTimeout(timer);
           });
         }}

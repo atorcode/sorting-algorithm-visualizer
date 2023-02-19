@@ -4,6 +4,7 @@ import VisualizerHeroHeading from "../VisualizerHeroHeading";
 import VisualizerControls from "../VisualizerControls";
 import VisualizerBars from "../VisualizerBars";
 import { useEffect, useState, useRef } from "react";
+import { useAnimationContext } from "../../contexts/AnimationContext";
 import {
   calcWidthPercentage,
   calcHeightPercentage,
@@ -13,9 +14,8 @@ import {
 const VisualizerHero = ({ name }) => {
   const [numBars, setNumBars] = useState(100);
   const [barsToRender, setBarsToRender] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  const timers = useRef([]);
+  const { setIsPlaying, timers } = useAnimationContext();
 
   // Modifies original array (this implementation with bar object parameters seems to perform better than passing in indices)
   const swapBarsMutable = (bar1, bar2) => {
@@ -97,13 +97,8 @@ const VisualizerHero = ({ name }) => {
         <VisualizerControls
           numBars={numBars}
           setNumBars={setNumBars}
-          createBarArray={createBarArray}
           shuffleBars={shuffleBars}
           barsToRender={barsToRender}
-          setBarsToRender={setBarsToRender}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          timers={timers.current}
         />
         <VisualizerBars barsToRender={barsToRender} />
       </div>

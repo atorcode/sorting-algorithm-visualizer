@@ -3,6 +3,7 @@ import styles from "./ExpandedNavBarAlgorithmType.module.scss";
 import { useExpandedNavBarContext } from "../../contexts/ExpandedNavBarContext";
 import { formatLink, applyInitialCase } from "../../utils/utils";
 import { useTransitionContext } from "../../contexts/TransitionContext";
+import { useAnimationContext } from "../../contexts/AnimationContext";
 
 const ExpandedNavBarAlgorithmType = ({ name }) => {
   const { setNavIsExpanded } = useExpandedNavBarContext();
@@ -10,6 +11,7 @@ const ExpandedNavBarAlgorithmType = ({ name }) => {
     setComplexityTableTransitionActive,
     setImplementationTransitionActive,
   } = useTransitionContext();
+  const { setIsPlaying, timers } = useAnimationContext();
 
   return (
     <>
@@ -20,6 +22,10 @@ const ExpandedNavBarAlgorithmType = ({ name }) => {
           onClick={() => {
             window.scrollTo(0, 0);
             setNavIsExpanded(false);
+            timers.current.forEach((timer) => {
+              clearTimeout(timer);
+            });
+            setIsPlaying(false);
             setComplexityTableTransitionActive(false);
             setImplementationTransitionActive(false);
           }}

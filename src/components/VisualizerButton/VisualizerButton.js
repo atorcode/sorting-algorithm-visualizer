@@ -3,17 +3,13 @@ import { HiPlay } from "react-icons/hi2";
 import { IoStop } from "react-icons/io5";
 import { FiShuffle } from "react-icons/fi";
 import { useEffect, useRef } from "react";
+import { useAnimationContext } from "../../contexts/AnimationContext";
 
-const VisualizerButton = ({
-  type,
-  shuffleBars,
-  barsToRender,
-  isPlaying,
-  setIsPlaying,
-  timers,
-}) => {
+const VisualizerButton = ({ type, shuffleBars, barsToRender }) => {
   const shuffleButtonEl = useRef(null);
   const playButtonEl = useRef(null);
+
+  const { isPlaying, setIsPlaying, timers } = useAnimationContext();
 
   // This useEffect runs on every VisualizerButton, not just the Shuffle Button as a result of the way the component structure is organized.
   useEffect(() => {
@@ -48,7 +44,7 @@ const VisualizerButton = ({
           className={styles["btn"]}
           onClick={(e) => {
             if (isPlaying) {
-              timers.forEach((timer) => {
+              timers.current.forEach((timer) => {
                 clearInterval(timer);
               });
             }
