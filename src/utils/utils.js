@@ -37,3 +37,8 @@ export const calcLeftPosPercentage = (quantity, multiplier) => {
     calcWidthPercentage(quantity) * multiplier - calcWidthPercentage(quantity)
   );
 };
+
+// calculate the duration of one step given the number of steps and the total number of milliseconds allotted to the animation
+export const calcAnimationStepTime = (steps, total) => {
+  return total / steps;
+};

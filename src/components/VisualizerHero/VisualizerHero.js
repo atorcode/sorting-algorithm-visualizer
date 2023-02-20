@@ -9,6 +9,7 @@ import {
   calcWidthPercentage,
   calcHeightPercentage,
   calcLeftPosPercentage,
+  calcAnimationStepTime,
 } from "../../utils/utils";
 
 const VisualizerHero = ({ name }) => {
@@ -47,7 +48,6 @@ const VisualizerHero = ({ name }) => {
       // randomIndex is always different from currentIndex, so each bar will always shuffle
       const randomIndex = Math.floor(Math.random() * currentIndex);
       swapBarsMutable(bars[currentIndex], bars[randomIndex]);
-
       currentIndex--;
     }
     setBarsToRender(bars);
@@ -82,7 +82,7 @@ const VisualizerHero = ({ name }) => {
           if (currentIndex === 1) {
             setIsPlaying(false);
           }
-        }, 100 * (bars.length - currentIndex))
+        }, calcAnimationStepTime(bars.length, 3000) * (bars.length - currentIndex))
       );
     }
   };

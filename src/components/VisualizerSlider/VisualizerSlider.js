@@ -10,7 +10,7 @@ const VisualizerSlider = ({ numBars, setNumBars }) => {
         type="range"
         value={numBars}
         min="10"
-        max="1000"
+        max="500"
         step="5"
         className={`${styles["slider"]} ${styles["slider-top"]}`}
         onChange={(e) => {
@@ -26,7 +26,7 @@ const VisualizerSlider = ({ numBars, setNumBars }) => {
         type="range"
         value={numBars}
         min="10"
-        max="1000"
+        max="500"
         step="5"
         className={`${styles["slider"]} ${styles["slider-bottom"]}`}
         readOnly
