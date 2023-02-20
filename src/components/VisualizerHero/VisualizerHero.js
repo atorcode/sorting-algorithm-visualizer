@@ -3,7 +3,7 @@ import HeroImage from "../HeroImage";
 import VisualizerHeroHeading from "../VisualizerHeroHeading";
 import VisualizerControls from "../VisualizerControls";
 import VisualizerBars from "../VisualizerBars";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 import {
   calcWidthPercentage,
@@ -15,7 +15,7 @@ const VisualizerHero = ({ name }) => {
   const [numBars, setNumBars] = useState(100);
   const [barsToRender, setBarsToRender] = useState([]);
 
-  const { setIsPlaying, timers } = useAnimationContext();
+  const { setIsPlaying, setHighlightedIndex, timers } = useAnimationContext();
 
   // Modifies original array (this implementation with bar object parameters seems to perform better than passing in indices)
   const swapBarsMutable = (bar1, bar2) => {
@@ -70,6 +70,7 @@ const VisualizerHero = ({ name }) => {
       timers.current.push(
         setTimeout(() => {
           const randomIndex = Math.floor(Math.random() * currentIndex);
+          setHighlightedIndex(randomIndex);
           setBarsToRender((prev) => {
             const updatedBars = swapBarsImmutable(
               prev,
@@ -81,7 +82,7 @@ const VisualizerHero = ({ name }) => {
           if (currentIndex === 1) {
             setIsPlaying(false);
           }
-        }, 20 * (bars.length - currentIndex))
+        }, 100 * (bars.length - currentIndex))
       );
     }
   };

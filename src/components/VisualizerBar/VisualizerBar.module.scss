@@ -7,3 +7,8 @@
   padding-right: 2px;
   background: linear-gradient(v.$text-color, v.$background-color);
 }
+
+.bar-highlighted {
+  background: linear-gradient(v.$highlight-color, v.$background-color);
+  // background: v.$highlight-color;
+}

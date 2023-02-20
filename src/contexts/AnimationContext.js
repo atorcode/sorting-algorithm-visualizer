@@ -4,10 +4,19 @@ const AnimationContext = React.createContext();
 
 const AnimationProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(null);
   const timers = useRef([]);
 
   return (
-    <AnimationContext.Provider value={{ isPlaying, setIsPlaying, timers }}>
+    <AnimationContext.Provider
+      value={{
+        isPlaying,
+        setIsPlaying,
+        highlightedIndex,
+        setHighlightedIndex,
+        timers,
+      }}
+    >
       {children}
     </AnimationContext.Provider>
   );
