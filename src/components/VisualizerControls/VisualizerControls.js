@@ -1,7 +1,7 @@
 import styles from "./VisualizerControls.module.scss";
 import VisualizerButton from "../VisualizerButton";
 import VisualizerSlider from "../VisualizerSlider";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 import {
   calcWidthPercentage,
@@ -13,7 +13,12 @@ import {
 const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const [numBars, setNumBars] = useState(100);
 
-  const { setIsPlaying, setHighlightedIndex, timers } = useAnimationContext();
+  // Used for persisting values across setTimeout invocations
+  // let min = useRef(null);
+  // let minIndex = useRef(null);
+
+  const { isPlaying, setIsPlaying, setHighlightedIndex, timers } =
+    useAnimationContext();
 
   // Does not modify original array
   const swapBarsImmutable = (bars, idx1, idx2) => {
@@ -42,8 +47,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       }
       currentIndex--;
     }
-    console.log(updatedBars);
-    // setBarsToRender(bars);
     setBarsToRender(updatedBars);
   };
 
@@ -82,10 +85,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     }
   };
 
-  useEffect(() => {
-    createBarArray(numBars);
-  }, [numBars]);
-
   // Sorts
 
   // use switches with name parameter probably
@@ -102,42 +101,32 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   };
 
   const selectionSort = (arr) => {
-    // for (let i = 0; i < arr.length - 1; i++) {
-    //   let min = arr[i];
-    //   let minIndex = i;
-    //   for (let j = i + 1; j < arr.length; j++) {
-    //     if (arr[j] < min) {
-    //       min = arr[j];
-    //       minIndex = j;
-    //     }
-    //   }
-    // const temp = arr[i];
-    // arr[i] = min;
-    // arr[minIndex] = temp;
-
-    for (let i = 0; i < arr.length - 1; i++) {
+    // loop until i <= arr.length - 1 instead of i < arr.length - 1 so that there we can conveniently setIsPlaying to false and exit
+    for (let i = 0; i <= arr.length - 1; i++) {
       timers.current.push(
         setTimeout(() => {
-          let min = arr[i];
-          let minIndex = i;
-          for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j].height < min.height) {
-              min = arr[j];
-              minIndex = j;
-            }
-            setHighlightedIndex(minIndex);
-            // setBarsToRender((prev) => {
-            //   const updatedBars = swapBarsImmutable(prev, i, minIndex);
-            //   return updatedBars;
-            // });
+          if (i === arr.length - 1) {
+            setIsPlaying(false);
+            return;
           }
-        }, 500 * i)
+
+          setBarsToRender((prev) => {
+            let min = prev[i];
+            let minIndex = i;
+
+            for (let j = i + 1; j < prev.length; j++) {
+              if (prev[j].correctPos < min.correctPos) {
+                min = prev[j];
+                minIndex = j;
+              }
+            }
+            // setHighlightedIndex(minIndex);
+            const updatedBars = swapBarsImmutable(prev, i, minIndex);
+            return updatedBars;
+          });
+        }, 100 * i)
       );
-      // if (i === arr.length - 2) {
-      //   setIsPlaying(false);
-      // }
     }
-    // return arr;
   };
 
   const insertionSort = () => {
@@ -162,6 +151,16 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       algorithmToPlay = insertionSort;
       break;
   }
+
+  useEffect(() => {
+    createBarArray(numBars);
+  }, [numBars]);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      setHighlightedIndex(null);
+    }
+  }, [isPlaying]);
 
   return (
     <section className={styles["controls"]}>
