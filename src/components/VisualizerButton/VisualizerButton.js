@@ -5,7 +5,12 @@ import { FiShuffle } from "react-icons/fi";
 import { useEffect, useRef } from "react";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 
-const VisualizerButton = ({ type, shuffleBars, barsToRender }) => {
+const VisualizerButton = ({
+  type,
+  shuffleBars,
+  barsToRender,
+  algorithmToPlay,
+}) => {
   const shuffleButtonEl = useRef(null);
   const playButtonEl = useRef(null);
 
@@ -43,6 +48,12 @@ const VisualizerButton = ({ type, shuffleBars, barsToRender }) => {
           ref={playButtonEl}
           className={styles["btn"]}
           onClick={(e) => {
+            // Play button
+            if (!isPlaying) {
+              console.log(algorithmToPlay);
+              algorithmToPlay(barsToRender);
+            }
+            // Stop button
             if (isPlaying) {
               timers.current.forEach((timer) => {
                 clearInterval(timer);
