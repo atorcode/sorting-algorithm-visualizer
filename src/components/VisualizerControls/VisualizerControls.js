@@ -98,7 +98,28 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   };
 
   const bubbleSort = () => {
-    console.log("bubble");
+    for (let i = 0; i < barsToRender.length; i++) {
+      let innerIdx = 0;
+      timers.current.push(
+        setTimeout(() => {
+          if (i === barsToRender.length - 1) {
+            setIsPlaying(false);
+            return;
+          }
+          for (let j = innerIdx; j < barsToRender.length - 1; j++) {
+            setBarsToRender((prev) => {
+              // if (innerIdx === prev.length - i) {
+              //   innerIdx = 0;
+              // }
+              if (prev[j].correctPos > prev[j + 1].correctPos) {
+                return swapBarsImmutable(prev, j, j + 1);
+              }
+              return prev;
+            });
+          }
+        }, 100 * i)
+      );
+    }
   };
 
   const selectionSort = () => {
@@ -121,14 +142,14 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
               }
             }
             highlightedIndex.current = minIndex;
+            console.log(minIndex, highlightedIndex.current);
 
             // setState inside setState here causes warning and unwanted behavior
             // setHighlightedIndex(minIndex);
 
-            const updatedBars = swapBarsImmutable(prev, i, minIndex);
-            return updatedBars;
+            return swapBarsImmutable(prev, i, minIndex);
           });
-        }, 1000 * i)
+        }, 100 * i)
       );
     }
   };
