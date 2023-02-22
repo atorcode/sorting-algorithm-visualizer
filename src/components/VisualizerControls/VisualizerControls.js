@@ -17,7 +17,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   // let min = useRef(null);
   // let minIndex = useRef(null);
 
-  const { isPlaying, setIsPlaying, setHighlightedIndex, timers } =
+  const { isPlaying, setIsPlaying, highlightedIndex, timers } =
     useAnimationContext();
 
   // Does not modify original array
@@ -68,7 +68,8 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       timers.current.push(
         setTimeout(() => {
           const randomIndex = Math.floor(Math.random() * currentIndex);
-          setHighlightedIndex(randomIndex);
+          // setHighlightedIndex(randomIndex);
+          highlightedIndex.current = randomIndex;
           setBarsToRender((prev) => {
             const updatedBars = swapBarsImmutable(
               prev,
@@ -100,16 +101,15 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     console.log("bubble");
   };
 
-  const selectionSort = (arr) => {
-    // loop until i <= arr.length - 1 instead of i < arr.length - 1 so that there we can conveniently setIsPlaying to false and exit
-    for (let i = 0; i <= arr.length - 1; i++) {
+  const selectionSort = () => {
+    // loop until i <= barsToRender.length - 1 instead of i < barsToRender.length - 1 so that there we can conveniently setIsPlaying to false and exit
+    for (let i = 0; i <= barsToRender.length - 1; i++) {
       timers.current.push(
         setTimeout(() => {
-          if (i === arr.length - 1) {
+          if (i === barsToRender.length - 1) {
             setIsPlaying(false);
             return;
           }
-
           setBarsToRender((prev) => {
             let min = prev[i];
             let minIndex = i;
@@ -120,11 +120,15 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
                 minIndex = j;
               }
             }
+            highlightedIndex.current = minIndex;
+
+            // setState inside setState here causes warning and unwanted behavior
             // setHighlightedIndex(minIndex);
+
             const updatedBars = swapBarsImmutable(prev, i, minIndex);
             return updatedBars;
           });
-        }, 100 * i)
+        }, 1000 * i)
       );
     }
   };
@@ -158,7 +162,8 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
   useEffect(() => {
     if (!isPlaying) {
-      setHighlightedIndex(null);
+      highlightedIndex.current = null;
+      // setHighlightedIndex(null);
     }
   }, [isPlaying]);
 

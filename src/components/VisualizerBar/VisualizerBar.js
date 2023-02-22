@@ -1,13 +1,14 @@
 import styles from "./VisualizerBar.module.scss";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 
-const VisualizerBar = ({ height, width, left, correctPos }) => {
+const VisualizerBar = ({ height, width, left, index }) => {
   const { highlightedIndex, isPlaying } = useAnimationContext();
 
+  console.log(index, highlightedIndex.current);
   return (
     <div
       className={
-        isPlaying && correctPos === highlightedIndex
+        isPlaying && index === highlightedIndex.current
           ? `${styles["bar-highlighted"]} ${styles["bar"]}`
           : `${styles["bar"]}`
       }

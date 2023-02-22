@@ -50,7 +50,7 @@ const VisualizerButton = ({
           onClick={(e) => {
             // Play button
             if (!isPlaying) {
-              algorithmToPlay(barsToRender);
+              algorithmToPlay();
             }
             // Stop button
             if (isPlaying) {
