@@ -2,20 +2,21 @@
 
 .heading {
   position: absolute;
-  top: -4%;
+  top: 0;
   left: 4vw;
   font-size: 5.5rem;
   font-weight: 400;
   color: v.$text-color;
-  opacity: 25%;
+  opacity: 0;
   white-space: nowrap;
   user-select: none;
-  transition: all 1000ms ease;
+  transition: none;
 }
 
 .transition-active {
   opacity: 100%;
   top: 8%;
+  transition: all 600ms ease;
 }
 
 @media (max-width: 1550px) {

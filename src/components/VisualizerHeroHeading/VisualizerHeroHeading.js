@@ -16,13 +16,16 @@ const VisualizerHeroHeading = ({ name }) => {
         }
       });
     },
-    { threshold: 0 }
+    { threshold: 0.5 }
   );
 
   useEffect(() => {
-    if (heroHeadingTransitionActive) {
-      heroHeadingEl.current.classList.add(styles["transition-active"]);
-    } else {
+    setTimeout(() => {
+      if (heroHeadingTransitionActive) {
+        heroHeadingEl.current.classList.add(styles["transition-active"]);
+      }
+    }, 50);
+    if (!heroHeadingTransitionActive) {
       heroHeadingEl.current.classList.remove(styles["transition-active"]);
     }
     observer.observe(heroHeadingEl.current);

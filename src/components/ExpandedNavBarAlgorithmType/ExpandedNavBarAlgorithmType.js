@@ -10,6 +10,7 @@ const ExpandedNavBarAlgorithmType = ({ name }) => {
   const {
     setComplexityTableTransitionActive,
     setImplementationTransitionActive,
+    setHeroHeadingTransitionActive,
   } = useTransitionContext();
   const { setIsPlaying, timers } = useAnimationContext();
 
@@ -28,6 +29,7 @@ const ExpandedNavBarAlgorithmType = ({ name }) => {
             setIsPlaying(false);
             setComplexityTableTransitionActive(false);
             setImplementationTransitionActive(false);
+            setHeroHeadingTransitionActive(false);
           }}
         >
           <p>{applyInitialCase(name)}</p>
