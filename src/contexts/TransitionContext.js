@@ -7,6 +7,8 @@ const TransitionProvider = ({ children }) => {
     useState(false);
   const [implementationTransitionActive, setImplementationTransitionActive] =
     useState(false);
+  const [heroHeadingTransitionActive, setHeroHeadingTransitionActive] =
+    useState(false);
 
   return (
     <TransitionContext.Provider
@@ -15,6 +17,8 @@ const TransitionProvider = ({ children }) => {
         setComplexityTableTransitionActive,
         implementationTransitionActive,
         setImplementationTransitionActive,
+        heroHeadingTransitionActive,
+        setHeroHeadingTransitionActive,
       }}
     >
       {children}

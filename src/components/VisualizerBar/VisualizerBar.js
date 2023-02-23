@@ -3,7 +3,6 @@ import { useAnimationContext } from "../../contexts/AnimationContext";
 
 const VisualizerBar = ({ height, width, left, index }) => {
   const { highlightedIndex, isPlaying } = useAnimationContext();
-
   return (
     <div
       className={

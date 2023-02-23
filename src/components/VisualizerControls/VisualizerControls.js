@@ -1,7 +1,7 @@
 import styles from "./VisualizerControls.module.scss";
 import VisualizerButton from "../VisualizerButton";
 import VisualizerSlider from "../VisualizerSlider";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 import {
   calcWidthPercentage,
@@ -12,10 +12,6 @@ import {
 
 const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const [numBars, setNumBars] = useState(100);
-
-  // Used for persisting values across setTimeout invocations
-  // let min = useRef(null);
-  // let minIndex = useRef(null);
 
   const { isPlaying, setIsPlaying, highlightedIndex, timers } =
     useAnimationContext();
@@ -50,6 +46,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     setBarsToRender(updatedBars);
   };
 
+  // Creates a sorted bar array of a length specified by quantity
   const createBarArray = (quantity) => {
     let bars = [];
     const width = calcWidthPercentage(quantity);
@@ -61,14 +58,13 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     return initBars(bars);
   };
 
-  // Async
+  // Async shuffle
   const shuffleBars = (bars) => {
     setIsPlaying(true);
     for (let currentIndex = bars.length - 1; currentIndex > 0; currentIndex--) {
       timers.current.push(
         setTimeout(() => {
           const randomIndex = Math.floor(Math.random() * currentIndex);
-          // setHighlightedIndex(randomIndex);
           highlightedIndex.current = randomIndex;
           setBarsToRender((prev) => {
             const updatedBars = swapBarsImmutable(
@@ -99,18 +95,14 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
   const bubbleSort = () => {
     for (let i = 0; i < barsToRender.length; i++) {
-      let innerIdx = 0;
       timers.current.push(
         setTimeout(() => {
           if (i === barsToRender.length - 1) {
             setIsPlaying(false);
             return;
           }
-          for (let j = innerIdx; j < barsToRender.length - 1; j++) {
+          for (let j = 0; j < barsToRender.length - 1; j++) {
             setBarsToRender((prev) => {
-              // if (innerIdx === prev.length - i) {
-              //   innerIdx = 0;
-              // }
               if (prev[j].correctPos > prev[j + 1].correctPos) {
                 return swapBarsImmutable(prev, j, j + 1);
               }
@@ -133,29 +125,67 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
           }
           setBarsToRender((prev) => {
             let min = prev[i];
-            let minIndex = i;
+            let minIdx = i;
 
             for (let j = i + 1; j < prev.length; j++) {
               if (prev[j].correctPos < min.correctPos) {
                 min = prev[j];
-                minIndex = j;
+                minIdx = j;
               }
             }
-            highlightedIndex.current = minIndex;
-            console.log(minIndex, highlightedIndex.current);
+            highlightedIndex.current = minIdx;
 
-            // setState inside setState here causes warning and unwanted behavior
-            // setHighlightedIndex(minIndex);
-
-            return swapBarsImmutable(prev, i, minIndex);
+            return swapBarsImmutable(prev, i, minIdx);
           });
         }, 100 * i)
       );
     }
   };
 
-  const insertionSort = () => {
-    console.log("insertion");
+  // if (i === barsToRender.length - 1) {
+  //   setIsPlaying(false);
+  //   return;
+  // }
+
+  // broken
+  // const insertionSort = () => {
+  //   for (let i = 1; i < barsToRender.length; i++) {
+  //     let j = i;
+  //     while (
+  //       j > 0 &&
+  //       barsToRender[j - 1].correctPos > barsToRender[j].correctPos
+  //     ) {
+  //       timers.current.push(
+  //         setTimeout(() => {
+  //           setBarsToRender((prev) => {
+  //             const updatedBars = swapBarsImmutable(prev, j - 1, j);
+  //             j = j - 1;
+  //             return updatedBars;
+  //           });
+  //         }, 100 * i)
+  //       );
+  //     }
+  //   }
+  // };
+
+  const insertionSort = (i = 1) => {
+    if (i === barsToRender.length) {
+      return;
+    }
+    let j = i;
+    while (
+      j > 0 &&
+      barsToRender[j - 1].correctPos > barsToRender[j].correctPos
+    ) {
+      setBarsToRender((prev) => {
+        const updatedBars = swapBarsImmutable(prev, j - 1, j);
+        j = j - 1;
+        return updatedBars;
+      });
+    }
+    setTimeout(() => {
+      insertionSort(i + 1);
+    }, 100);
   };
 
   let algorithmToPlay;
@@ -184,7 +214,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   useEffect(() => {
     if (!isPlaying) {
       highlightedIndex.current = null;
-      // setHighlightedIndex(null);
     }
   }, [isPlaying]);
 
