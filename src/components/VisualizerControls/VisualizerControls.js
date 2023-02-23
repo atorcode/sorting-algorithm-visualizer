@@ -114,38 +114,72 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     }
   };
 
-  const selectionSort = () => {
-    // loop until i <= barsToRender.length - 1 instead of i < barsToRender.length - 1 so that there we can conveniently setIsPlaying to false and exit
-    for (let i = 0; i <= barsToRender.length - 1; i++) {
-      timers.current.push(
-        setTimeout(() => {
-          if (i === barsToRender.length - 1) {
-            setIsPlaying(false);
-            return;
-          }
-          setBarsToRender((prev) => {
-            let min = prev[i];
-            let minIdx = i;
+  // const selectionSort = () => {
+  //   for (let i = 0; i < barsToRender.length; i++) {
+  //     timers.current.push(
+  //       setTimeout(() => {
+  //         if (i === barsToRender.length - 1) {
+  //           setIsPlaying(false);
+  //           return;
+  //         }
+  //         setBarsToRender((prev) => {
+  //           let min = prev[i];
+  //           let minIdx = i;
+  //           for (let j = i + 1; j < prev.length; j++) {
+  //             if (prev[j].correctPos < min.correctPos) {
+  //               min = prev[j];
+  //               minIdx = j;
+  //             }
+  //           }
+  //           highlightedIndex.current = minIdx;
 
-            for (let j = i + 1; j < prev.length; j++) {
-              if (prev[j].correctPos < min.correctPos) {
-                min = prev[j];
-                minIdx = j;
-              }
-            }
-            highlightedIndex.current = minIdx;
+  //           return swapBarsImmutable(prev, i, minIdx);
+  //         });
+  //       }, 1000 * i)
+  //     );
+  //   }
+  // };
 
-            return swapBarsImmutable(prev, i, minIdx);
-          });
-        }, 100 * i)
+  // const selectionSort = async () => {
+  //   for (let i = 0; i < barsToRender.length; i++) {
+  //     if (i === barsToRender.length - 1) {
+  //       setIsPlaying(false);
+  //       return;
+  //     }
+  //     let minIdx = i;
+  //     for (let j = i + 1; j < barsToRender.length; j++) {
+  //       if (barsToRender[j].correctPos < barsToRender[minIdx].correctPos) {
+  //         minIdx = j;
+  //       }
+  //     }
+  //     console.log(minIdx);
+  //     await new Promise((resolve) => setTimeout(resolve, 500));
+  //     setBarsToRender(swapBarsImmutable(barsToRender, i, minIdx));
+  //   }
+  // };
+
+  const selectionSort = async () => {
+    for (let i = 0; i < barsToRender.length; i++) {
+      if (i === barsToRender.length - 1) {
+        setIsPlaying(false);
+        return;
+      }
+      await new Promise((resolve) =>
+        timers.current.push(setTimeout(resolve, 100))
       );
+      setBarsToRender((prev) => {
+        let minIdx = i;
+        for (let j = i + 1; j < prev.length; j++) {
+          if (prev[j].correctPos < prev[minIdx].correctPos) {
+            minIdx = j;
+          }
+        }
+        return swapBarsImmutable(prev, i, minIdx);
+      });
     }
   };
 
-  // if (i === barsToRender.length - 1) {
-  //   setIsPlaying(false);
-  //   return;
-  // }
+  // highlightedIndex.current = minIdx;
 
   // broken
   // const insertionSort = () => {
@@ -169,23 +203,23 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   // };
 
   const insertionSort = (i = 1) => {
-    if (i === barsToRender.length) {
-      return;
-    }
-    let j = i;
-    while (
-      j > 0 &&
-      barsToRender[j - 1].correctPos > barsToRender[j].correctPos
-    ) {
-      setBarsToRender((prev) => {
-        const updatedBars = swapBarsImmutable(prev, j - 1, j);
-        j = j - 1;
-        return updatedBars;
-      });
-    }
-    setTimeout(() => {
-      insertionSort(i + 1);
-    }, 100);
+    // if (i === barsToRender.length) {
+    //   return;
+    // }
+    // let j = i;
+    // while (
+    //   j > 0 &&
+    //   barsToRender[j - 1].correctPos > barsToRender[j].correctPos
+    // ) {
+    //   setBarsToRender((prev) => {
+    //     const updatedBars = swapBarsImmutable(prev, j - 1, j);
+    //     j = j - 1;
+    //     return updatedBars;
+    //   });
+    // }
+    // setTimeout(() => {
+    //   insertionSort(i + 1);
+    // }, 100);
   };
 
   let algorithmToPlay;

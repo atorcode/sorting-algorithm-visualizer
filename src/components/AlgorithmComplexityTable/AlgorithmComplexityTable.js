@@ -22,7 +22,6 @@ const AlgorithmComplexityTable = ({ complexity }) => {
     return { __html: complexity.space };
   };
 
-  // Declared twice here and in AlgorithmImplementation so style is properly scoped to scss module
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

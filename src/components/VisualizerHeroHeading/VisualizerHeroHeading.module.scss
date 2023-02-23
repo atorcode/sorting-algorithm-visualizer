@@ -2,7 +2,7 @@
 
 .heading {
   position: absolute;
-  top: 0;
+  top: 2%;
   left: 4vw;
   font-size: 5.5rem;
   font-weight: 400;
@@ -16,7 +16,7 @@
 .transition-active {
   opacity: 100%;
   top: 8%;
-  transition: all 600ms ease;
+  transition: all 800ms ease;
 }
 
 @media (max-width: 1550px) {
