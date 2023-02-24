@@ -93,28 +93,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     console.log("merge");
   };
 
-  const bubbleSort = () => {
-    for (let i = 0; i < barsToRender.length; i++) {
-      timers.current.push(
-        setTimeout(() => {
-          if (i === barsToRender.length - 1) {
-            setIsPlaying(false);
-            return;
-          }
-          for (let j = 0; j < barsToRender.length - 1; j++) {
-            setBarsToRender((prev) => {
-              if (prev[j].correctPos > prev[j + 1].correctPos) {
-                return swapBarsImmutable(prev, j, j + 1);
-              }
-              return prev;
-            });
-          }
-        }, 100 * i)
-      );
-    }
-  };
-
-  // const selectionSort = () => {
+  // const bubbleSort = () => {
   //   for (let i = 0; i < barsToRender.length; i++) {
   //     timers.current.push(
   //       setTimeout(() => {
@@ -122,41 +101,35 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   //           setIsPlaying(false);
   //           return;
   //         }
-  //         setBarsToRender((prev) => {
-  //           let min = prev[i];
-  //           let minIdx = i;
-  //           for (let j = i + 1; j < prev.length; j++) {
-  //             if (prev[j].correctPos < min.correctPos) {
-  //               min = prev[j];
-  //               minIdx = j;
+  //         for (let j = 0; j < barsToRender.length - 1; j++) {
+  //           setBarsToRender((prev) => {
+  //             if (prev[j].correctPos > prev[j + 1].correctPos) {
+  //               return swapBarsImmutable(prev, j, j + 1);
   //             }
-  //           }
-  //           highlightedIndex.current = minIdx;
-
-  //           return swapBarsImmutable(prev, i, minIdx);
-  //         });
-  //       }, 1000 * i)
+  //             return prev;
+  //           });
+  //         }
+  //       }, 100 * i)
   //     );
   //   }
   // };
 
-  // const selectionSort = async () => {
-  //   for (let i = 0; i < barsToRender.length; i++) {
-  //     if (i === barsToRender.length - 1) {
-  //       setIsPlaying(false);
-  //       return;
-  //     }
-  //     let minIdx = i;
-  //     for (let j = i + 1; j < barsToRender.length; j++) {
-  //       if (barsToRender[j].correctPos < barsToRender[minIdx].correctPos) {
-  //         minIdx = j;
-  //       }
-  //     }
-  //     console.log(minIdx);
-  //     await new Promise((resolve) => setTimeout(resolve, 500));
-  //     setBarsToRender(swapBarsImmutable(barsToRender, i, minIdx));
-  //   }
-  // };
+  const bubbleSort = async () => {
+    for (let i = 0; i < barsToRender.length; i++) {
+      for (let j = 0; j < barsToRender.length - 1; j++) {
+        await new Promise((resolve) =>
+          timers.current.push(setTimeout(resolve, 5))
+        );
+        // highlightedIndex.current = j + 1;
+        setBarsToRender((prev) => {
+          if (prev[j].correctPos > prev[j + 1].correctPos) {
+            return swapBarsImmutable(prev, j, j + 1);
+          }
+          return prev;
+        });
+      }
+    }
+  };
 
   const selectionSort = async () => {
     for (let i = 0; i < barsToRender.length; i++) {
@@ -171,6 +144,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         let minIdx = i;
         for (let j = i + 1; j < prev.length; j++) {
           if (prev[j].correctPos < prev[minIdx].correctPos) {
+            highlightedIndex.current = minIdx;
             minIdx = j;
           }
         }
@@ -178,8 +152,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       });
     }
   };
-
-  // highlightedIndex.current = minIdx;
 
   // broken
   // const insertionSort = () => {
