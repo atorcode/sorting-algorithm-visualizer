@@ -93,40 +93,25 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     console.log("merge");
   };
 
-  // const bubbleSort = () => {
-  //   for (let i = 0; i < barsToRender.length; i++) {
-  //     timers.current.push(
-  //       setTimeout(() => {
-  //         if (i === barsToRender.length - 1) {
-  //           setIsPlaying(false);
-  //           return;
-  //         }
-  //         for (let j = 0; j < barsToRender.length - 1; j++) {
-  //           setBarsToRender((prev) => {
-  //             if (prev[j].correctPos > prev[j + 1].correctPos) {
-  //               return swapBarsImmutable(prev, j, j + 1);
-  //             }
-  //             return prev;
-  //           });
-  //         }
-  //       }, 100 * i)
-  //     );
-  //   }
-  // };
-
   const bubbleSort = async () => {
-    for (let i = 0; i < barsToRender.length; i++) {
+    let isSorted = false;
+    while (!isSorted) {
+      isSorted = true;
       for (let j = 0; j < barsToRender.length - 1; j++) {
         await new Promise((resolve) =>
           timers.current.push(setTimeout(resolve, 5))
         );
-        // highlightedIndex.current = j + 1;
+        highlightedIndex.current = j + 1;
         setBarsToRender((prev) => {
           if (prev[j].correctPos > prev[j + 1].correctPos) {
+            isSorted = false;
             return swapBarsImmutable(prev, j, j + 1);
           }
           return prev;
         });
+      }
+      if (isSorted) {
+        setIsPlaying(false);
       }
     }
   };
@@ -138,16 +123,18 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         return;
       }
       await new Promise((resolve) =>
-        timers.current.push(setTimeout(resolve, 100))
+        timers.current.push(setTimeout(resolve, 1000))
       );
       setBarsToRender((prev) => {
         let minIdx = i;
+
         for (let j = i + 1; j < prev.length; j++) {
           if (prev[j].correctPos < prev[minIdx].correctPos) {
-            highlightedIndex.current = minIdx;
             minIdx = j;
           }
         }
+        highlightedIndex.current = minIdx;
+
         return swapBarsImmutable(prev, i, minIdx);
       });
     }
