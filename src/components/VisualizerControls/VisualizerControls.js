@@ -1,4 +1,5 @@
 import styles from "./VisualizerControls.module.scss";
+import barStyles from "../VisualizerBar/VisualizerBar.module.scss";
 import VisualizerButton from "../VisualizerButton";
 import VisualizerSlider from "../VisualizerSlider";
 import { useEffect, useState } from "react";
@@ -13,8 +14,15 @@ import {
 const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const [numBars, setNumBars] = useState(100);
 
-  const { isPlaying, setIsPlaying, highlightedIndex, timers } =
+  const { isPlaying, setIsPlaying, barsContainer, highlightedIndex, timers } =
     useAnimationContext();
+
+  // Modifies original array
+  const swapBarsMutable = (bars, idx, idx2) => {
+    const temp = bars[idx];
+    bars[idx] = bars[idx2];
+    bars[idx2] = temp;
+  };
 
   // Does not modify original array
   const swapBarsImmutable = (bars, idx1, idx2) => {
@@ -116,70 +124,143 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     }
   };
 
-  const selectionSort = async () => {
-    for (let i = 0; i < barsToRender.length; i++) {
-      if (i === barsToRender.length - 1) {
-        setIsPlaying(false);
-        return;
-      }
-      await new Promise((resolve) =>
-        timers.current.push(setTimeout(resolve, 1000))
-      );
-      setBarsToRender((prev) => {
-        let minIdx = i;
-
-        for (let j = i + 1; j < prev.length; j++) {
-          if (prev[j].correctPos < prev[minIdx].correctPos) {
-            minIdx = j;
-          }
-        }
-        highlightedIndex.current = minIdx;
-
-        return swapBarsImmutable(prev, i, minIdx);
-      });
-    }
-  };
-
-  // broken
-  // const insertionSort = () => {
-  //   for (let i = 1; i < barsToRender.length; i++) {
-  //     let j = i;
-  //     while (
-  //       j > 0 &&
-  //       barsToRender[j - 1].correctPos > barsToRender[j].correctPos
-  //     ) {
-  //       timers.current.push(
-  //         setTimeout(() => {
-  //           setBarsToRender((prev) => {
-  //             const updatedBars = swapBarsImmutable(prev, j - 1, j);
-  //             j = j - 1;
-  //             return updatedBars;
-  //           });
-  //         }, 100 * i)
-  //       );
+  // const selectionSort = async () => {
+  //   for (let i = 0; i < barsToRender.length; i++) {
+  //     if (i === barsToRender.length - 1) {
+  //       setIsPlaying(false);
+  //       return;
   //     }
+  //     await new Promise((resolve) =>
+  //       timers.current.push(setTimeout(resolve, 1000))
+  //     );
+  //     setBarsToRender((prev) => {
+  //       let minIdx = i;
+
+  //       for (let j = i + 1; j < prev.length; j++) {
+  //         if (prev[j].correctPos < prev[minIdx].correctPos) {
+  //           minIdx = j;
+  //         }
+  //       }
+  //       highlightedIndex.current = minIdx;
+
+  //       return swapBarsImmutable(prev, i, minIdx);
+  //     });
   //   }
   // };
 
-  const insertionSort = (i = 1) => {
-    // if (i === barsToRender.length) {
-    //   return;
-    // }
-    // let j = i;
-    // while (
-    //   j > 0 &&
-    //   barsToRender[j - 1].correctPos > barsToRender[j].correctPos
-    // ) {
-    //   setBarsToRender((prev) => {
-    //     const updatedBars = swapBarsImmutable(prev, j - 1, j);
-    //     j = j - 1;
-    //     return updatedBars;
-    //   });
-    // }
-    // setTimeout(() => {
-    //   insertionSort(i + 1);
-    // }, 100);
+  const selectionSort = (arr) => {
+    const copy = [...arr];
+    const animations = [];
+    for (let i = 0; i < copy.length - 1; i++) {
+      let minIdx = i;
+      for (let j = i + 1; j < copy.length; j++) {
+        if (copy[j].correctPos < copy[minIdx].correctPos) {
+          minIdx = j;
+        }
+      }
+      animations.push(minIdx);
+      swapBarsMutable(copy, i, minIdx);
+    }
+    return animations;
   };
+
+  const animateArrayUpdate = (animations) => {
+    animations.forEach((anim, index) => {
+      setTimeout(() => {
+        // console.log(anim);
+
+        const bars = barsContainer.current.children;
+
+        bars[anim].classList.add(barStyles["bar-highlighted"]);
+
+        // barsToRender.filter((bar) => {
+        //   return bar.correctPos === anim;
+        // });
+
+        // highlightedIndex.current = anim;
+      }, index * 1000);
+    });
+  };
+
+  animateArrayUpdate(selectionSort(barsToRender));
+
+  // console.log(
+  //   selectionSort([
+  //     { correctPos: 0 },
+  //     { correctPos: 2 },
+  //     { correctPos: 1 },
+  //     { correctPos: 9 },
+  //     { correctPos: 5 },
+  //     { correctPos: 3 },
+  //     { correctPos: 7 },
+  //     { correctPos: 6 },
+  //     { correctPos: 4 },
+  //   ])
+  // );
+
+  // useEffect(() => {
+  //   const bars = barsContainer.current.children;
+  //   console.log(bars);
+
+  //   for (let i = 0; i < bars.length; i++) {
+  //     bars[i].classList.add(barStyles["bar-highlighted"]);
+  //   }
+  // });
+
+  const insertionSort = async () => {
+    // for (let i = 1; i < barsToRender.length; i++) {
+    //   if (i === barsToRender.length - 1) {
+    //     setIsPlaying(false);
+    //     return;
+    //   }
+    //   await new Promise((resolve) =>
+    //     timers.current.push(setTimeout(resolve, 500))
+    //   );
+    //   let j = i;
+    //   while (
+    //     j > 0 &&
+    //     barsToRender[j - 1].correctPos > barsToRender[j].correctPos
+    //   ) {
+    //     setBarsToRender((prev) => {
+    //       const updatedBars = swapBarsImmutable(prev, j - 1, j);
+    //       j = j - 1;
+    //       return updatedBars;
+    //     });
+    //     await new Promise((resolve) =>
+    //       timers.current.push(setTimeout(resolve, 500))
+    //     );
+    //   }
+    // }
+  };
+
+  // await new Promise((resolve) =>
+  //         setBarsToRender((prev) => {
+  //           const updatedBars = swapBarsImmutable(prev, j - 1, j);
+
+  //           resolve(updatedBars);
+  //           return updatedBars;
+  //         })
+  //       );
+
+  // const insertionSort = (i = 1) => {
+  // if (i === barsToRender.length) {
+  //   return;
+  // }
+  // let j = i;
+  // while (
+  //   j > 0 &&
+  //   barsToRender[j - 1].correctPos > barsToRender[j].correctPos
+  // ) {
+  //   setBarsToRender((prev) => {
+  //     const updatedBars = swapBarsImmutable(prev, j - 1, j);
+  //     j = j - 1;
+  //     return updatedBars;
+  //   });
+  // }
+  // setTimeout(() => {
+  //   insertionSort(i + 1);
+  // }, 100);
+  // };
 
   let algorithmToPlay;
   switch (name) {

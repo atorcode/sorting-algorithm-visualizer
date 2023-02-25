@@ -5,6 +5,7 @@ const AnimationContext = React.createContext();
 const AnimationProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
+  let barsContainer = useRef(null);
   let highlightedIndex = useRef(null);
 
   const timers = useRef([]);
@@ -14,6 +15,7 @@ const AnimationProvider = ({ children }) => {
       value={{
         isPlaying,
         setIsPlaying,
+        barsContainer,
         highlightedIndex,
         timers,
       }}
