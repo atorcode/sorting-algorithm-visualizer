@@ -164,25 +164,19 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     return animations;
   };
 
-  const animateArrayUpdate = (animations) => {
-    animations.forEach((anim, index) => {
-      setTimeout(() => {
-        // console.log(anim);
-
-        const bars = barsContainer.current.children;
-
-        bars[anim].classList.add(barStyles["bar-highlighted"]);
-
-        // barsToRender.filter((bar) => {
-        //   return bar.correctPos === anim;
-        // });
-
-        // highlightedIndex.current = anim;
-      }, index * 1000);
-    });
+  const animateArrayUpdate = async (animations) => {
+    for (let i = 0; i < animations.length; i++) {
+      const anim = animations[i];
+      const bars = barsContainer.current.children;
+      bars[anim].classList.add(barStyles["bar-highlighted"]);
+      await new Promise((resolve) => {
+        timers.current.push(setTimeout(resolve, 1000));
+      });
+      bars[anim].classList.remove(barStyles["bar-highlighted"]);
+    }
   };
 
-  animateArrayUpdate(selectionSort(barsToRender));
+  // animateArrayUpdate(selectionSort(barsToRender));
 
   // console.log(
   //   selectionSort([
@@ -274,7 +268,9 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       algorithmToPlay = bubbleSort;
       break;
     case "selection sort":
-      algorithmToPlay = selectionSort;
+      algorithmToPlay = () => {
+        animateArrayUpdate(selectionSort(barsToRender));
+      };
       break;
     case "insertion sort":
       algorithmToPlay = insertionSort;
@@ -285,11 +281,11 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     createBarArray(numBars);
   }, [numBars]);
 
-  useEffect(() => {
-    if (!isPlaying) {
-      highlightedIndex.current = null;
-    }
-  }, [isPlaying]);
+  // useEffect(() => {
+  //   if (!isPlaying) {
+  //     highlightedIndex.current = null;
+  //   }
+  // }, [isPlaying]);
 
   return (
     <section className={styles["controls"]}>
