@@ -2,7 +2,7 @@ import styles from "./VisualizerBar.module.scss";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 
 const VisualizerBar = ({ height, width, left, index }) => {
-  const { highlightedIndex, isPlaying } = useAnimationContext();
+  const { isPlaying, highlightedIndex } = useAnimationContext();
   return (
     <div
       className={

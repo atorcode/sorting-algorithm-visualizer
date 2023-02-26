@@ -73,6 +73,18 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       const left = calcLeftPosPercentage(quantity, i + 1);
       bars.push({ correctPos: i, height: height, width: width, left: left });
     }
+    // for debugging
+    return [
+      { correctPos: 2, height: 30, width: 10, left: 0 },
+      { correctPos: 1, height: 20, width: 10, left: 10 },
+      { correctPos: 3, height: 40, width: 10, left: 20 },
+      { correctPos: 4, height: 50, width: 10, left: 30 },
+      { correctPos: 5, height: 60, width: 10, left: 40 },
+      { correctPos: 6, height: 70, width: 10, left: 50 },
+      { correctPos: 7, height: 80, width: 10, left: 60 },
+      { correctPos: 8, height: 90, width: 10, left: 70 },
+      { correctPos: 9, height: 100, width: 10, left: 80 },
+    ];
     return initBars(bars);
   };
 
@@ -83,6 +95,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       timers.current.push(
         setTimeout(() => {
           const randomIndex = Math.floor(Math.random() * currentIndex);
+          // this function still uses the old highlighting system
           highlightedIndex.current = randomIndex;
           setBarsToRender((prev) => {
             const updatedBars = swapBarsImmutable(
@@ -169,34 +182,86 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         }
       }
       animations.push({
+        action: "color",
         arr: [...copy],
-        highlightedIndex: minIdx,
         idx1: i,
         idx2: minIdx,
-        // swapLefts: () => {
-        //   const newCopy = [...copy];
-        //   return swapLefts(newCopy, i, minIdx);
-
-        // },
       });
       swapBarsMutable(copy, i, minIdx);
+      animations.push({
+        action: "move",
+        arr: [...copy],
+        idx1: i,
+        idx2: minIdx,
+      });
     }
     return animations;
   };
 
   const animateArrayUpdate = async (animations) => {
+    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
-      // console.log(anim, swapLefts(anim.arr, anim.idx1, anim.idx2));
       const bars = barsContainer.current.children;
-      bars[anim.highlightedIndex].classList.add(barStyles["bar-highlighted"]);
-      await new Promise((resolve) => {
-        timers.current.push(setTimeout(resolve, 1000));
-      });
-      bars[anim.highlightedIndex].classList.remove(
-        barStyles["bar-highlighted"]
-      );
-      setBarsToRender(swapLefts(anim.arr, anim.idx1, anim.idx2));
+      // console.log(anim, swapLefts(anim.arr, anim.idx1, anim.idx2));
+      const selectionSort = (arr) => {
+        const animations = [];
+        const copy = [...arr];
+        for (let i = 0; i < copy.length - 1; i++) {
+          let minIdx = i;
+          for (let j = i + 1; j < copy.length; j++) {
+            if (copy[j].correctPos < copy[minIdx].correctPos) {
+              minIdx = j;
+            }
+          }
+          animations.push({
+            action: "color",
+            arr: [...copy],
+            idx1: i,
+            idx2: minIdx,
+          });
+          swapBarsMutable(copy, i, minIdx);
+          animations.push({
+            action: "move",
+            arr: [...copy],
+            idx1: i,
+            idx2: minIdx,
+          });
+        }
+        return animations;
+      };
+
+      const animateArrayUpdate = async (animations) => {
+        for (let i = 0; i < animations.length; i++) {
+          const anim = animations[i];
+          const bars = barsContainer.current.children;
+          console.log(anim.idx2);
+          // console.log(anim, swapLefts(anim.arr, anim.idx1, anim.idx2));
+          if (anim.action === "color") {
+            bars[anim.idx2].classList.add(barStyles["bar-highlighted"]);
+            await new Promise((resolve) => {
+              timers.current.push(setTimeout(resolve, 1000));
+            });
+          }
+          bars[anim.idx2].classList.remove(barStyles["bar-highlighted"]);
+
+          if (anim.action === "move") {
+            setBarsToRender(swapLefts(anim.arr, anim.idx1, anim.idx2));
+          }
+        }
+        setIsPlaying(false);
+      };
+      if (anim.action === "color") {
+        bars[anim.idx2].classList.add(barStyles["bar-highlighted"]);
+        await new Promise((resolve) => {
+          timers.current.push(setTimeout(resolve, 1000));
+        });
+      }
+      bars[anim.idx2].classList.remove(barStyles["bar-highlighted"]);
+
+      if (anim.action === "move") {
+        setBarsToRender(swapLefts(anim.arr, anim.idx1, anim.idx2));
+      }
     }
     setIsPlaying(false);
   };
@@ -252,35 +317,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     // }
   };
 
-  // await new Promise((resolve) =>
-  //         setBarsToRender((prev) => {
-  //           const updatedBars = swapBarsImmutable(prev, j - 1, j);
-
-  //           resolve(updatedBars);
-  //           return updatedBars;
-  //         })
-  //       );
-
-  // const insertionSort = (i = 1) => {
-  // if (i === barsToRender.length) {
-  //   return;
-  // }
-  // let j = i;
-  // while (
-  //   j > 0 &&
-  //   barsToRender[j - 1].correctPos > barsToRender[j].correctPos
-  // ) {
-  //   setBarsToRender((prev) => {
-  //     const updatedBars = swapBarsImmutable(prev, j - 1, j);
-  //     j = j - 1;
-  //     return updatedBars;
-  //   });
-  // }
-  // setTimeout(() => {
-  //   insertionSort(i + 1);
-  // }, 100);
-  // };
-
   let algorithmToPlay;
   switch (name) {
     case "quick sort":
@@ -303,14 +339,15 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   }
 
   useEffect(() => {
-    createBarArray(numBars);
+    console.log(createBarArray(numBars));
+    setBarsToRender(createBarArray(numBars));
   }, [numBars]);
 
-  // useEffect(() => {
-  //   if (!isPlaying) {
-  //     highlightedIndex.current = null;
-  //   }
-  // }, [isPlaying]);
+  useEffect(() => {
+    if (!isPlaying) {
+      highlightedIndex.current = null;
+    }
+  }, [isPlaying]);
 
   return (
     <section className={styles["controls"]}>
