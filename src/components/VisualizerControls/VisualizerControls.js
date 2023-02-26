@@ -74,21 +74,22 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       bars.push({ correctPos: i, height: height, width: width, left: left });
     }
     // for debugging
-    return [
-      { correctPos: 2, height: 30, width: 10, left: 0 },
-      { correctPos: 1, height: 20, width: 10, left: 10 },
-      { correctPos: 3, height: 40, width: 10, left: 20 },
-      { correctPos: 4, height: 50, width: 10, left: 30 },
-      { correctPos: 5, height: 60, width: 10, left: 40 },
-      { correctPos: 6, height: 70, width: 10, left: 50 },
-      { correctPos: 7, height: 80, width: 10, left: 60 },
-      { correctPos: 8, height: 90, width: 10, left: 70 },
-      { correctPos: 9, height: 100, width: 10, left: 80 },
-    ];
+    // return [
+    //   { correctPos: 2, height: 30, width: 10, left: 0 },
+    //   { correctPos: 1, height: 20, width: 10, left: 10 },
+    //   { correctPos: 3, height: 40, width: 10, left: 20 },
+    //   { correctPos: 4, height: 50, width: 10, left: 30 },
+    //   { correctPos: 5, height: 60, width: 10, left: 40 },
+    //   { correctPos: 6, height: 70, width: 10, left: 50 },
+    //   { correctPos: 7, height: 80, width: 10, left: 60 },
+    //   { correctPos: 8, height: 90, width: 10, left: 70 },
+    //   { correctPos: 9, height: 100, width: 10, left: 80 },
+    // ];
     return initBars(bars);
   };
 
   // Async shuffle
+  // This function has not been refactored to use the animation queue system and animateArrayUpdate because using async/await makes this animation too slow when the bar count is high. This implementation guarantees that the animation is finished playing after roughly three seconds. It is okay that not ever step in the animation gets separately rendered.
   const shuffleBars = (bars) => {
     setIsPlaying(true);
     for (let currentIndex = bars.length - 1; currentIndex > 0; currentIndex--) {
@@ -147,30 +148,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     }
   };
 
-  // const selectionSort = async () => {
-  //   for (let i = 0; i < barsToRender.length; i++) {
-  //     if (i === barsToRender.length - 1) {
-  //       setIsPlaying(false);
-  //       return;
-  //     }
-  //     await new Promise((resolve) =>
-  //       timers.current.push(setTimeout(resolve, 1000))
-  //     );
-  //     setBarsToRender((prev) => {
-  //       let minIdx = i;
-
-  //       for (let j = i + 1; j < prev.length; j++) {
-  //         if (prev[j].correctPos < prev[minIdx].correctPos) {
-  //           minIdx = j;
-  //         }
-  //       }
-  //       highlightedIndex.current = minIdx;
-
-  //       return swapBarsImmutable(prev, i, minIdx);
-  //     });
-  //   }
-  // };
-
   const selectionSort = (arr) => {
     const animations = [];
     const copy = [...arr];
@@ -184,83 +161,38 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       animations.push({
         action: "color",
         arr: [...copy],
-        idx1: i,
-        idx2: minIdx,
+        highlightedIndex: minIdx,
+        swap1: i,
+        swap2: minIdx,
       });
       swapBarsMutable(copy, i, minIdx);
       animations.push({
         action: "move",
         arr: [...copy],
-        idx1: i,
-        idx2: minIdx,
+        highlightedIndex: minIdx,
+        swap1: i,
+        swap2: minIdx,
       });
     }
     return animations;
   };
 
   const animateArrayUpdate = async (animations) => {
-    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
       const bars = barsContainer.current.children;
-      // console.log(anim, swapLefts(anim.arr, anim.idx1, anim.idx2));
-      const selectionSort = (arr) => {
-        const animations = [];
-        const copy = [...arr];
-        for (let i = 0; i < copy.length - 1; i++) {
-          let minIdx = i;
-          for (let j = i + 1; j < copy.length; j++) {
-            if (copy[j].correctPos < copy[minIdx].correctPos) {
-              minIdx = j;
-            }
-          }
-          animations.push({
-            action: "color",
-            arr: [...copy],
-            idx1: i,
-            idx2: minIdx,
-          });
-          swapBarsMutable(copy, i, minIdx);
-          animations.push({
-            action: "move",
-            arr: [...copy],
-            idx1: i,
-            idx2: minIdx,
-          });
-        }
-        return animations;
-      };
+      let highlightedBar = bars[anim.highlightedIndex];
 
-      const animateArrayUpdate = async (animations) => {
-        for (let i = 0; i < animations.length; i++) {
-          const anim = animations[i];
-          const bars = barsContainer.current.children;
-          console.log(anim.idx2);
-          // console.log(anim, swapLefts(anim.arr, anim.idx1, anim.idx2));
-          if (anim.action === "color") {
-            bars[anim.idx2].classList.add(barStyles["bar-highlighted"]);
-            await new Promise((resolve) => {
-              timers.current.push(setTimeout(resolve, 1000));
-            });
-          }
-          bars[anim.idx2].classList.remove(barStyles["bar-highlighted"]);
-
-          if (anim.action === "move") {
-            setBarsToRender(swapLefts(anim.arr, anim.idx1, anim.idx2));
-          }
-        }
-        setIsPlaying(false);
-      };
       if (anim.action === "color") {
-        bars[anim.idx2].classList.add(barStyles["bar-highlighted"]);
+        highlightedBar.classList.add(barStyles["bar-highlighted"]);
         await new Promise((resolve) => {
-          timers.current.push(setTimeout(resolve, 1000));
+          timers.current.push(setTimeout(resolve, 100));
         });
       }
-      bars[anim.idx2].classList.remove(barStyles["bar-highlighted"]);
+      highlightedBar.classList.remove(barStyles["bar-highlighted"]);
 
       if (anim.action === "move") {
-        setBarsToRender(swapLefts(anim.arr, anim.idx1, anim.idx2));
+        setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
       }
     }
     setIsPlaying(false);
@@ -339,13 +271,16 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   }
 
   useEffect(() => {
-    console.log(createBarArray(numBars));
-    setBarsToRender(createBarArray(numBars));
+    createBarArray(numBars);
   }, [numBars]);
 
   useEffect(() => {
     if (!isPlaying) {
       highlightedIndex.current = null;
+      const bars = barsContainer.current.children;
+      for (let i = 0; i < bars.length; i++) {
+        bars[i].classList.remove(barStyles["bar-highlighted"]);
+      }
     }
   }, [isPlaying]);
 
