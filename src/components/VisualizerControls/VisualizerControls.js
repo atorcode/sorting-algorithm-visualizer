@@ -165,6 +165,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         swap1: i,
         swap2: minIdx,
       });
+
       swapBarsMutable(copy, i, minIdx);
       animations.push({
         action: "move",
@@ -178,11 +179,10 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   };
 
   const animateArrayUpdate = async (animations) => {
+    const bars = barsContainer.current.children;
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
-      const bars = barsContainer.current.children;
       let highlightedBar = bars[anim.highlightedIndex];
-
       if (anim.action === "color") {
         highlightedBar.classList.add(barStyles["bar-highlighted"]);
         await new Promise((resolve) => {
@@ -190,10 +190,12 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         });
       }
       highlightedBar.classList.remove(barStyles["bar-highlighted"]);
-
       if (anim.action === "move") {
         setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
       }
+      await new Promise((resolve) => {
+        timers.current.push(setTimeout(resolve, 0));
+      });
     }
     setIsPlaying(false);
   };
@@ -271,6 +273,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   }
 
   useEffect(() => {
+    // setBarsToRender(createBarArray(numBars));
     createBarArray(numBars);
   }, [numBars]);
 
