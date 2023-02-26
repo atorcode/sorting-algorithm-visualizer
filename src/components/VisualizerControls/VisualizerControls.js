@@ -22,6 +22,16 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     const temp = bars[idx];
     bars[idx] = bars[idx2];
     bars[idx2] = temp;
+
+    return bars;
+  };
+
+  const swapLefts = (bars, idx, idx2) => {
+    const tempLeft = bars[idx].left;
+    bars[idx].left = bars[idx2].left;
+    bars[idx2].left = tempLeft;
+
+    return bars;
   };
 
   // Does not modify original array
@@ -149,8 +159,8 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   // };
 
   const selectionSort = (arr) => {
-    const copy = [...arr];
     const animations = [];
+    const copy = [...arr];
     for (let i = 0; i < copy.length - 1; i++) {
       let minIdx = i;
       for (let j = i + 1; j < copy.length; j++) {
@@ -158,7 +168,17 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
           minIdx = j;
         }
       }
-      animations.push(minIdx);
+      animations.push({
+        arr: [...copy],
+        highlightedIndex: minIdx,
+        idx1: i,
+        idx2: minIdx,
+        // swapLefts: () => {
+        //   const newCopy = [...copy];
+        //   return swapLefts(newCopy, i, minIdx);
+
+        // },
+      });
       swapBarsMutable(copy, i, minIdx);
     }
     return animations;
@@ -167,13 +187,18 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const animateArrayUpdate = async (animations) => {
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
+      // console.log(anim, swapLefts(anim.arr, anim.idx1, anim.idx2));
       const bars = barsContainer.current.children;
-      bars[anim].classList.add(barStyles["bar-highlighted"]);
+      bars[anim.highlightedIndex].classList.add(barStyles["bar-highlighted"]);
       await new Promise((resolve) => {
         timers.current.push(setTimeout(resolve, 1000));
       });
-      bars[anim].classList.remove(barStyles["bar-highlighted"]);
+      bars[anim.highlightedIndex].classList.remove(
+        barStyles["bar-highlighted"]
+      );
+      setBarsToRender(swapLefts(anim.arr, anim.idx1, anim.idx2));
     }
+    setIsPlaying(false);
   };
 
   // animateArrayUpdate(selectionSort(barsToRender));
