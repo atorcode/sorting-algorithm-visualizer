@@ -125,32 +125,50 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     console.log("merge");
   };
 
-  const bubbleSort = async () => {
+  const bubbleSort = (arr) => {
+    const animations = [];
+    const copy = [...arr];
+    const delay = calcAnimationStepTime(arr.length, 3000);
     let isSorted = false;
     while (!isSorted) {
       isSorted = true;
-      for (let j = 0; j < barsToRender.length - 1; j++) {
-        await new Promise((resolve) =>
-          timers.current.push(setTimeout(resolve, 5))
-        );
-        highlightedIndex.current = j + 1;
-        setBarsToRender((prev) => {
-          if (prev[j].correctPos > prev[j + 1].correctPos) {
-            isSorted = false;
-            return swapBarsImmutable(prev, j, j + 1);
-          }
-          return prev;
-        });
-      }
-      if (isSorted) {
-        setIsPlaying(false);
+      for (let j = 0; j < copy.length - 1; j++) {
+        if (copy[j].correctPos > copy[j + 1].correctPos) {
+          isSorted = false;
+          swapBarsMutable(copy, j, j + 1);
+          animations.push({
+            action: "move",
+            arr: [...copy],
+            swap1: j,
+            swap2: j + 1,
+            delay: delay,
+          });
+          animations.push({
+            action: "color",
+            arr: [...copy],
+            highlightedIndex: j,
+            delay: delay,
+          });
+        }
       }
     }
+    return animations;
   };
 
   const selectionSort = (arr) => {
     const animations = [];
+    let isAlreadySorted = true;
+    for (let x = 0; x < arr.length - 1; x++) {
+      if (arr[x].correctPos > arr[x + 1].correctPos) {
+        isAlreadySorted = false;
+        break;
+      }
+    }
+    if (isAlreadySorted) {
+      return animations;
+    }
     const copy = [...arr];
+    const delay = calcAnimationStepTime(arr.length, 7500);
     for (let i = 0; i < copy.length - 1; i++) {
       let minIdx = i;
       for (let j = i + 1; j < copy.length; j++) {
@@ -162,17 +180,16 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         action: "color",
         arr: [...copy],
         highlightedIndex: minIdx,
-        swap1: i,
-        swap2: minIdx,
+        delay: delay,
       });
-
       swapBarsMutable(copy, i, minIdx);
       animations.push({
         action: "move",
         arr: [...copy],
-        highlightedIndex: minIdx,
         swap1: i,
         swap2: minIdx,
+        delay: delay,
+        unhighlight: true,
       });
     }
     return animations;
@@ -182,48 +199,30 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     const bars = barsContainer.current.children;
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
-      let highlightedBar = bars[anim.highlightedIndex];
       if (anim.action === "color") {
+        let highlightedBar = bars[anim.highlightedIndex];
         highlightedBar.classList.add(barStyles["bar-highlighted"]);
         await new Promise((resolve) => {
-          timers.current.push(setTimeout(resolve, 100));
+          timers.current.push(setTimeout(resolve, anim.delay));
         });
+        highlightedBar.classList.remove(barStyles["bar-highlighted"]);
       }
-      highlightedBar.classList.remove(barStyles["bar-highlighted"]);
       if (anim.action === "move") {
         setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
       }
-      await new Promise((resolve) => {
-        timers.current.push(setTimeout(resolve, 0));
-      });
+
+      if (anim.unhighlight) {
+        await new Promise((resolve) => {
+          timers.current.push(setTimeout(resolve, 0));
+        });
+      }
     }
+    // await prevents batching of setIsPlaying(false). This is notably important when we have an already sorted array.
+    await new Promise((resolve) => {
+      timers.current.push(setTimeout(resolve, 250));
+    });
     setIsPlaying(false);
   };
-
-  // animateArrayUpdate(selectionSort(barsToRender));
-
-  // console.log(
-  //   selectionSort([
-  //     { correctPos: 0 },
-  //     { correctPos: 2 },
-  //     { correctPos: 1 },
-  //     { correctPos: 9 },
-  //     { correctPos: 5 },
-  //     { correctPos: 3 },
-  //     { correctPos: 7 },
-  //     { correctPos: 6 },
-  //     { correctPos: 4 },
-  //   ])
-  // );
-
-  // useEffect(() => {
-  //   const bars = barsContainer.current.children;
-  //   console.log(bars);
-
-  //   for (let i = 0; i < bars.length; i++) {
-  //     bars[i].classList.add(barStyles["bar-highlighted"]);
-  //   }
-  // });
 
   const insertionSort = async () => {
     // for (let i = 1; i < barsToRender.length; i++) {
@@ -260,7 +259,9 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       algorithmToPlay = mergeSort;
       break;
     case "bubble sort":
-      algorithmToPlay = bubbleSort;
+      algorithmToPlay = () => {
+        animateArrayUpdate(bubbleSort(barsToRender));
+      };
       break;
     case "selection sort":
       algorithmToPlay = () => {
