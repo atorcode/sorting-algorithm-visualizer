@@ -195,6 +195,33 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     return animations;
   };
 
+  const insertionSort = (arr) => {
+    const animations = [];
+    const copy = [...arr];
+    const delay = calcAnimationStepTime(arr.length, 5000);
+    for (let i = 1; i < copy.length; i++) {
+      let j = i;
+      while (j > 0 && copy[j - 1].correctPos > copy[j].correctPos) {
+        swapBarsMutable(copy, j - 1, j);
+        animations.push({
+          action: "move",
+          arr: [...copy],
+          swap1: j - 1,
+          swap2: j,
+          delay: delay,
+        });
+        animations.push({
+          action: "color",
+          arr: [...copy],
+          highlightedIndex: j,
+          delay: delay,
+        });
+        j = j - 1;
+      }
+    }
+    return animations;
+  };
+
   const animateArrayUpdate = async (animations) => {
     const bars = barsContainer.current.children;
     for (let i = 0; i < animations.length; i++) {
@@ -224,32 +251,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     setIsPlaying(false);
   };
 
-  const insertionSort = async () => {
-    // for (let i = 1; i < barsToRender.length; i++) {
-    //   if (i === barsToRender.length - 1) {
-    //     setIsPlaying(false);
-    //     return;
-    //   }
-    //   await new Promise((resolve) =>
-    //     timers.current.push(setTimeout(resolve, 500))
-    //   );
-    //   let j = i;
-    //   while (
-    //     j > 0 &&
-    //     barsToRender[j - 1].correctPos > barsToRender[j].correctPos
-    //   ) {
-    //     setBarsToRender((prev) => {
-    //       const updatedBars = swapBarsImmutable(prev, j - 1, j);
-    //       j = j - 1;
-    //       return updatedBars;
-    //     });
-    //     await new Promise((resolve) =>
-    //       timers.current.push(setTimeout(resolve, 500))
-    //     );
-    //   }
-    // }
-  };
-
   let algorithmToPlay;
   switch (name) {
     case "quick sort":
@@ -269,7 +270,9 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       };
       break;
     case "insertion sort":
-      algorithmToPlay = insertionSort;
+      algorithmToPlay = () => {
+        animateArrayUpdate(insertionSort(barsToRender));
+      };
       break;
   }
 
