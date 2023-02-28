@@ -120,22 +120,23 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const partition = (arr, left, right, animations) => {
     const pivotIdx = Math.floor(Math.random() * (right - left) + left);
     const pivot = arr[pivotIdx];
-    animations.push({
-      action: "color",
-      arr: [...arr],
-      highlightedIndex: pivotIdx,
-      delay: 100,
-    });
+
     while (left <= right) {
-      while (arr[left] < pivot) {
+      while (arr[left].correctPos < pivot.correctPos) {
         left++;
       }
-      while (arr[right] > pivot) {
+      while (arr[right].correctPos > pivot.correctPos) {
         right--;
       }
       if (left <= right) {
         swapBarsMutable(arr, left, right);
 
+        animations.push({
+          action: "color",
+          arr: [...arr],
+          highlightedIndex: pivotIdx,
+          delay: 100,
+        });
         animations.push({
           action: "move",
           arr: [...arr],
@@ -176,7 +177,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   };
 
   // quickSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]);
-  // console.log(quickSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]));
+  // console.log(quickSort(barsToRender, 0, barsToRender.length - 1, []));
 
   // const merge = (arr, left, right) => {
   //   let i = 0;
