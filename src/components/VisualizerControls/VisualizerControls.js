@@ -116,10 +116,45 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
   // Sorts
 
-  // use switches with name parameter probably
-  const quickSort = () => {
-    console.log("quick");
+  // helper function for quickSort
+  const partition = (arr, left, right) => {
+    const pivot = arr[Math.floor(Math.random() * (right - left) + left)];
+    while (left <= right) {
+      while (arr[left] < pivot) {
+        left++;
+      }
+      while (arr[right] > pivot) {
+        right--;
+      }
+      if (left <= right) {
+        swapBarsMutable(arr, left, right);
+        left++;
+        right--;
+      }
+    }
+    return left;
   };
+
+  const quickSort = (arr, left, right, copy = null) => {
+    // The first time quickSort gets called, copy over the input array. On subsequent recursive calls, modify the copied array in place rather than creating new copies.
+    if (!copy) {
+      copy = [...arr];
+    }
+
+    if (left === undefined) {
+      left = 0;
+      right = copy.length - 1;
+    }
+    if (left >= right) {
+      return copy;
+    }
+    const pIndex = partition(copy, left, right);
+    quickSort(copy, left, pIndex - 1, copy);
+    quickSort(copy, pIndex, right, copy);
+    return copy;
+  };
+
+  console.log(quickSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]));
 
   const mergeSort = () => {
     console.log("merge");
@@ -198,7 +233,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const insertionSort = (arr) => {
     const animations = [];
     const copy = [...arr];
-    const delay = calcAnimationStepTime(arr.length, 5000);
+    const delay = calcAnimationStepTime(arr.length, 3000);
     for (let i = 1; i < copy.length; i++) {
       let j = i;
       while (j > 0 && copy[j - 1].correctPos > copy[j].correctPos) {
@@ -237,7 +272,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       if (anim.action === "move") {
         setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
       }
-
       if (anim.unhighlight) {
         await new Promise((resolve) => {
           timers.current.push(setTimeout(resolve, 0));
@@ -251,13 +285,32 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     setIsPlaying(false);
   };
 
+  useEffect(() => {
+    // setBarsToRender(createBarArray(numBars));
+    createBarArray(numBars);
+  }, [numBars]);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      highlightedIndex.current = null;
+      const bars = barsContainer.current.children;
+      for (let i = 0; i < bars.length; i++) {
+        bars[i].classList.remove(barStyles["bar-highlighted"]);
+      }
+    }
+  }, [isPlaying]);
+
   let algorithmToPlay;
   switch (name) {
     case "quick sort":
-      algorithmToPlay = quickSort;
+      algorithmToPlay = () => {
+        animateArrayUpdate(quickSort(barsToRender));
+      };
       break;
     case "merge sort":
-      algorithmToPlay = mergeSort;
+      algorithmToPlay = () => {
+        animateArrayUpdate(mergeSort(barsToRender));
+      };
       break;
     case "bubble sort":
       algorithmToPlay = () => {
@@ -275,21 +328,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       };
       break;
   }
-
-  useEffect(() => {
-    // setBarsToRender(createBarArray(numBars));
-    createBarArray(numBars);
-  }, [numBars]);
-
-  useEffect(() => {
-    if (!isPlaying) {
-      highlightedIndex.current = null;
-      const bars = barsContainer.current.children;
-      for (let i = 0; i < bars.length; i++) {
-        bars[i].classList.remove(barStyles["bar-highlighted"]);
-      }
-    }
-  }, [isPlaying]);
 
   return (
     <section className={styles["controls"]}>
