@@ -117,8 +117,15 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   // Sorts
 
   // helper function for quickSort
-  const partition = (arr, left, right) => {
-    const pivot = arr[Math.floor(Math.random() * (right - left) + left)];
+  const partition = (arr, left, right, animations) => {
+    const pivotIdx = Math.floor(Math.random() * (right - left) + left);
+    const pivot = arr[pivotIdx];
+    animations.push({
+      action: "color",
+      arr: [...arr],
+      highlightedIndex: pivotIdx,
+      delay: 100,
+    });
     while (left <= right) {
       while (arr[left] < pivot) {
         left++;
@@ -128,6 +135,15 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       }
       if (left <= right) {
         swapBarsMutable(arr, left, right);
+
+        animations.push({
+          action: "move",
+          arr: [...arr],
+          swap1: left,
+          swap2: right,
+          delay: 100,
+        });
+
         left++;
         right--;
       }
@@ -135,30 +151,74 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     return left;
   };
 
-  const quickSort = (arr, left, right, copy = null) => {
+  const quickSort = (arr, left, right, animations) => {
     // The first time quickSort gets called, copy over the input array. On subsequent recursive calls, modify the copied array in place rather than creating new copies.
-    if (!copy) {
-      copy = [...arr];
-    }
+    // copy = copy ?? [...arr];
 
     if (left === undefined) {
       left = 0;
-      right = copy.length - 1;
+      right = arr.length - 1;
     }
     if (left >= right) {
-      return copy;
+      return arr;
     }
-    const pIndex = partition(copy, left, right);
-    quickSort(copy, left, pIndex - 1, copy);
-    quickSort(copy, pIndex, right, copy);
-    return copy;
+    const pIndex = partition(arr, left, right, animations);
+    quickSort(arr, left, pIndex - 1, animations);
+    quickSort(arr, pIndex, right, animations);
+    return arr;
   };
 
-  console.log(quickSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]));
-
-  const mergeSort = () => {
-    console.log("merge");
+  const getQuickSortAnimations = (arr) => {
+    const animations = [];
+    const copy = [...arr];
+    quickSort(copy, 0, copy.length - 1, animations);
+    return animations;
   };
+
+  // quickSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]);
+  // console.log(quickSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]));
+
+  // const merge = (arr, left, right) => {
+  //   let i = 0;
+  //   let j = 0;
+  //   let k = 0;
+  //   while (i < left.length && j < right.length) {
+  //     if (left[i] <= right[j]) {
+  //       arr[k] = left[i];
+  //       i++;
+  //     } else {
+  //       arr[k] = right[j];
+  //       j++;
+  //     }
+  //     k++;
+  //   }
+  //   while (i < left.length) {
+  //     arr[k] = left[i];
+  //     i++;
+  //     k++;
+  //   }
+  //   while (j < right.length) {
+  //     arr[k] = right[j];
+  //     j++;
+  //     k++;
+  //   }
+  //   return arr;
+  // };
+
+  const mergeSort = (arr, copy = null) => {
+    //   copy = copy ?? [...arr];
+    //   if (arr.length < 2) {
+    //     return;
+    //   }
+    //   const left = copy.slice(0, copy.length / 2);
+    //   const right = copy.slice(copy.length / 2);
+    //   mergeSort(left, left);
+    //   mergeSort(right, right);
+    //   console.log(arr, copy);
+    //   return merge(copy, left, right);
+  };
+  // mergeSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]);
+  // console.log(mergeSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]));
 
   const bubbleSort = (arr) => {
     const animations = [];
@@ -257,7 +317,9 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     return animations;
   };
 
+  // The way this function is implemented forces there to be coloring animations in between swap animations, otherwise the visualization will not be staggered and will not appear asynchronous.
   const animateArrayUpdate = async (animations) => {
+    console.log(animations);
     const bars = barsContainer.current.children;
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
@@ -304,7 +366,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   switch (name) {
     case "quick sort":
       algorithmToPlay = () => {
-        animateArrayUpdate(quickSort(barsToRender));
+        animateArrayUpdate(getQuickSortAnimations(barsToRender));
       };
       break;
     case "merge sort":
