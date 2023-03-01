@@ -17,6 +17,16 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const { isPlaying, setIsPlaying, barsContainer, highlightedIndex, timers } =
     useAnimationContext();
 
+  const checkIfSorted = (arr) => {
+    let isSorted = true;
+    for (let i = 0; i < arr.length - 1; i++) {
+      if (arr[i].correctPos > arr[i + 1].correctPos) {
+        isSorted = false;
+      }
+    }
+    return isSorted;
+  };
+
   // Modifies original array
   const swapBarsMutable = (bars, idx, idx2) => {
     const temp = bars[idx];
@@ -120,6 +130,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const partition = (arr, left, right, animations) => {
     const pivotIdx = Math.floor(Math.random() * (right - left) + left);
     const pivot = arr[pivotIdx];
+    const delay = calcAnimationStepTime(arr.length, 5000);
 
     while (left <= right) {
       while (arr[left].correctPos < pivot.correctPos) {
@@ -129,20 +140,20 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         right--;
       }
       if (left <= right) {
-        swapBarsMutable(arr, left, right);
-
         animations.push({
           action: "color",
           arr: [...arr],
-          highlightedIndex: pivotIdx,
-          delay: 100,
+          highlightedIndices: [pivotIdx, left, right],
+          delay: delay,
         });
+
+        swapBarsMutable(arr, left, right);
+
         animations.push({
           action: "move",
           arr: [...arr],
           swap1: left,
           swap2: right,
-          delay: 100,
         });
 
         left++;
@@ -171,6 +182,9 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
   const getQuickSortAnimations = (arr) => {
     const animations = [];
+    if (checkIfSorted(arr)) {
+      return animations;
+    }
     const copy = [...arr];
     quickSort(copy, 0, copy.length - 1, animations);
     return animations;
@@ -237,12 +251,11 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
             arr: [...copy],
             swap1: j,
             swap2: j + 1,
-            delay: delay,
           });
           animations.push({
             action: "color",
             arr: [...copy],
-            highlightedIndex: j,
+            highlightedIndices: [j],
             delay: delay,
           });
         }
@@ -253,14 +266,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
   const selectionSort = (arr) => {
     const animations = [];
-    let isAlreadySorted = true;
-    for (let x = 0; x < arr.length - 1; x++) {
-      if (arr[x].correctPos > arr[x + 1].correctPos) {
-        isAlreadySorted = false;
-        break;
-      }
-    }
-    if (isAlreadySorted) {
+    if (checkIfSorted(arr)) {
       return animations;
     }
     const copy = [...arr];
@@ -275,7 +281,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       animations.push({
         action: "color",
         arr: [...copy],
-        highlightedIndex: minIdx,
+        highlightedIndices: [minIdx],
         delay: delay,
       });
       swapBarsMutable(copy, i, minIdx);
@@ -284,7 +290,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         arr: [...copy],
         swap1: i,
         swap2: minIdx,
-        delay: delay,
+
         unhighlight: true,
       });
     }
@@ -304,12 +310,11 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
           arr: [...copy],
           swap1: j - 1,
           swap2: j,
-          delay: delay,
         });
         animations.push({
           action: "color",
           arr: [...copy],
-          highlightedIndex: j,
+          highlightedIndices: [j],
           delay: delay,
         });
         j = j - 1;
@@ -325,16 +330,38 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
       if (anim.action === "color") {
-        let highlightedBar = bars[anim.highlightedIndex];
+        const highlightedBar = bars[anim.highlightedIndices[0]];
+        const highlightedBarTwo = bars[anim.highlightedIndices[1]];
+        const highlightedBarThree = bars[anim.highlightedIndices[2]];
+
         highlightedBar.classList.add(barStyles["bar-highlighted"]);
+
+        if (highlightedBarTwo) {
+          highlightedBarTwo.classList.add(barStyles["bar-highlighted-two"]);
+        }
+        if (highlightedBarThree) {
+          highlightedBarThree.classList.add(barStyles["bar-highlighted-three"]);
+        }
+
         await new Promise((resolve) => {
           timers.current.push(setTimeout(resolve, anim.delay));
         });
         highlightedBar.classList.remove(barStyles["bar-highlighted"]);
+
+        if (highlightedBarTwo) {
+          highlightedBarTwo.classList.remove(barStyles["bar-highlighted-two"]);
+        }
+        if (highlightedBarThree) {
+          highlightedBarThree.classList.remove(
+            barStyles["bar-highlighted-three"]
+          );
+        }
       }
+
       if (anim.action === "move") {
         setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
       }
+
       if (anim.unhighlight) {
         await new Promise((resolve) => {
           timers.current.push(setTimeout(resolve, 0));
@@ -359,9 +386,24 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       const bars = barsContainer.current.children;
       for (let i = 0; i < bars.length; i++) {
         bars[i].classList.remove(barStyles["bar-highlighted"]);
+        bars[i].classList.remove(barStyles["bar-highlighted-two"]);
+        bars[i].classList.remove(barStyles["bar-highlighted-three"]);
       }
     }
   }, [isPlaying]);
+
+  // useEffect(() => {
+  //   const bars = barsContainer.current.children;
+  //   for (let i = 0; i < 33; i++) {
+  //     bars[i].classList.add(barStyles["bar-highlighted"]);
+  //   }
+  //   for (let i = 33; i < bars.length - 33; i++) {
+  //     bars[i].classList.add(barStyles["bar-highlighted-two"]);
+  //   }
+  //   for (let i = bars.length - 33; i < bars.length; i++) {
+  //     bars[i].classList.add(barStyles["bar-highlighted-three"]);
+  //   }
+  // }, []);
 
   let algorithmToPlay;
   switch (name) {

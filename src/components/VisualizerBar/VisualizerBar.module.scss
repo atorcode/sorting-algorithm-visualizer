@@ -11,3 +11,11 @@
 .bar-highlighted {
   background: linear-gradient(v.$highlight-color, v.$background-color);
 }
+
+.bar-highlighted-two {
+  background: linear-gradient(rgb(0, 128, 128), v.$background-color);
+}
+
+.bar-highlighted-three {
+  background: linear-gradient(rgb(160, 0, 160), v.$background-color);
+}
