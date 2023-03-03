@@ -10,52 +10,18 @@ import {
   calcLeftPosPercentage,
   calcAnimationStepTime,
 } from "../../utils/utils";
+import { swapLefts, swapBarsImmutable } from "../../utils/swaps";
+import insertionSort from "../../sorts/insertionSort";
+import selectionSort from "../../sorts/selectionSort";
+import bubbleSort from "../../sorts/bubbleSort";
+import getQuickSortAnimations from "../../sorts/quickSort";
+import getMergeSortAnimations from "../../sorts/mergeSort";
 
 const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const [numBars, setNumBars] = useState(100);
 
   const { isPlaying, setIsPlaying, barsContainer, highlightedIndex, timers } =
     useAnimationContext();
-
-  const checkIfSorted = (arr) => {
-    let isSorted = true;
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (arr[i].correctPos > arr[i + 1].correctPos) {
-        isSorted = false;
-      }
-    }
-    return isSorted;
-  };
-
-  // Modifies original array
-  const swapBarsMutable = (bars, idx, idx2) => {
-    const temp = bars[idx];
-    bars[idx] = bars[idx2];
-    bars[idx2] = temp;
-
-    return bars;
-  };
-
-  const swapLefts = (bars, idx, idx2) => {
-    const tempLeft = bars[idx].left;
-    bars[idx].left = bars[idx2].left;
-    bars[idx2].left = tempLeft;
-
-    return bars;
-  };
-
-  // Does not modify original array
-  const swapBarsImmutable = (bars, idx1, idx2) => {
-    return bars.map((bar, i, arr) => {
-      if (i === idx1) {
-        return { ...arr[idx2], left: arr[idx1].left };
-      } else if (i === idx2) {
-        return { ...arr[idx1], left: arr[idx2].left };
-      } else {
-        return bar;
-      }
-    });
-  };
 
   // Synchronous shuffle
   const initBars = (bars) => {
@@ -99,7 +65,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   };
 
   // Async shuffle
-  // This function has not been refactored to use the animation queue system and animateArrayUpdate because using async/await makes this animation too slow when the bar count is high. This implementation guarantees that the animation is finished playing after roughly three seconds. It is okay that not ever step in the animation gets separately rendered.
+  // This function has not been refactored to use the animation queue system and animateArrayUpdate because using async/await makes this animation too slow when the bar count is high. This implementation guarantees that the animation is finished playing after roughly three seconds. It is okay that not every step in the animation gets separately rendered.
   const shuffleBars = (bars) => {
     setIsPlaying(true);
     for (let currentIndex = bars.length - 1; currentIndex > 0; currentIndex--) {
@@ -124,206 +90,10 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     }
   };
 
-  // Sorts
-
-  // helper function for quickSort
-  const partition = (arr, left, right, animations) => {
-    const pivotIdx = Math.floor(Math.random() * (right - left) + left);
-    const pivot = arr[pivotIdx];
-    const delay = calcAnimationStepTime(arr.length, 5000);
-
-    while (left <= right) {
-      while (arr[left].correctPos < pivot.correctPos) {
-        left++;
-      }
-      while (arr[right].correctPos > pivot.correctPos) {
-        right--;
-      }
-      if (left <= right) {
-        animations.push({
-          action: "color",
-          arr: [...arr],
-          highlightedIndices: [pivotIdx, left, right],
-          delay: delay,
-        });
-
-        swapBarsMutable(arr, left, right);
-
-        animations.push({
-          action: "move",
-          arr: [...arr],
-          swap1: left,
-          swap2: right,
-        });
-
-        left++;
-        right--;
-      }
-    }
-    return left;
-  };
-
-  const quickSort = (arr, left, right, animations) => {
-    // The first time quickSort gets called, copy over the input array. On subsequent recursive calls, modify the copied array in place rather than creating new copies.
-    // copy = copy ?? [...arr];
-
-    if (left === undefined) {
-      left = 0;
-      right = arr.length - 1;
-    }
-    if (left >= right) {
-      return arr;
-    }
-    const pIndex = partition(arr, left, right, animations);
-    quickSort(arr, left, pIndex - 1, animations);
-    quickSort(arr, pIndex, right, animations);
-    return arr;
-  };
-
-  const getQuickSortAnimations = (arr) => {
-    const animations = [];
-    if (checkIfSorted(arr)) {
-      return animations;
-    }
-    const copy = [...arr];
-    quickSort(copy, 0, copy.length - 1, animations);
-    return animations;
-  };
-
-  // quickSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]);
-  // console.log(quickSort(barsToRender, 0, barsToRender.length - 1, []));
-
-  // const merge = (arr, left, right) => {
-  //   let i = 0;
-  //   let j = 0;
-  //   let k = 0;
-  //   while (i < left.length && j < right.length) {
-  //     if (left[i] <= right[j]) {
-  //       arr[k] = left[i];
-  //       i++;
-  //     } else {
-  //       arr[k] = right[j];
-  //       j++;
-  //     }
-  //     k++;
-  //   }
-  //   while (i < left.length) {
-  //     arr[k] = left[i];
-  //     i++;
-  //     k++;
-  //   }
-  //   while (j < right.length) {
-  //     arr[k] = right[j];
-  //     j++;
-  //     k++;
-  //   }
-  //   return arr;
-  // };
-
-  const mergeSort = (arr, copy = null) => {
-    //   copy = copy ?? [...arr];
-    //   if (arr.length < 2) {
-    //     return;
-    //   }
-    //   const left = copy.slice(0, copy.length / 2);
-    //   const right = copy.slice(copy.length / 2);
-    //   mergeSort(left, left);
-    //   mergeSort(right, right);
-    //   console.log(arr, copy);
-    //   return merge(copy, left, right);
-  };
   // mergeSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]);
   // console.log(mergeSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]));
 
-  const bubbleSort = (arr) => {
-    const animations = [];
-    const copy = [...arr];
-    const delay = calcAnimationStepTime(arr.length, 3000);
-    let isSorted = false;
-    while (!isSorted) {
-      isSorted = true;
-      for (let j = 0; j < copy.length - 1; j++) {
-        if (copy[j].correctPos > copy[j + 1].correctPos) {
-          isSorted = false;
-          swapBarsMutable(copy, j, j + 1);
-          animations.push({
-            action: "move",
-            arr: [...copy],
-            swap1: j,
-            swap2: j + 1,
-          });
-          animations.push({
-            action: "color",
-            arr: [...copy],
-            highlightedIndices: [j],
-            delay: delay,
-          });
-        }
-      }
-    }
-    return animations;
-  };
-
-  const selectionSort = (arr) => {
-    const animations = [];
-    if (checkIfSorted(arr)) {
-      return animations;
-    }
-    const copy = [...arr];
-    const delay = calcAnimationStepTime(arr.length, 7500);
-    for (let i = 0; i < copy.length - 1; i++) {
-      let minIdx = i;
-      for (let j = i + 1; j < copy.length; j++) {
-        if (copy[j].correctPos < copy[minIdx].correctPos) {
-          minIdx = j;
-        }
-      }
-      animations.push({
-        action: "color",
-        arr: [...copy],
-        highlightedIndices: [minIdx],
-        delay: delay,
-      });
-      swapBarsMutable(copy, i, minIdx);
-      animations.push({
-        action: "move",
-        arr: [...copy],
-        swap1: i,
-        swap2: minIdx,
-
-        unhighlight: true,
-      });
-    }
-    return animations;
-  };
-
-  const insertionSort = (arr) => {
-    const animations = [];
-    const copy = [...arr];
-    const delay = calcAnimationStepTime(arr.length, 3000);
-    for (let i = 1; i < copy.length; i++) {
-      let j = i;
-      while (j > 0 && copy[j - 1].correctPos > copy[j].correctPos) {
-        swapBarsMutable(copy, j - 1, j);
-        animations.push({
-          action: "move",
-          arr: [...copy],
-          swap1: j - 1,
-          swap2: j,
-        });
-        animations.push({
-          action: "color",
-          arr: [...copy],
-          highlightedIndices: [j],
-          delay: delay,
-        });
-        j = j - 1;
-      }
-    }
-    return animations;
-  };
-
-  // The way this function is implemented forces there to be coloring animations in between swap animations, otherwise the visualization will not be staggered and will not appear asynchronous.
+  // The way this function is implemented forces there to be coloring animations in between swap animations, otherwise the visualization will not be staggered and will not appear asynchronous. For the purposes of this program, that's not an issue.
   const animateArrayUpdate = async (animations) => {
     console.log(animations);
     const bars = barsContainer.current.children;
@@ -358,8 +128,15 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         }
       }
 
+      // move animations are broken for merge sort
       if (anim.action === "move") {
-        setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
+        if (anim.swapArr) {
+          setBarsToRender(
+            swapLefts(anim.arr, anim.swap1, anim.swap2, anim.swapArr)
+          );
+        } else {
+          setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
+        }
       }
 
       if (anim.unhighlight) {
@@ -414,7 +191,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       break;
     case "merge sort":
       algorithmToPlay = () => {
-        animateArrayUpdate(mergeSort(barsToRender));
+        animateArrayUpdate(getMergeSortAnimations(barsToRender));
       };
       break;
     case "bubble sort":

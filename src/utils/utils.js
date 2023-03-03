@@ -42,3 +42,13 @@ export const calcLeftPosPercentage = (quantity, multiplier) => {
 export const calcAnimationStepTime = (steps, total) => {
   return total / steps;
 };
+
+export const checkIfSorted = (arr) => {
+  let isSorted = true;
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i].correctPos > arr[i + 1].correctPos) {
+      isSorted = false;
+    }
+  }
+  return isSorted;
+};
