@@ -2,97 +2,63 @@ import { calcAnimationStepTime, checkIfSorted } from "../utils/utils";
 // import { swapBarsMutable } from "../utils/swaps";
 
 // helper function for mergeSort
-const merge = (arr, left, right, wholeArr, animations) => {
-  let i = 0;
-  let j = 0;
-  let k = 0;
+const merge = (arr, aux, left, right, animations) => {
+  let i = left;
+  let j = right;
+  let k = left;
 
   // const delay = calcAnimationStepTime(arr.length, 5000);
   const delay = 100;
-  while (i < left.length && j < right.length) {
-    if (left[i].correctPos <= right[j].correctPos) {
-      animations.push({
-        action: "color",
-        arr: [...arr],
-        highlightedIndices: [i],
-        delay: delay,
-      });
-      arr[k] = left[i];
-      animations.push({
-        action: "move",
-        arr: [...arr],
-        swap1: k,
-        swap2: i,
-        swapArr: left,
-      });
+  while (i <= left && j <= right) {
+    animations.push({
+      action: "color",
+      arr: [...arr],
+      highlightedIndices: [i, j],
+      delay: delay,
+    });
+    if (aux[i].correctPos <= aux[j].correctPos) {
+      arr[k] = aux[i];
       i++;
     } else {
-      animations.push({
-        action: "color",
-        arr: [...arr],
-        highlightedIndices: [j],
-        delay: delay,
-      });
-      arr[k] = right[j];
-      animations.push({
-        action: "move",
-        arr: [...arr],
-        swap1: k,
-        swap2: j,
-        swapArr: right,
-      });
+      arr[k] = aux[j];
       j++;
     }
     k++;
   }
-  while (i < left.length) {
+
+  while (i <= left) {
     animations.push({
       action: "color",
       arr: [...arr],
-      highlightedIndices: [k],
+      highlightedIndices: [i],
       delay: delay,
     });
-    arr[k] = left[i];
-    animations.push({
-      action: "move",
-      arr: [...arr],
-      swap1: k,
-      swap2: i,
-      swapArr: left,
-    });
+    arr[k] = aux[i];
     i++;
     k++;
   }
-  while (j < right.length) {
+
+  while (j <= right) {
     animations.push({
       action: "color",
       arr: [...arr],
-      highlightedIndices: [k],
+      highlightedIndices: [j],
       delay: delay,
     });
-    arr[k] = right[j];
-    animations.push({
-      action: "move",
-      arr: [...arr],
-      swap1: k,
-      swap2: j,
-      swapArr: right,
-    });
+    arr[k] = aux[j];
     j++;
     k++;
   }
-  return arr;
 };
 
-const mergeSort = (segment, wholeArr, animations) => {
-  if (segment.length < 2) {
+const mergeSort = (arr, aux, left, right, animations) => {
+  if (left >= right) {
     return;
   }
-  const left = segment.slice(0, segment.length / 2);
-  const right = segment.slice(segment.length / 2);
-  mergeSort(left, wholeArr, animations);
-  mergeSort(right, wholeArr, animations);
-  return merge(segment, left, right, wholeArr, animations);
+  const mid = Math.floor((left + right) / 2);
+  mergeSort(arr, aux, left, mid, animations);
+  mergeSort(arr, aux, mid + 1, right, animations);
+  return merge(arr, aux, left, right, animations);
 };
 
 const getMergeSortAnimations = (arr) => {
@@ -101,7 +67,8 @@ const getMergeSortAnimations = (arr) => {
     return animations;
   }
   const copy = [...arr];
-  mergeSort(copy, copy, animations);
+  const aux = [...arr];
+  mergeSort(copy, aux, 0, copy.length - 1, animations);
   return animations;
 };
 

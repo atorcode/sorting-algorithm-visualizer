@@ -129,15 +129,15 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       }
 
       // move animations are broken for merge sort
-      if (anim.action === "move") {
-        if (anim.swapArr) {
-          setBarsToRender(
-            swapLefts(anim.arr, anim.swap1, anim.swap2, anim.swapArr)
-          );
-        } else {
-          setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
-        }
-      }
+      // if (anim.action === "move") {
+      //   if (anim.swapArr) {
+      //     setBarsToRender(
+      //       swapLefts(anim.arr, anim.swap1, anim.swap2, anim.swapArr)
+      //     );
+      //   } else {
+      //     setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
+      //   }
+      // }
 
       if (anim.unhighlight) {
         await new Promise((resolve) => {
