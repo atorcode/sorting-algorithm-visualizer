@@ -128,29 +128,16 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         }
       }
 
-      if (anim.action === "update") {
-        // setBarsToRender(updateLeft(anim.arr, anim.index, anim.updatedPos));
-        // console.log(anim.arr);
-        // setBarsToRender(anim.arr);
-      }
-
       // move animations are broken for merge sort
       if (anim.action === "move") {
         // console.log(anim.swapArr);
-        if (anim.swapArr) {
-          // setBarsToRender((prev) => {
-          //   const newArr = [...prev];
-          //   const temp = newArr[anim.swap1.left];
-          //   newArr[anim.swap1].left = newArr[anim.swap2].left;
-          //   newArr[anim.swap2].left = temp;
-          //   return newArr;
-          // });
-          // setBarsToRender(
-          //   swapLefts(anim.arr, anim.swap1, anim.swap2, anim.swapArr)
-          // );
-        } else {
-          setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
-        }
+        // if (anim.swapArr) {
+        //   setBarsToRender(
+        //     swapLefts(anim.arr, anim.swap1, anim.swap2, anim.swapArr)
+        //   );
+        // } else {
+        // }
+        setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
       }
 
       if (anim.unhighlight) {

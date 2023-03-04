@@ -11,73 +11,56 @@ const merge = (arr, aux, left, mid, right, animations) => {
   // const delay = calcAnimationStepTime(arr.length, 5000);
   const delay = 100;
   while (i <= mid && j <= right) {
-    animations.push({
-      action: "color",
-      arr: [...arr],
-      // highlightedIndices: [i, j],
-      highlightedIndices: [k],
-
-      delay: delay,
-    });
     if (aux[i].correctPos <= aux[j].correctPos) {
-      // arr[k] = aux[i];
-      animations.push({
-        action: "update",
-        arr: [...arr],
-        index: k,
-        updatedPos: aux[i].left,
-      });
       arr[k] = aux[i];
-      // animations.push({
-      //   action: "move",
-      //   arr: [...arr],
-      //   swap1: k,
-      //   swap2: i,
-      //   swapArr: aux,
-      // });
+      animations.push({
+        action: "color",
+        arr: [...arr],
+        highlightedIndices: [k],
+        delay: delay,
+      });
+      animations.push({
+        action: "move",
+        arr: [...arr],
+        swap1: k,
+        swap2: i,
+        swapArr: aux,
+      });
       i++;
     } else {
       arr[k] = aux[j];
       animations.push({
-        action: "update",
+        action: "color",
         arr: [...arr],
-        index: k,
-        updatedPos: aux[j].left,
+        highlightedIndices: [k],
+        delay: delay,
       });
-      arr[k] = aux[j];
-      // animations.push({
-      //   action: "move",
-      //   arr: [...arr],
-      //   swap1: k,
-      //   swap2: i,
-      //   swapArr: aux,
-      // });
+      animations.push({
+        action: "move",
+        arr: [...arr],
+        swap1: k,
+        swap2: i,
+        swapArr: aux,
+      });
       j++;
     }
     k++;
   }
   while (i <= mid) {
+    arr[k] = aux[i];
     animations.push({
       action: "color",
       arr: [...arr],
       highlightedIndices: [k],
       delay: delay,
     });
-    // arr[k] = aux[i];
     animations.push({
-      action: "update",
+      action: "move",
       arr: [...arr],
-      index: k,
-      updatedPos: aux[i].left,
+      swap1: k,
+      swap2: i,
+      swapArr: aux,
     });
-    arr[k] = aux[i];
-    // animations.push({
-    //   action: "move",
-    //   arr: [...arr],
-    //   swap1: k,
-    //   swap2: i,
-    //   swapArr: aux,
-    // });
     i++;
     k++;
   }
@@ -88,21 +71,14 @@ const merge = (arr, aux, left, mid, right, animations) => {
       highlightedIndices: [k],
       delay: delay,
     });
-    // arr[k] = aux[j];
     animations.push({
-      action: "update",
+      action: "move",
       arr: [...arr],
-      index: k,
-      updatedPos: aux[j].left,
+      swap1: k,
+      swap2: j,
+      swapArr: aux,
     });
     arr[k] = aux[j];
-    // animations.push({
-    //   action: "move",
-    //   arr: [...arr],
-    //   swap1: k,
-    //   swap2: j,
-    //   swapArr: aux,
-    // });
     j++;
     k++;
   }
