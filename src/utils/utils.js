@@ -52,3 +52,8 @@ export const checkIfSorted = (arr) => {
   }
   return isSorted;
 };
+
+export const updateLeft = (arr, index, updatedPos) => {
+  arr[index].left = updatedPos;
+  return arr;
+};
