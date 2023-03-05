@@ -53,7 +53,7 @@ export const checkIfSorted = (arr) => {
   return isSorted;
 };
 
-export const updateLeft = (arr, index, updatedPos) => {
-  arr[index].left = updatedPos;
+export const copyLeft = (arr, copyTo, copyFrom) => {
+  copyTo.left = copyFrom.left;
   return arr;
 };

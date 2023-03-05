@@ -9,7 +9,7 @@ import {
   calcHeightPercentage,
   calcLeftPosPercentage,
   calcAnimationStepTime,
-  updateLeft,
+  copyLeft,
 } from "../../utils/utils";
 import { swapLefts, swapBarsImmutable } from "../../utils/swaps";
 import insertionSort from "../../sorts/insertionSort";
@@ -48,7 +48,12 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     for (let i = 0; i < quantity; i++) {
       const height = calcHeightPercentage(quantity, i + 1);
       const left = calcLeftPosPercentage(quantity, i + 1);
-      bars.push({ correctPos: i, height: height, width: width, left: left });
+      bars.push({
+        correctPos: i,
+        height: height,
+        width: width,
+        left: left,
+      });
     }
     // for debugging
     // return [
@@ -130,14 +135,25 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
       // move animations are broken for merge sort
       if (anim.action === "move") {
-        // console.log(anim.swapArr);
-        // if (anim.swapArr) {
-        //   setBarsToRender(
-        //     swapLefts(anim.arr, anim.swap1, anim.swap2, anim.swapArr)
-        //   );
-        // } else {
-        // }
-        setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
+        console.log(anim.arr);
+        if (anim.swapArr) {
+          // Finds duplicate correctPos
+          // const duplicateIndex = anim.arr.indexOf(
+          //   anim.arr[anim.swap1],
+          //   anim.arr.indexOf(anim.arr[anim.swap1]) + 1
+          // );
+          // if (duplicateIndex !== -1) {
+          //   console.log(anim.arr[duplicateIndex]);
+          //   anim.arr[duplicateIndex] = {};
+          // }
+          // setBarsToRender(
+          //   swapLefts(anim.arr, anim.swap1, anim.swap2, anim.swapArr)
+          // );
+          setBarsToRender(anim.arr);
+        } else {
+          setBarsToRender(anim.arr);
+          // setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
+        }
       }
 
       if (anim.unhighlight) {
@@ -152,6 +168,18 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     });
     setIsPlaying(false);
   };
+
+  // handles updating visual position of bars
+  useEffect(() => {
+    setBarsToRender((prev) => {
+      return prev.map((bar, i) => {
+        return {
+          ...bar,
+          left: calcLeftPosPercentage(prev.length, i + 1),
+        };
+      });
+    });
+  }, [barsToRender]);
 
   useEffect(() => {
     // setBarsToRender(createBarArray(numBars));
@@ -169,19 +197,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       }
     }
   }, [isPlaying]);
-
-  // useEffect(() => {
-  //   const bars = barsContainer.current.children;
-  //   for (let i = 0; i < 33; i++) {
-  //     bars[i].classList.add(barStyles["bar-highlighted"]);
-  //   }
-  //   for (let i = 33; i < bars.length - 33; i++) {
-  //     bars[i].classList.add(barStyles["bar-highlighted-two"]);
-  //   }
-  //   for (let i = bars.length - 33; i < bars.length; i++) {
-  //     bars[i].classList.add(barStyles["bar-highlighted-three"]);
-  //   }
-  // }, []);
 
   let algorithmToPlay;
   switch (name) {

@@ -12,55 +12,58 @@ const merge = (arr, aux, left, mid, right, animations) => {
   const delay = 100;
   while (i <= mid && j <= right) {
     if (aux[i].correctPos <= aux[j].correctPos) {
-      arr[k] = aux[i];
       animations.push({
         action: "color",
         arr: [...arr],
         highlightedIndices: [k],
         delay: delay,
       });
+
       animations.push({
         action: "move",
         arr: [...arr],
         swap1: k,
         swap2: i,
-        swapArr: aux,
+        swapArr: [...aux],
       });
+      arr[k] = aux[i];
       i++;
     } else {
-      arr[k] = aux[j];
       animations.push({
         action: "color",
         arr: [...arr],
         highlightedIndices: [k],
         delay: delay,
       });
+
       animations.push({
         action: "move",
         arr: [...arr],
         swap1: k,
-        swap2: i,
-        swapArr: aux,
+        swap2: j,
+        swapArr: [...aux],
       });
+      arr[k] = aux[j];
       j++;
     }
     k++;
   }
   while (i <= mid) {
-    arr[k] = aux[i];
     animations.push({
       action: "color",
       arr: [...arr],
       highlightedIndices: [k],
       delay: delay,
     });
+
     animations.push({
       action: "move",
       arr: [...arr],
       swap1: k,
       swap2: i,
-      swapArr: aux,
+      swapArr: [...aux],
     });
+    arr[k] = aux[i];
     i++;
     k++;
   }
@@ -71,12 +74,13 @@ const merge = (arr, aux, left, mid, right, animations) => {
       highlightedIndices: [k],
       delay: delay,
     });
+
     animations.push({
       action: "move",
       arr: [...arr],
       swap1: k,
       swap2: j,
-      swapArr: aux,
+      swapArr: [...aux],
     });
     arr[k] = aux[j];
     j++;
