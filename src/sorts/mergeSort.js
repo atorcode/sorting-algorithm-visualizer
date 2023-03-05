@@ -18,7 +18,7 @@ const merge = (arr, aux, left, mid, right, animations) => {
         highlightedIndices: [k],
         delay: delay,
       });
-
+      arr[k] = aux[i];
       animations.push({
         action: "move",
         arr: [...arr],
@@ -26,7 +26,7 @@ const merge = (arr, aux, left, mid, right, animations) => {
         swap2: i,
         swapArr: [...aux],
       });
-      arr[k] = aux[i];
+
       i++;
     } else {
       animations.push({
@@ -35,7 +35,7 @@ const merge = (arr, aux, left, mid, right, animations) => {
         highlightedIndices: [k],
         delay: delay,
       });
-
+      arr[k] = aux[j];
       animations.push({
         action: "move",
         arr: [...arr],
@@ -43,7 +43,7 @@ const merge = (arr, aux, left, mid, right, animations) => {
         swap2: j,
         swapArr: [...aux],
       });
-      arr[k] = aux[j];
+
       j++;
     }
     k++;
@@ -55,7 +55,7 @@ const merge = (arr, aux, left, mid, right, animations) => {
       highlightedIndices: [k],
       delay: delay,
     });
-
+    arr[k] = aux[i];
     animations.push({
       action: "move",
       arr: [...arr],
@@ -63,7 +63,7 @@ const merge = (arr, aux, left, mid, right, animations) => {
       swap2: i,
       swapArr: [...aux],
     });
-    arr[k] = aux[i];
+
     i++;
     k++;
   }
@@ -74,7 +74,7 @@ const merge = (arr, aux, left, mid, right, animations) => {
       highlightedIndices: [k],
       delay: delay,
     });
-
+    arr[k] = aux[j];
     animations.push({
       action: "move",
       arr: [...arr],
@@ -82,7 +82,7 @@ const merge = (arr, aux, left, mid, right, animations) => {
       swap2: j,
       swapArr: [...aux],
     });
-    arr[k] = aux[j];
+
     j++;
     k++;
   }

@@ -52,8 +52,3 @@ export const checkIfSorted = (arr) => {
   }
   return isSorted;
 };
-
-export const copyLeft = (arr, copyTo, copyFrom) => {
-  copyTo.left = copyFrom.left;
-  return arr;
-};

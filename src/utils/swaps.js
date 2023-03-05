@@ -12,7 +12,6 @@ export const swapBarsMutable = (bars, idx, idx2, _bars) => {
   return bars;
 };
 
-// Responsible for physically rearranging bars
 export const swapLefts = (bars, idx, idx2, _bars) => {
   if (_bars) {
     const tempLeft = bars[idx].left;

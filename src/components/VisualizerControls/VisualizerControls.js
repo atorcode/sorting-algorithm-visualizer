@@ -2,14 +2,13 @@ import styles from "./VisualizerControls.module.scss";
 import barStyles from "../VisualizerBar/VisualizerBar.module.scss";
 import VisualizerButton from "../VisualizerButton";
 import VisualizerSlider from "../VisualizerSlider";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 import {
   calcWidthPercentage,
   calcHeightPercentage,
   calcLeftPosPercentage,
   calcAnimationStepTime,
-  copyLeft,
 } from "../../utils/utils";
 import { swapLefts, swapBarsImmutable } from "../../utils/swaps";
 import insertionSort from "../../sorts/insertionSort";
@@ -96,9 +95,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     }
   };
 
-  // mergeSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]);
-  // console.log(mergeSort([6, 4, 2, 9, 8, 1, 3, 44, 986, 211, 42, 33]));
-
   // The way this function is implemented forces there to be coloring animations in between swap animations, otherwise the visualization will not be staggered and will not appear asynchronous. For the purposes of this program, that's not an issue.
   const animateArrayUpdate = async (animations) => {
     const bars = barsContainer.current.children;
@@ -135,24 +131,17 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
       // move animations are broken for merge sort
       if (anim.action === "move") {
-        console.log(anim.arr);
         if (anim.swapArr) {
-          // Finds duplicate correctPos
-          // const duplicateIndex = anim.arr.indexOf(
-          //   anim.arr[anim.swap1],
-          //   anim.arr.indexOf(anim.arr[anim.swap1]) + 1
-          // );
-          // if (duplicateIndex !== -1) {
-          //   console.log(anim.arr[duplicateIndex]);
-          //   anim.arr[duplicateIndex] = {};
-          // }
-          // setBarsToRender(
-          //   swapLefts(anim.arr, anim.swap1, anim.swap2, anim.swapArr)
-          // );
-          setBarsToRender(anim.arr);
+          setBarsToRender(
+            anim.arr.map((bar, i) => {
+              return {
+                ...bar,
+                left: calcLeftPosPercentage(anim.arr.length, i + 1),
+              };
+            })
+          );
         } else {
-          setBarsToRender(anim.arr);
-          // setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
+          setBarsToRender(swapLefts(anim.arr, anim.swap1, anim.swap2));
         }
       }
 
@@ -168,18 +157,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     });
     setIsPlaying(false);
   };
-
-  // handles updating visual position of bars
-  useEffect(() => {
-    setBarsToRender((prev) => {
-      return prev.map((bar, i) => {
-        return {
-          ...bar,
-          left: calcLeftPosPercentage(prev.length, i + 1),
-        };
-      });
-    });
-  }, [barsToRender]);
 
   useEffect(() => {
     // setBarsToRender(createBarArray(numBars));
