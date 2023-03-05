@@ -17,7 +17,7 @@ const VisualizerHero = ({ name }) => {
           barsToRender={barsToRender}
           setBarsToRender={setBarsToRender}
         />
-        <VisualizerBars barsToRender={barsToRender} />
+        <VisualizerBars name={name} barsToRender={barsToRender} />
       </div>
       <HeroImage />
     </main>
