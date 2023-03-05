@@ -2,7 +2,7 @@ import styles from "./VisualizerControls.module.scss";
 import barStyles from "../VisualizerBar/VisualizerBar.module.scss";
 import VisualizerButton from "../VisualizerButton";
 import VisualizerSlider from "../VisualizerSlider";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 import {
   calcWidthPercentage,
@@ -54,18 +54,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         left: left,
       });
     }
-    // for debugging
-    // return [
-    //   { correctPos: 2, height: 30, width: 10, left: 0 },
-    //   { correctPos: 1, height: 20, width: 10, left: 10 },
-    //   { correctPos: 3, height: 40, width: 10, left: 20 },
-    //   { correctPos: 4, height: 50, width: 10, left: 30 },
-    //   { correctPos: 5, height: 60, width: 10, left: 40 },
-    //   { correctPos: 6, height: 70, width: 10, left: 50 },
-    //   { correctPos: 7, height: 80, width: 10, left: 60 },
-    //   { correctPos: 8, height: 90, width: 10, left: 70 },
-    //   { correctPos: 9, height: 100, width: 10, left: 80 },
-    // ];
     return initBars(bars);
   };
 
@@ -132,6 +120,13 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       // move animations are broken for merge sort
       if (anim.action === "move") {
         if (anim.swapArr) {
+          // find duplicate
+          // const duplicateIndex = anim.arr.indexOf(
+          //   anim.arr[anim.swap1],
+          //   anim.arr.indexOf(anim.arr[anim.swap1]) + 1
+          // );
+          // anim.arr[duplicateIndex]
+
           setBarsToRender(
             anim.arr.map((bar, i) => {
               return {

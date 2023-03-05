@@ -17,10 +17,11 @@ export const swapLefts = (bars, idx, idx2, _bars) => {
     const tempLeft = bars[idx].left;
     bars[idx].left = _bars[idx2].left;
     _bars[idx2].left = tempLeft;
+  } else {
+    const tempLeft = bars[idx].left;
+    bars[idx].left = bars[idx2].left;
+    bars[idx2].left = tempLeft;
   }
-  const tempLeft = bars[idx].left;
-  bars[idx].left = bars[idx2].left;
-  bars[idx2].left = tempLeft;
 
   return bars;
 };
