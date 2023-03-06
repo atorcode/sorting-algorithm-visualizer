@@ -15,7 +15,7 @@ import insertionSort from "../../sorts/insertionSort";
 import selectionSort from "../../sorts/selectionSort";
 import bubbleSort from "../../sorts/bubbleSort";
 import getQuickSortAnimations from "../../sorts/quickSort";
-import getMergeSortAnimations from "../../sorts/mergeSort";
+import getMergeSortInPlaceAnimations from "../../sorts/mergeSortInPlace";
 
 const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const [numBars, setNumBars] = useState(100);
@@ -88,6 +88,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     const bars = barsContainer.current.children;
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
+      console.log(anim);
       if (anim.action === "color") {
         const highlightedBar = bars[anim.highlightedIndices[0]];
         const highlightedBarTwo = bars[anim.highlightedIndices[1]];
@@ -117,6 +118,9 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         }
       }
 
+      // in-place merge sort
+      if (anim.action === "insert") {
+      }
       // move animations are broken for merge sort
       if (anim.action === "move") {
         if (anim.swapArr) {
@@ -179,7 +183,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       break;
     case "merge sort":
       algorithmToPlay = () => {
-        animateArrayUpdate(getMergeSortAnimations(barsToRender));
+        animateArrayUpdate(getMergeSortInPlaceAnimations(barsToRender));
       };
       break;
     case "bubble sort":
