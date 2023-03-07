@@ -204,6 +204,8 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         type={"play"}
         barsToRender={barsToRender}
         algorithmToPlay={algorithmToPlay}
+        numBars={numBars}
+        createBarArray={createBarArray}
       />
       <VisualizerSlider numBars={numBars} setNumBars={setNumBars} />
     </section>

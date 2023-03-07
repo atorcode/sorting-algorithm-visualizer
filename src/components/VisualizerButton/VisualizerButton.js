@@ -10,6 +10,8 @@ const VisualizerButton = ({
   shuffleBars,
   barsToRender,
   algorithmToPlay,
+  numBars,
+  createBarArray,
 }) => {
   const shuffleButtonEl = useRef(null);
   const playButtonEl = useRef(null);
@@ -57,6 +59,7 @@ const VisualizerButton = ({
               timers.current.forEach((timer) => {
                 clearInterval(timer);
               });
+              createBarArray(numBars, true);
             }
             setIsPlaying((prev) => !prev);
           }}
