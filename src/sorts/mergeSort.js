@@ -29,7 +29,7 @@ const merge = (arr, left, mid, right, animations) => {
       animations.push({
         action: "color",
         arr: [...arr],
-        highlightedIndices: [i],
+        highlightedIndices: [i, j],
         delay: delay,
       });
       animations.push({
@@ -66,7 +66,7 @@ const merge = (arr, left, mid, right, animations) => {
     animations.push({
       action: "color",
       arr: [...arr],
-      highlightedIndices: [i],
+      highlightedIndices: [i, j],
       delay: delay,
     });
     animations.push({
