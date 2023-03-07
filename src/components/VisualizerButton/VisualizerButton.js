@@ -5,18 +5,18 @@ import { FiShuffle } from "react-icons/fi";
 import { useEffect, useRef } from "react";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 
-const VisualizerButton = ({
-  type,
-  shuffleBars,
-  barsToRender,
-  algorithmToPlay,
-  numBars,
-  createBarArray,
-}) => {
+const VisualizerButton = ({ type, shuffleBars, algorithmToPlay }) => {
   const shuffleButtonEl = useRef(null);
   const playButtonEl = useRef(null);
 
-  const { isPlaying, setIsPlaying, timers } = useAnimationContext();
+  const {
+    isPlaying,
+    setIsPlaying,
+    timers,
+    barsToRender,
+    numBars,
+    createBarArray,
+  } = useAnimationContext();
 
   // This useEffect runs on every VisualizerButton, not just the Shuffle Button as a result of the way the component structure is organized.
   useEffect(() => {

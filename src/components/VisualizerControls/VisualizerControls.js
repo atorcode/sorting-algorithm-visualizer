@@ -2,11 +2,9 @@ import styles from "./VisualizerControls.module.scss";
 import barStyles from "../VisualizerBar/VisualizerBar.module.scss";
 import VisualizerButton from "../VisualizerButton";
 import VisualizerSlider from "../VisualizerSlider";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 import {
-  calcWidthPercentage,
-  calcHeightPercentage,
   calcLeftPosPercentage,
   calcAnimationStepTime,
 } from "../../utils/utils";
@@ -17,49 +15,18 @@ import bubbleSort from "../../sorts/bubbleSort";
 import getQuickSortAnimations from "../../sorts/quickSort";
 import getMergeSortAnimations from "../../sorts/mergeSort";
 
-const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
-  const [numBars, setNumBars] = useState(100);
-
-  const { isPlaying, setIsPlaying, barsContainer, highlightedIndex, timers } =
-    useAnimationContext();
-
-  // Synchronous shuffle
-  const initBars = (bars) => {
-    let currentIndex = bars.length - 1;
-    let updatedBars = [];
-    while (currentIndex > 0) {
-      // randomIndex is always different from currentIndex, so each bar will always shuffle
-      const randomIndex = Math.floor(Math.random() * currentIndex);
-      if (updatedBars.length < 1) {
-        updatedBars = swapBarsImmutable(bars, currentIndex, randomIndex);
-      } else {
-        updatedBars = swapBarsImmutable(updatedBars, currentIndex, randomIndex);
-      }
-      currentIndex--;
-    }
-    setBarsToRender(updatedBars);
-  };
-
-  // Creates a shuffled or sorted bar array of a length specified by quantity
-  const createBarArray = (quantity, sorted = false) => {
-    let bars = [];
-    const width = calcWidthPercentage(quantity);
-    for (let i = 0; i < quantity; i++) {
-      const height = calcHeightPercentage(quantity, i + 1);
-      const left = calcLeftPosPercentage(quantity, i + 1);
-      bars.push({
-        correctPos: i,
-        height: height,
-        width: width,
-        left: left,
-      });
-    }
-    if (!sorted) {
-      return initBars(bars);
-    } else {
-      return setBarsToRender(bars);
-    }
-  };
+const VisualizerControls = ({ name }) => {
+  const {
+    isPlaying,
+    setIsPlaying,
+    barsContainer,
+    highlightedIndex,
+    timers,
+    barsToRender,
+    setBarsToRender,
+    numBars,
+    createBarArray,
+  } = useAnimationContext();
 
   // Async shuffle
   // This function has not been refactored to use the animation queue system and animateArrayUpdate because using async/await makes this animation too slow when the bar count is high. This implementation guarantees that the animation is finished playing after roughly three seconds. It is okay that not every step in the animation gets separately rendered.
@@ -195,19 +162,9 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
   return (
     <section className={styles["controls"]}>
-      <VisualizerButton
-        type={"shuffle"}
-        shuffleBars={shuffleBars}
-        barsToRender={barsToRender}
-      />
-      <VisualizerButton
-        type={"play"}
-        barsToRender={barsToRender}
-        algorithmToPlay={algorithmToPlay}
-        numBars={numBars}
-        createBarArray={createBarArray}
-      />
-      <VisualizerSlider numBars={numBars} setNumBars={setNumBars} />
+      <VisualizerButton type={"shuffle"} shuffleBars={shuffleBars} />
+      <VisualizerButton type={"play"} algorithmToPlay={algorithmToPlay} />
+      <VisualizerSlider />
     </section>
   );
 };

@@ -2,8 +2,8 @@ import styles from "./VisualizerBars.module.scss";
 import VisualizerBar from "../VisualizerBar";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 
-const VisualizerBars = ({ name, barsToRender }) => {
-  const { barsContainer } = useAnimationContext();
+const VisualizerBars = ({ name }) => {
+  const { barsContainer, barsToRender } = useAnimationContext();
   return (
     <section ref={barsContainer} className={styles["bars"]}>
       {barsToRender &&

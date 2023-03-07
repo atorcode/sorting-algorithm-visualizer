@@ -1,8 +1,8 @@
 import styles from "./VisualizerSlider.module.scss";
 import { useAnimationContext } from "../../contexts/AnimationContext";
 
-const VisualizerSlider = ({ numBars, setNumBars }) => {
-  const { setIsPlaying, timers } = useAnimationContext();
+const VisualizerSlider = () => {
+  const { setIsPlaying, timers, numBars, setNumBars } = useAnimationContext();
   return (
     <section className={styles["slider-section"]}>
       <h3>Elements: {numBars}</h3>
