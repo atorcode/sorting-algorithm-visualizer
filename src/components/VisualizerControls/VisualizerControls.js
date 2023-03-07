@@ -9,7 +9,6 @@ import {
   calcHeightPercentage,
   calcLeftPosPercentage,
   calcAnimationStepTime,
-  copyLeft,
 } from "../../utils/utils";
 import { swapLefts, swapBarsImmutable } from "../../utils/swaps";
 import insertionSort from "../../sorts/insertionSort";
@@ -17,7 +16,6 @@ import selectionSort from "../../sorts/selectionSort";
 import bubbleSort from "../../sorts/bubbleSort";
 import getQuickSortAnimations from "../../sorts/quickSort";
 import getMergeSortAnimations from "../../sorts/mergeSort";
-import getMergeSortInPlaceAnimations from "../../sorts/mergeSortInPlace";
 
 const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   const [numBars, setNumBars] = useState(100);
@@ -42,8 +40,8 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     setBarsToRender(updatedBars);
   };
 
-  // Creates a sorted bar array of a length specified by quantity
-  const createBarArray = (quantity) => {
+  // Creates a shuffled or sorted bar array of a length specified by quantity
+  const createBarArray = (quantity, sorted = false) => {
     let bars = [];
     const width = calcWidthPercentage(quantity);
     for (let i = 0; i < quantity; i++) {
@@ -56,7 +54,11 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         left: left,
       });
     }
-    return initBars(bars);
+    if (!sorted) {
+      return initBars(bars);
+    } else {
+      return setBarsToRender(bars);
+    }
   };
 
   // Async shuffle
@@ -96,7 +98,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         const highlightedBarThree = bars[anim.highlightedIndices[2]];
 
         highlightedBar.classList.add(barStyles["bar-highlighted"]);
-
         if (highlightedBarTwo) {
           highlightedBarTwo.classList.add(barStyles["bar-highlighted-two"]);
         }
@@ -107,8 +108,8 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         await new Promise((resolve) => {
           timers.current.push(setTimeout(resolve, anim.delay));
         });
-        highlightedBar.classList.remove(barStyles["bar-highlighted"]);
 
+        highlightedBar.classList.remove(barStyles["bar-highlighted"]);
         if (highlightedBarTwo) {
           highlightedBarTwo.classList.remove(barStyles["bar-highlighted-two"]);
         }
@@ -119,20 +120,8 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
         }
       }
 
-      // in-place merge sort
-      if (anim.action === "insert") {
-        setBarsToRender(anim.arr);
-      }
-      // move animations are broken for merge sort
       if (anim.action === "move") {
         if (anim.swapArr) {
-          // find duplicate
-          // const duplicateIndex = anim.arr.indexOf(
-          //   anim.arr[anim.swap1],
-          //   anim.arr.indexOf(anim.arr[anim.swap1]) + 1
-          // );
-          // anim.arr[duplicateIndex]
-
           setBarsToRender(
             anim.arr.map((bar, i) => {
               return {
@@ -160,7 +149,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
   };
 
   useEffect(() => {
-    // setBarsToRender(createBarArray(numBars));
     createBarArray(numBars);
   }, [numBars]);
 

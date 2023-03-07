@@ -58,7 +58,6 @@ const merge = (arr, left, mid, right, animations) => {
       swap2: k,
       swapArr: [...working],
     });
-
     i++;
     k++;
   }
@@ -77,7 +76,6 @@ const merge = (arr, left, mid, right, animations) => {
       swap2: j,
       swapArr: [...arr],
     });
-
     i++;
     j++;
   }
