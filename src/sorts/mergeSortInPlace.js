@@ -8,13 +8,13 @@ const mergeInPlace = (arr, start, mid, end, animations) => {
     return;
   }
   while (start <= mid && start2 <= end) {
-    animations.push({
-      action: "color",
-      arr: [...arr],
-      highlightedIndices: [start],
-      delay: delay,
-    });
-    if (arr[start] <= arr[start2]) {
+    // animations.push({
+    //   action: "color",
+    //   arr: [...arr],
+    //   highlightedIndices: [start],
+    //   delay: delay,
+    // });
+    if (arr[start].correctPos <= arr[start2].correctPos) {
       start++;
     } else {
       const valueToInsert = arr[start2];
@@ -30,8 +30,8 @@ const mergeInPlace = (arr, start, mid, end, animations) => {
         animations.push({
           action: "insert",
           arr: [...arr],
-          insertFrom: idx,
           insertTo: start,
+          insertFrom: idx,
         });
         arr[idx] = arr[idx - 1];
         idx--;

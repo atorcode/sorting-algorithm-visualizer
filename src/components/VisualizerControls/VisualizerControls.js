@@ -9,12 +9,14 @@ import {
   calcHeightPercentage,
   calcLeftPosPercentage,
   calcAnimationStepTime,
+  copyLeft,
 } from "../../utils/utils";
 import { swapLefts, swapBarsImmutable } from "../../utils/swaps";
 import insertionSort from "../../sorts/insertionSort";
 import selectionSort from "../../sorts/selectionSort";
 import bubbleSort from "../../sorts/bubbleSort";
 import getQuickSortAnimations from "../../sorts/quickSort";
+import getMergeSortAnimations from "../../sorts/mergeSort";
 import getMergeSortInPlaceAnimations from "../../sorts/mergeSortInPlace";
 
 const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
@@ -88,7 +90,6 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
     const bars = barsContainer.current.children;
     for (let i = 0; i < animations.length; i++) {
       const anim = animations[i];
-      console.log(anim);
       if (anim.action === "color") {
         const highlightedBar = bars[anim.highlightedIndices[0]];
         const highlightedBarTwo = bars[anim.highlightedIndices[1]];
@@ -120,6 +121,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
 
       // in-place merge sort
       if (anim.action === "insert") {
+        setBarsToRender(anim.arr);
       }
       // move animations are broken for merge sort
       if (anim.action === "move") {
@@ -183,7 +185,7 @@ const VisualizerControls = ({ name, barsToRender, setBarsToRender }) => {
       break;
     case "merge sort":
       algorithmToPlay = () => {
-        animateArrayUpdate(getMergeSortInPlaceAnimations(barsToRender));
+        animateArrayUpdate(getMergeSortAnimations(barsToRender));
       };
       break;
     case "bubble sort":
