@@ -21,6 +21,25 @@
   }
 }
 
+.description-and-table {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  gap: 14vw;
+}
+
+@media (max-width: 1500px) {
+  .description-and-table {
+    gap: 8vw;
+  }
+}
+
+@media (max-width: 1250px) {
+  .description-and-table {
+    display: block;
+  }
+}
+
 @media (max-width: v.$viewport-size-medium) {
   .details-section {
     padding: 1rem 2rem 12rem 2rem;

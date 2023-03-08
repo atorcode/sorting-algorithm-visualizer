@@ -4,7 +4,7 @@
   font-size: 1.75rem;
   border-collapse: collapse;
   border-style: hidden;
-
+  width: 425px;
   opacity: 0;
   transform: rotateY(-91deg);
   transition: transform 1000ms ease, opacity 1000ms ease-out;
@@ -23,6 +23,12 @@
 .transition-active {
   opacity: 1;
   transform: rotateY(0);
+}
+
+@media (max-width: 1250px) {
+  .table {
+    width: auto;
+  }
 }
 
 @media (max-width: v.$viewport-size-medium) {

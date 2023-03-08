@@ -8,8 +8,10 @@ const AlgorithmDetails = (algorithm) => {
 
   return (
     <section className={styles["details-section"]}>
-      <AlgorithmDescription description={description} />
-      <AlgorithmComplexityTable complexity={complexity} />
+      <div className={styles["description-and-table"]}>
+        <AlgorithmDescription description={description} />
+        <AlgorithmComplexityTable complexity={complexity} />
+      </div>
       <AlgorithmImplementation implementation={implementation} />
     </section>
   );
