@@ -13,9 +13,9 @@
 }
 
 .bar-highlighted-two {
-  background: linear-gradient(rgb(0, 128, 128), v.$background-color);
+  background: linear-gradient(v.$highlight-color-two, v.$background-color);
 }
 
 .bar-highlighted-three {
-  background: linear-gradient(rgb(160, 0, 160), v.$background-color);
+  background: linear-gradient(v.$highlight-color-three, v.$background-color);
 }
