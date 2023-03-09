@@ -11,24 +11,24 @@ const AlgorithmImplementation = ({ implementation }) => {
     return { __html: implementation };
   };
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setImplementationTransitionActive(true);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setImplementationTransitionActive(true);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
     if (implementationTransitionActive) {
       implementationEl.current.classList.add(styles["transition-active"]);
     } else {
       implementationEl.current.classList.remove(styles["transition-active"]);
     }
     observer.observe(implementationEl.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [implementationTransitionActive]);
 
   return (

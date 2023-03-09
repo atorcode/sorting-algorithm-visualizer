@@ -37,6 +37,7 @@ const ExpandedNavBar = () => {
     return () => {
       document.removeEventListener("click", handleOutsideClick, true);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navIsExpanded]);
 
   useEffect(() => {

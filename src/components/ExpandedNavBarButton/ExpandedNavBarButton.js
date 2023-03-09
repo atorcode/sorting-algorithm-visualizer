@@ -17,6 +17,7 @@ const ExpandedNavBarButton = ({ text }) => {
     return () => {
       document.removeEventListener("click", toggleExpandedNavBar, true);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

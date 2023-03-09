@@ -8,18 +8,18 @@ const VisualizerHeroHeading = ({ name }) => {
   const { heroHeadingTransitionActive, setHeroHeadingTransitionActive } =
     useTransitionContext();
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setHeroHeadingTransitionActive(true);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setHeroHeadingTransitionActive(true);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
     setTimeout(() => {
       if (heroHeadingTransitionActive) {
         heroHeadingEl.current.classList.add(styles["transition-active"]);
@@ -29,6 +29,7 @@ const VisualizerHeroHeading = ({ name }) => {
       heroHeadingEl.current.classList.remove(styles["transition-active"]);
     }
     observer.observe(heroHeadingEl.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [heroHeadingTransitionActive]);
 
   return (

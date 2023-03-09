@@ -15,6 +15,7 @@ const Footer = () => {
           <a
             href="https://github.com/atorcode/sorting-algorithm-visualizer"
             target="_blank"
+            rel="noreferrer"
             className={styles["margin-top"]}
           >
             <FaGithub className={styles["icon"]} />
@@ -23,6 +24,7 @@ const Footer = () => {
           <a
             href="https://en.wikipedia.org/wiki/Sorting_algorithm"
             target="_blank"
+            rel="noreferrer"
             className={styles["margin-top"]}
           >
             <img

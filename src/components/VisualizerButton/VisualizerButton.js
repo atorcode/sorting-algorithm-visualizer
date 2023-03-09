@@ -51,7 +51,7 @@ const VisualizerButton = ({ type, shuffleBars, algorithmToPlay }) => {
           className={styles["btn"]}
           onClick={(e) => {
             // Play button
-            if (!isPlaying) {
+            if (algorithmToPlay && !isPlaying) {
               algorithmToPlay();
             }
             // Stop button
@@ -61,7 +61,9 @@ const VisualizerButton = ({ type, shuffleBars, algorithmToPlay }) => {
               });
               createBarArray(numBars, true);
             }
-            setIsPlaying((prev) => !prev);
+            if (algorithmToPlay) {
+              setIsPlaying((prev) => !prev);
+            }
           }}
         >
           {isPlaying ? (
@@ -72,6 +74,8 @@ const VisualizerButton = ({ type, shuffleBars, algorithmToPlay }) => {
         </button>
       );
       break;
+    default:
+      buttonToRender = null;
   }
   return <>{buttonToRender}</>;
 };

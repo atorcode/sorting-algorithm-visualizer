@@ -1,4 +1,3 @@
-import styles from "./MainHeroHeadingLetter.module.scss";
 import { useEffect, useRef } from "react";
 import {
   LETTERS,
@@ -38,6 +37,7 @@ const MainHeroHeadingLetter = ({ char }) => {
       }
       clearInterval(intervalId);
     }, getRandomDurationBetween(MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <span ref={letterRef}>{char}</span>;

@@ -22,24 +22,24 @@ const AlgorithmComplexityTable = ({ complexity }) => {
     return { __html: complexity.space };
   };
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setComplexityTableTransitionActive(true);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setComplexityTableTransitionActive(true);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
     observer.observe(complexityTableEl.current);
     if (complexityTableTransitionActive) {
       complexityTableEl.current.classList.add(styles["transition-active"]);
     } else {
       complexityTableEl.current.classList.remove(styles["transition-active"]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [complexityTableTransitionActive]);
 
   return (

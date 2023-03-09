@@ -117,6 +117,7 @@ const VisualizerControls = ({ name }) => {
 
   useEffect(() => {
     createBarArray(numBars);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numBars]);
 
   useEffect(() => {
@@ -129,6 +130,7 @@ const VisualizerControls = ({ name }) => {
         bars[i].classList.remove(barStyles["bar-highlighted-three"]);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
   let algorithmToPlay;
@@ -158,6 +160,8 @@ const VisualizerControls = ({ name }) => {
         animateArrayUpdate(insertionSort(barsToRender));
       };
       break;
+    default:
+      algorithmToPlay = null;
   }
 
   return (

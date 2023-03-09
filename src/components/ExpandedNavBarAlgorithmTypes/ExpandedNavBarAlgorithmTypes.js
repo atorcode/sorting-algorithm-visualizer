@@ -1,4 +1,3 @@
-import styles from "./ExpandedNavBarAlgorithmTypes.module.scss";
 import ExpandedNavBarAlgorithmType from "../ExpandedNavBarAlgorithmType";
 import algorithms from "../../data/algorithms.json";
 

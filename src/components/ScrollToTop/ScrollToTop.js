@@ -1,4 +1,3 @@
-import styles from "./ScrollToTop.module.scss";
 import { useEffect } from "react";
 
 const ScrollToTop = () => {
