@@ -1,6 +1,10 @@
 # Sorting Algorithm Visualizer
 
-<img src="./src/media/homepage.png" alt="Application's homepage image">
+<img width="800" src="./src/media/homepage.png" alt="Application's homepage image">
+
+## Preview
+
+![Quick Sort in action](./src/media//sav-demo.gif)
 
 ## Live Demo
 
