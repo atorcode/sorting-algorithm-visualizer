@@ -8,7 +8,7 @@
 
 ## Live Demo
 
-Coming soon
+https://gleeful-trifle-183c86.netlify.app/
 
 ## Overview
 
