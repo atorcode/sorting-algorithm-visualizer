@@ -8,7 +8,7 @@
 
 ## Live Demo
 
-https://gleeful-trifle-183c86.netlify.app/
+https://sortingvisualizer.com/
 
 ## Overview
 
