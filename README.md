@@ -27,12 +27,14 @@ The sorting functions are executed synchronously on the stateful array `barsToRe
 
 ## Technologies Used
 
-React<br />
-React Hooks<br />
-React Router<br />
-SASS<br />
-SCSS Modules<br />
-Intersection Observer API<br />
+- React
+- React Hooks
+- React Router
+- SASS
+- SCSS Modules
+- Intersection Observer API
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
 ## License
 
