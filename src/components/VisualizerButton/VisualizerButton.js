@@ -14,6 +14,7 @@ const VisualizerButton = ({ type, shuffleBars, algorithmToPlay }) => {
     setIsPlaying,
     timers,
     barsToRender,
+    setBarsToRender,
     numBars,
     createBarArray,
   } = useAnimationContext();
@@ -59,7 +60,7 @@ const VisualizerButton = ({ type, shuffleBars, algorithmToPlay }) => {
               timers.current.forEach((timer) => {
                 clearInterval(timer);
               });
-              createBarArray(numBars, true);
+              setBarsToRender(createBarArray(numBars, true));
             }
             if (algorithmToPlay) {
               setIsPlaying((prev) => !prev);
