@@ -9,7 +9,7 @@ const HeroImage = ({ setImageLoaded }) => {
         src={HexImage}
         alt=""
         onLoad={() => {
-          setImageLoaded(true);
+          setImageLoaded && setImageLoaded(true);
         }}
         style={{ display: "none" }}
       />
