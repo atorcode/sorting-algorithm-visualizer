@@ -17,15 +17,15 @@ import getMergeSortAnimations from "../../sorts/mergeSort";
 
 const VisualizerControls = ({ name }) => {
   const {
-    isPlaying,
-    setIsPlaying,
     barsContainer,
     highlightedIndex,
     timers,
-    barsToRender,
-    setBarsToRender,
     numBars,
     createBarArray,
+    barsToRender,
+    setBarsToRender,
+    isPlaying,
+    setIsPlaying,
   } = useAnimationContext();
 
   // Async shuffle
@@ -116,7 +116,7 @@ const VisualizerControls = ({ name }) => {
   };
 
   useEffect(() => {
-    createBarArray(numBars);
+    setBarsToRender(createBarArray(numBars));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numBars]);
 

@@ -33,7 +33,7 @@ const AnimationProvider = ({ children }) => {
       }
       currentIndex--;
     }
-    setBarsToRender(updatedBars);
+    return updatedBars;
   };
 
   // Creates a shuffled or sorted bar array of a length specified by quantity
@@ -53,22 +53,22 @@ const AnimationProvider = ({ children }) => {
     if (!sorted) {
       return initBars(bars);
     } else {
-      return setBarsToRender(bars);
+      return bars;
     }
   };
 
   return (
     <AnimationContext.Provider
       value={{
-        isPlaying,
-        setIsPlaying,
         highlightedIndex,
         barsContainer,
         timers,
-        barsToRender,
-        setBarsToRender,
         numBars,
         setNumBars,
+        barsToRender,
+        setBarsToRender,
+        isPlaying,
+        setIsPlaying,
         createBarArray,
       }}
     >
