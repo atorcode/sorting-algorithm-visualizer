@@ -12,7 +12,7 @@ const ExpandedNavBarAlgorithmType = ({ name }) => {
     setImplementationTransitionActive,
     setHeroHeadingTransitionActive,
   } = useTransitionContext();
-  const { setIsPlaying, timers, numBars, createBarArray } =
+  const { setIsPlaying, timers, numBars, createBarArray, setBarsToRender } =
     useAnimationContext();
 
   return (
@@ -28,7 +28,7 @@ const ExpandedNavBarAlgorithmType = ({ name }) => {
               clearTimeout(timer);
             });
             setIsPlaying(false);
-            createBarArray(numBars);
+            setBarsToRender(createBarArray(numBars));
             setComplexityTableTransitionActive(false);
             setImplementationTransitionActive(false);
             setHeroHeadingTransitionActive(false);
