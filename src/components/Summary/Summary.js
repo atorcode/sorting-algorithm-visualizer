@@ -36,7 +36,7 @@ const Summary = () => {
         </p>
         <p>
           The standard way to express the complexity of an algorithm is by using
-          Big O notation. The "O" in Big O represents the locution "Order of",
+          Big O notation. The "O" in Big O represents the locution "order of",
           so the expression O(n) can be read as "order of n", "big O of n", or
           simply "O of n". Correspondingly, the term <em>n</em> is used to
           generically denote the growth rate of the input, but other terms are
